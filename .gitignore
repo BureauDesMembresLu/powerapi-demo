@@ -1,0 +1,14 @@
+## Maven ##
+/target/
+/pom.xml.*
+/release.properties
+
+## IDE ##
+
+# Cloud9
+/.c9/
+
+# IntelliJ
+.idea
+*.iml
+
