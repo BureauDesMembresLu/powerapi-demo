@@ -35,6 +35,22 @@
         <maven.assembly.version>3.0.0</maven.assembly.version>
     </properties>
 
+    <repositories>
+        <!--<repository>
+            <id>OSS Sonatype snapshot repository</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>-->
+
+        <!-- Required for Sigar/PowerAPI -->
+        <repository>
+            <id>clojars</id>
+            <url>http://clojars.org/repo/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <!--<![CDATA[
               ___                     _   ___ ___
@@ -154,7 +170,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>org.keyboardplaying.application.Application</mainClass>
+                            <mainClass>org.keyboardplaying.demo.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
