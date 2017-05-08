@@ -1,0 +1,11 @@
+# Configuration about the monitored REST server
+monitored:
+  # The URL base to the monitored server
+  url.base: http://localhost:8081
+
+  # The configuration to load the exposed JMX Mbeans of the monitored application
+  jmx:
+    rmi:
+      host: localhost
+      port: 1099
+      endpoint: jmxrmi

@@ -1,0 +1,8 @@
+server:
+  port: 8081
+
+jmx:
+  rmi:
+    host: localhost
+    port: 1099
+    endpoint: jmxrmi

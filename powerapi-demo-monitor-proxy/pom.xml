@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>powerapi-demo</artifactId>
+        <groupId>org.keyboardplaying</groupId>
+        <version>0.1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>powerapi-demo-monitor-proxy</artifactId>
+
+    <name>PowerAPI demo monitor proxy</name>
+    <description>
+        An HTTP proxy that will redirect all calls to another JVM while monitoring it.
+    </description>
+
+    <properties>
+        <!-- Version management - PowerAPI -->
+        <powerapi.core.version>2.12</powerapi.core.version>
+        <powerapi.version>4.2</powerapi.version>
+
+        <!-- Version management - Scala -->
+        <scala.version.main>2.12</scala.version.main>
+        <scala.version>${scala.version.main}.2</scala.version>
+        <scala.plugin.version>3.2.1</scala.plugin.version>
+        <specs2.version>3.8.9-20170417195349-7b7973e</specs2.version>
+    </properties>
+
+    <repositories>
+        <!-- Required for Sigar/PowerAPI -->
+        <repository>
+            <id>clojars</id>
+            <url>http://clojars.org/repo/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>powerapi-demo-utils</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!--<![CDATA[
+              ___                     _   ___ ___
+             | _ \_____ __ _____ _ _ /_\ | _ \_ _|
+             |  _/ _ \ V  V / -_) '_/ _ \|  _/| |
+             |_| \___/\_/\_/\___|_|/_/ \_\_| |___| ]]>-->
+        <dependency>
+            <groupId>org.powerapi</groupId>
+            <artifactId>powerapi-core_${powerapi.core.version}</artifactId>
+            <version>${powerapi.version}</version>
+        </dependency>
+
+        <!--<![CDATA[
+              ___          _             ___           _
+             / __|_ __ _ _(_)_ _  __ _  | _ ) ___  ___| |_
+             \__ \ '_ \ '_| | ' \/ _` | | _ \/ _ \/ _ \  _|
+             |___/ .__/_| |_|_||_\__, | |___/\___/\___/\__|
+                 |_|             |___/  ]]>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>-->
+
+        <!--<![CDATA[
+              ___          _
+             / __| __ __ _| |__ _
+             \__ \/ _/ _` | / _` |
+             |___/\__\__,_|_\__,_| ]]>-->
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>${scala.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>net.alchim31.maven</groupId>
+                    <artifactId>scala-maven-plugin</artifactId>
+                    <version>${scala.plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <!--<![CDATA[
+                  ___          _             ___           _
+                 / __|_ __ _ _(_)_ _  __ _  | _ ) ___  ___| |_
+                 \__ \ '_ \ '_| | ' \/ _` | | _ \/ _ \/ _ \  _|
+                 |___/ .__/_| |_|_||_\__, | |___/\___/\___/\__|
+                     |_|             |___/  ]]>-->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!--<![CDATA[
+                  ___          _
+                 / __| __ __ _| |__ _
+                 \__ \/ _/ _` | / _` |
+                 |___/\__\__,_|_\__,_| ]]>-->
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>scala-compile-first</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>scala-test-compile</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <scalaVersion>${scala.version}</scalaVersion>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>org.keyboardplaying.demo.MonitoringProxy</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+
+    </build>
+</project>

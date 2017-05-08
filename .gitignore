@@ -1,5 +1,7 @@
 ## Maven ##
-/target/
+/*/target/
+/*/pom.xml.*
+/*/release.properties
 /pom.xml.*
 /release.properties
 
