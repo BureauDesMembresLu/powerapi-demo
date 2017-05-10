@@ -14,23 +14,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo;
+package org.keyboardplaying.demo.controller;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.keyboardplaying.demo.OsInformation;
+import org.keyboardplaying.demo.jmx.CurrentVirtualMachineMXBeanProvider;
+import org.keyboardplaying.demo.jmx.MXBeanProvider;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
-@SpringBootApplication
-public class MonitoringProxy {
+/**
+ * A test configuration to use local MXBeans instead of RMI connection.
+ *
+ * @author Cyrille Chopelet
+ */
+@Configuration
+@EnableAutoConfiguration
+public class ProxyControllerTestConfiguration {
 
-    public static void main(String... args) {
-        SpringApplication.run(MonitoringProxy.class, args);
+    @Bean
+    public OsInformation osInformation() {
+        return new OsInformation();
+    }
+
+    @Bean
+    public MXBeanProvider mxBeanProvider() {
+        return new CurrentVirtualMachineMXBeanProvider();
     }
 
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();
+    }
+
+    @Bean
+    public ProxiedController proxied() {
+        return new ProxiedController();
+    }
+
+    @Bean
+    public ProxyController proxy(MXBeanProvider jmxProvider, OsInformation os, RestTemplate restTemplate) {
+        return new ProxyController(jmxProvider, os, restTemplate);
     }
 }

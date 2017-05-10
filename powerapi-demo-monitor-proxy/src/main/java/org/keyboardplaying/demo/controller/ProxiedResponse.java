@@ -14,23 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo;
+package org.keyboardplaying.demo.controller;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
+/**
+ * This class wraps the response from a proxied service and adds monitoring information to it.
+ *
+ * @author Cyrille Chopelet
+ */
+public class ProxiedResponse {
 
-@SpringBootApplication
-public class MonitoringProxy {
+    /**
+     * The proxied response.
+     * <p/>
+     * Let Spring Boot decide what is to be put here, it should handle it all right.
+     */
+    private Object proxied;
 
-    public static void main(String... args) {
-        SpringApplication.run(MonitoringProxy.class, args);
+    public Object getProxied() {
+        return proxied;
     }
 
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
+    public void setProxied(Object proxied) {
+        this.proxied = proxied;
     }
 }

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo;
+package org.keyboardplaying.demo.jmx;
 
 import org.keyboardplaying.utils.JMXUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,12 +29,12 @@ import javax.management.remote.JMXServiceURL;
 import java.io.IOException;
 
 /**
- * This class provides utilities to get the MBeans exposed by the monitored REST server.
+ * This class provides utilities to get MXBeans over RMI.
  *
  * @author Cyrille Chopelet
  */
 @Component
-public class JMXClient {
+public class RmiMXBeanProvider implements MXBeanProvider {
 
     @Value("${monitored.jmx.rmi.host}")
     private String host;
@@ -55,6 +55,7 @@ public class JMXClient {
         connection = connector.getMBeanServerConnection();
     }
 
+    @Override
     public <T> T getMXBeanProxy(String name, Class<T> klass) throws MalformedObjectNameException {
         return JMX.newMXBeanProxy(connection, new ObjectName(name), klass);
     }

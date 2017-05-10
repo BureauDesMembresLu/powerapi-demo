@@ -14,23 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo;
+package org.keyboardplaying.demo.jmx;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
+import javax.management.MalformedObjectNameException;
 
-@SpringBootApplication
-public class MonitoringProxy {
-
-    public static void main(String... args) {
-        SpringApplication.run(MonitoringProxy.class, args);
-    }
-
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
-    }
+/**
+ * An interface for beans providing the MXBean instances required for monitoring.
+ *
+ * @author Cyrille Chopelet
+ */
+public interface MXBeanProvider {
+    /**
+     * Returns the specified MXBean.
+     *
+     * @param name  the name of the wanted MXBean
+     * @param klass the class of the desired MXBean
+     * @param <T>   the type of the desired MXBean
+     * @return the desired MXBean
+     * @throws MalformedObjectNameException if the supplied name is malformed
+     */
+    <T> T getMXBeanProxy(String name, Class<T> klass) throws MalformedObjectNameException;
 }

@@ -14,23 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo;
+package org.keyboardplaying.demo.jmx;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
+import javax.management.MalformedObjectNameException;
+import java.lang.management.ManagementFactory;
+import java.lang.management.RuntimeMXBean;
 
-@SpringBootApplication
-public class MonitoringProxy {
+/**
+ * A {@link MXBeanProvider} that uses the current virtual machine instead of remote MXBeans.
+ *
+ * @author Cyrille Chopelet
+ */
+public class CurrentVirtualMachineMXBeanProvider implements MXBeanProvider {
 
-    public static void main(String... args) {
-        SpringApplication.run(MonitoringProxy.class, args);
-    }
-
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
+    @Override
+    public <T> T getMXBeanProxy(String name, Class<T> klass) throws MalformedObjectNameException {
+        if (RuntimeMXBean.class.equals(klass)) {
+            return (T) ManagementFactory.getRuntimeMXBean();
+        }
+        throw new MalformedObjectNameException("MXBean <" + klass.getName() + "> does not exist.");
     }
 }

@@ -16,54 +16,91 @@
  */
 package org.keyboardplaying.demo.controller;
 
-import org.keyboardplaying.demo.JMXClient;
 import org.keyboardplaying.demo.OsInformation;
+import org.keyboardplaying.demo.jmx.MXBeanProvider;
 import org.keyboardplaying.demo.monitor.Monitor;
 import org.keyboardplaying.utils.JMXUtils;
 import org.keyboardplaying.utils.RuntimeInformationUtils;
 import org.powerapi.reporter.ConsoleDisplay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import javax.management.MalformedObjectNameException;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.lang.management.RuntimeMXBean;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @RestController
 public class ProxyController {
 
+    private final MXBeanProvider jmxProvider;
+    private final OsInformation os;
+    private final RestTemplate restTemplate;
+
     @Value("${monitored.url.base}")
     private String redirectBase;
 
-    @Autowired
-    private JMXClient jmxClient;
-
-    @Autowired
-    private OsInformation os;
-
     private Monitor monitor;
 
+    @Autowired
+    public ProxyController(MXBeanProvider jmxProvider, OsInformation os, RestTemplate restTemplate) {
+        this.jmxProvider = jmxProvider;
+        this.os = os;
+        this.restTemplate = restTemplate;
+    }
+
     @PostConstruct
-    public void initMonitor() throws MalformedObjectNameException {
-        RuntimeMXBean runtimeMXBean = jmxClient.getMXBeanProxy(JMXUtils.JMX_NAME_RUNTIME, RuntimeMXBean.class);
+    protected void initMonitor() throws MalformedObjectNameException {
+        RuntimeMXBean runtimeMXBean = jmxProvider.getMXBeanProxy(JMXUtils.JMX_NAME_RUNTIME, RuntimeMXBean.class);
         monitor = new Monitor(RuntimeInformationUtils.getPidFromJVMName(runtimeMXBean.getName()), os, new ConsoleDisplay());
     }
 
-    @RequestMapping("**")
-    public String proxyGetRequest(HttpServletRequest request) {
+    @RequestMapping(value = "**", method = {RequestMethod.POST, RequestMethod.PUT})
+    public ProxiedResponse proxifyRequestsWithBody(HttpServletRequest request, @RequestHeader HttpHeaders headers, @RequestBody Object body) throws URISyntaxException, IOException {
+        return proxifyRequest(request, headers, body);
+    }
+
+    @RequestMapping(value = "**")
+    public ProxiedResponse proxifyRequestsWithoutBody(HttpServletRequest request, @RequestHeader HttpHeaders headers) throws URISyntaxException, IOException {
+        return proxifyRequest(request, headers, null);
+    }
+
+    private ProxiedResponse proxifyRequest(HttpServletRequest request, @RequestHeader HttpHeaders headers, @RequestBody Object body) throws URISyntaxException, IOException {
+        final RequestEntity<Object> requestEntity = convertToRequestEntity(request, headers, body);
+
+        // FIXME start monitoring
+
+        // call remote service
+        final ResponseEntity<Object> proxied = restTemplate.exchange(requestEntity, Object.class);
+
+        // FIXME stop monitoring
+
+        // FIXME return service result + monitoring information
+        final ProxiedResponse response = new ProxiedResponse();
+        response.setProxied(proxied.getBody());
+
+        return response;
+    }
+
+    private <T> RequestEntity<T> convertToRequestEntity(HttpServletRequest request, HttpHeaders headers, T body) throws URISyntaxException {
+        // Build proxied URL
         final StringBuilder redirectUrl = new StringBuilder(redirectBase)
                 .append(request.getRequestURI());
         final String queryString = request.getQueryString();
         if (queryString != null)
             redirectUrl.append("?").append(queryString);
 
-        // FIXME start monitoring
-        // FIXME call remote service
-        // FIXME stop monitoring
-        // FIXME return service result + monitoring information
-        return redirectUrl.toString();
+        // TODO enhancement: transmit headers and request body to make this a real proxy
+        final HttpMethod httpMethod = HttpMethod.valueOf(request.getMethod());
+        return new RequestEntity<>(body, headers, httpMethod, new URI(redirectUrl.toString()));
     }
 }
