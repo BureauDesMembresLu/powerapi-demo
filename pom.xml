@@ -19,7 +19,7 @@
 
     <modules>
         <module>powerapi-demo-monitor-proxy</module>
-        <module>powerapi-demo-server</module>
+        <module>powerapi-demo-rest-server</module>
         <module>powerapi-demo-utils</module>
     </modules>
 
@@ -76,6 +76,19 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <repositories>
+        <repository>
+            <id>spring-releases</id>
+            <url>https://repo.spring.io/libs-release</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-releases</id>
+            <url>https://repo.spring.io/libs-release</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <!--<![CDATA[
              _   _              _

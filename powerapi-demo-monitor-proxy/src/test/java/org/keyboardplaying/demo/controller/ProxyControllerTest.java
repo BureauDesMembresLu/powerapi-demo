@@ -41,8 +41,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class ProxyControllerTest {
 
-    private static final String CONTENT_TYPE_JSON = "application/json;charset=UTF-8";
-
     @Autowired
     private MockMvc mvc;
 
@@ -50,7 +48,7 @@ public class ProxyControllerTest {
     public void testGetWithoutParameter() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/greeting").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(CONTENT_TYPE_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.proxied.message", is("Hello, World!")));
     }
 
@@ -58,7 +56,7 @@ public class ProxyControllerTest {
     public void testGetWithParameter() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/greeting?name=Test").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(CONTENT_TYPE_JSON))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.proxied.message", is("Hello, Test!")));
     }
 

@@ -96,8 +96,9 @@ public class ProxyController {
         final StringBuilder redirectUrl = new StringBuilder(redirectBase)
                 .append(request.getRequestURI());
         final String queryString = request.getQueryString();
-        if (queryString != null)
+        if (queryString != null) {
             redirectUrl.append("?").append(queryString);
+        }
 
         // TODO enhancement: transmit headers and request body to make this a real proxy
         final HttpMethod httpMethod = HttpMethod.valueOf(request.getMethod());

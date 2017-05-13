@@ -14,15 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.server;
+package org.keyboardplaying.rest.movie;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+/**
+ * A class to represent a movie rating.
+ *
+ * @author Cyrille Chopelet
+ */
+public class Rating {
 
-@SpringBootApplication
-public class RestServer {
+    private String source;
+    private String value;
 
-    public static void main(String[] args) {
-        SpringApplication.run(RestServer.class, args);
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 }

@@ -14,17 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.server;
+package org.keyboardplaying.rest.movie;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-@RestController
-public class ExecutionController {
-
-    @RequestMapping("/")
-    public String index() {
-        return "Greetings from Spring Boot!";
-    }
-
+/**
+ * The repository to store all data required for the model to work.
+ *
+ * @author Cyrille Chopelet
+ */
+@RepositoryRestResource(collectionResourceRel = "movies", path = "movies")
+public interface MovieRepository extends MongoRepository<Movie, String> {
 }

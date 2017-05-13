@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.server;
+package org.keyboardplaying.rest;
 
 import org.keyboardplaying.utils.JMXUtils;
 import org.springframework.beans.factory.annotation.Value;
