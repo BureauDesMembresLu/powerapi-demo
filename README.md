@@ -15,7 +15,7 @@
 [![Build status][travis-badge]][travis]
 [![Test coverage][sonarc-badge]][sonarc]
 [![Technical debt][sonarq-badge]][sonarq]
-[![Issues][issues-badge]][issues]
+[![Issues][issues-badge]][waffle]
 [![License: Apache 2.0][licens-badge]][licens]
 
 This project was designed as a proof-of-concept to quickly demonstrate the possibilities of using PowerAPI and the importance of coding properly.
