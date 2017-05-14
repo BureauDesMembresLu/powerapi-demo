@@ -4,8 +4,6 @@ dist: trusty
 addons:
   sonarqube:
     token: $SONARQUBE_TOKEN
-    branches:
-      - master
 
 jdk:
   - oraclejdk8
