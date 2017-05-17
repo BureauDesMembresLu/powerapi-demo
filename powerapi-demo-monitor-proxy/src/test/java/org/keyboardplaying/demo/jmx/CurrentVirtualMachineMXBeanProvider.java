@@ -16,6 +16,8 @@
  */
 package org.keyboardplaying.demo.jmx;
 
+import org.keyboardplaying.demo.jmx.MXBeanProvider;
+
 import javax.management.MalformedObjectNameException;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
@@ -28,6 +30,7 @@ import java.lang.management.RuntimeMXBean;
 public class CurrentVirtualMachineMXBeanProvider implements MXBeanProvider {
 
     @Override
+    @SuppressWarnings("unchecked")
     public <T> T getMXBeanProxy(String name, Class<T> klass) throws MalformedObjectNameException {
         if (RuntimeMXBean.class.equals(klass)) {
             return (T) ManagementFactory.getRuntimeMXBean();

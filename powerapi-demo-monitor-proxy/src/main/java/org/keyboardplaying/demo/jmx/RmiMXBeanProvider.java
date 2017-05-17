@@ -22,7 +22,10 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.management.*;
+import javax.management.JMX;
+import javax.management.MBeanServerConnection;
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectName;
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
@@ -49,7 +52,7 @@ public class RmiMXBeanProvider implements MXBeanProvider {
     private MBeanServerConnection connection;
 
     @PostConstruct
-    public void connect() throws IOException, MalformedObjectNameException {
+    public void connect() throws IOException {
         JMXServiceURL url = new JMXServiceURL(JMXUtils.createJMXUrl(host, port, endpoint));
         connector = JMXConnectorFactory.connect(url);
         connection = connector.getMBeanServerConnection();

@@ -18,6 +18,12 @@
     </description>
 
     <dependencies>
+        <!--<![CDATA[
+              ___          _        _
+             | _ \_ _ ___ (_)___ __| |_
+             |  _/ '_/ _ \| / -_) _|  _|
+             |_| |_| \___// \___\__|\__|
+                        |__/ ]]>-->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>powerapi-demo-utils</artifactId>
@@ -49,7 +55,7 @@
         <dependency>
             <groupId>de.flapdoodle.embed</groupId>
             <artifactId>de.flapdoodle.embed.mongo</artifactId>
-            <!--<scope>test</scope>-->
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -71,6 +77,5 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
-
     </build>
 </project>

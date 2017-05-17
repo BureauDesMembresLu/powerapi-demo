@@ -1,7 +1,7 @@
-${AnsiBackground.YELLOW}${AnsiColor.BLACK}‖   ____   ____ __  __ ____  _       ‖
-‖  |  _ \ / ___|  \/  |  _ \| |__    ‖
-‖  | |_) | |   | |\/| | | | | '_ \   ‖
-‖  |  __/| |___| |  | | |_| | |_) |  ‖
-‖  |_|    \____|_|  |_|____/|_.__/   ‖
-${AnsiBackground.DEFAULT}${AnsiColor.BRIGHT_YELLOW}==== Poorly-Coded Movie Database ====
+ ${AnsiColor.RED} ____  ____ ${AnsiColor.BLUE}____ ${AnsiColor.BLACK} ____ _${AnsiColor.DEFAULT}
+ ${AnsiColor.RED}|  _ \/ ___|${AnsiColor.BLUE} __ )${AnsiColor.BLACK}|  _ \ |__${AnsiColor.DEFAULT}
+ ${AnsiColor.RED}| |_) ||   ${AnsiColor.BLUE}|  _ \${AnsiColor.BLACK}| | | |'_ \${AnsiColor.DEFAULT}
+ ${AnsiColor.RED}|  __/ |___${AnsiColor.BLUE}| |_) |${AnsiColor.BLACK} |_| ||_) |${AnsiColor.DEFAULT}
+ ${AnsiColor.RED}|_|   \____|${AnsiColor.BLUE}____/${AnsiColor.BLACK}|____/_.__/${AnsiColor.DEFAULT}
+= ${AnsiColor.RED}Poorly-Coded ${AnsiColor.BLUE}Book ${AnsiColor.BLACK}Database${AnsiColor.DEFAULT} =
 :: Running Spring Boot ${spring-boot.version} ::${AnsiStyle.NORMAL}

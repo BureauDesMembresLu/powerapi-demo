@@ -21,6 +21,7 @@
         <module>powerapi-demo-monitor-proxy</module>
         <module>powerapi-demo-rest-server</module>
         <module>powerapi-demo-utils</module>
+        <module>powerapi-demo-data-injector</module>
     </modules>
 
     <licenses>
@@ -45,9 +46,6 @@
         <!-- Version management - Maven -->
         <maven.compiler.version>3.6.1</maven.compiler.version>
         <maven.assembly.version>3.0.0</maven.assembly.version>
-
-        <!-- Version management - Test -->
-        <junit.version>4.12</junit.version>
     </properties>
 
     <dependencyManagement>

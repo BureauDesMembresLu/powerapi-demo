@@ -34,7 +34,6 @@ import org.springframework.web.client.RestTemplate;
 import javax.annotation.PostConstruct;
 import javax.management.MalformedObjectNameException;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.lang.management.RuntimeMXBean;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -65,16 +64,16 @@ public class ProxyController {
     }
 
     @RequestMapping(value = "**", method = {RequestMethod.POST, RequestMethod.PUT})
-    public ProxiedResponse proxifyRequestsWithBody(HttpServletRequest request, @RequestHeader HttpHeaders headers, @RequestBody Object body) throws URISyntaxException, IOException {
+    public ProxiedResponse proxifyRequestsWithBody(HttpServletRequest request, @RequestHeader HttpHeaders headers, @RequestBody Object body) throws URISyntaxException {
         return proxifyRequest(request, headers, body);
     }
 
     @RequestMapping(value = "**")
-    public ProxiedResponse proxifyRequestsWithoutBody(HttpServletRequest request, @RequestHeader HttpHeaders headers) throws URISyntaxException, IOException {
+    public ProxiedResponse proxifyRequestsWithoutBody(HttpServletRequest request, @RequestHeader HttpHeaders headers) throws URISyntaxException {
         return proxifyRequest(request, headers, null);
     }
 
-    private ProxiedResponse proxifyRequest(HttpServletRequest request, @RequestHeader HttpHeaders headers, @RequestBody Object body) throws URISyntaxException, IOException {
+    private ProxiedResponse proxifyRequest(HttpServletRequest request, @RequestHeader HttpHeaders headers, @RequestBody Object body) throws URISyntaxException {
         final RequestEntity<Object> requestEntity = convertToRequestEntity(request, headers, body);
 
         // FIXME start monitoring

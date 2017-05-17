@@ -24,7 +24,6 @@ package org.keyboardplaying.utils;
 public final class JMXUtils {
 
     public static final String JMX_NAME_RUNTIME = "java.lang:type=Runtime";
-    // public static final String JMX_NAME_MEMORY = "java.lang:type=Memory";
 
     private static final String JMX_URL_TEMPLATE = "service:jmx:rmi://%s:%s/jndi/rmi://%s:%s/%s";
 

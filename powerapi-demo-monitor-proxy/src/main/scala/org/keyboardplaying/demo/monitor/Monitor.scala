@@ -17,8 +17,8 @@
 package org.keyboardplaying.demo.monitor
 
 import org.keyboardplaying.demo.OsInformation
-import org.powerapi.{PowerMeter, PowerMonitoring}
 import org.powerapi.module.cpu.simple.{ProcFSCpuSimpleModule, SigarCpuSimpleModule}
+import org.powerapi.{PowerMeter, PowerMonitoring}
 
 import scala.concurrent.duration._
 

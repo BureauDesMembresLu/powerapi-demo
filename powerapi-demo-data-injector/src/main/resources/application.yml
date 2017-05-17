@@ -1,5 +1,5 @@
-# The port the service is exposed on
-server.port: 8090
+omdb:
+  url: http://www.omdbapi.com/
 
 # The RMI expose configuration
 jmx.rmi:
