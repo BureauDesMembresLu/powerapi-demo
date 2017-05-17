@@ -18,10 +18,10 @@
     <description>A POC to demonstrate the abilities of PowerAPI</description>
 
     <modules>
-        <module>powerapi-demo-monitor-proxy</module>
-        <module>powerapi-demo-rest-server</module>
         <module>powerapi-demo-utils</module>
-        <module>powerapi-demo-data-injector</module>
+        <module>powerapi-demo-rest-server</module>
+        <module>powerapi-demo-monitor-proxy</module>
+	<!--<module>powerapi-demo-data-injector</module>-->
     </modules>
 
     <licenses>
