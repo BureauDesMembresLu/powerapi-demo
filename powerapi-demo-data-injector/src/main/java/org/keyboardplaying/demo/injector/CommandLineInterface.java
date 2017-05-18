@@ -71,6 +71,13 @@ public class CommandLineInterface implements ApplicationContextAware, CommandLin
                     e.printStackTrace();
                     System.err.println("Skipping record, going on");
                 }
+                if (i % 1000 == 0) {
+                    System.out.println();
+                } else if (i % 100 == 0) {
+                    System.out.print("|");
+                } else if (i % 10 == 0) {
+                    System.out.print(".");
+                }
             }
         } catch (NumberFormatException e) {
             System.out.println("Please provide an integer value.");
