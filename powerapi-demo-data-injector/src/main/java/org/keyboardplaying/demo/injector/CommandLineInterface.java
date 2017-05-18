@@ -8,6 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PreDestroy;
 import java.util.Scanner;
 
 /**
@@ -18,6 +19,8 @@ import java.util.Scanner;
 @Component
 public class CommandLineInterface implements ApplicationContextAware, CommandLineRunner {
 
+    private final Scanner scanner = new Scanner();
+
     private ApplicationContext context;
 
     @Autowired
@@ -26,6 +29,11 @@ public class CommandLineInterface implements ApplicationContextAware, CommandLin
     @Autowired
     private PersonGenerator personGenerator;
 
+    @PreDestroy
+    public void tearDown() {
+        scanner.close();
+    }
+
     @Override
     public void setApplicationContext(ApplicationContext context) {
         this.context = context;
@@ -33,9 +41,6 @@ public class CommandLineInterface implements ApplicationContextAware, CommandLin
 
     @Override
     public void run(String... args) throws Exception {
-        final Scanner scanner = new Scanner(System.in);
-
-        loop:
         while (true) {
             System.out.println("What would you like to do: [c]lear database, [i]nject data or e[x]it injector?");
 
@@ -47,12 +52,12 @@ public class CommandLineInterface implements ApplicationContextAware, CommandLin
                     break;
 
                 case 'i':
-                    injectPeople(scanner);
+                    injectPeople();
                     break;
 
                 case 'x':
-                    exitApplication(scanner);
-                    break loop;
+                    exitApplication();
+                    break;
 
                 default:
                     System.out.println(String.format("Command <%s> is invalid", command));
@@ -60,7 +65,7 @@ public class CommandLineInterface implements ApplicationContextAware, CommandLin
         }
     }
 
-    private void injectPeople(Scanner scanner) {
+    private void injectPeople() {
         System.out.println("How many people would you like to inject into database?");
         try {
             int max = scanner.nextInt();
@@ -81,12 +86,11 @@ public class CommandLineInterface implements ApplicationContextAware, CommandLin
             }
         } catch (NumberFormatException e) {
             System.out.println("Please provide an integer value.");
-            injectPeople(scanner);
+            injectPeople();
         }
     }
 
-    private void exitApplication(Scanner scanner) {
-        scanner.close();
+    private void exitApplication() {
         SpringApplication.exit(this.context);
     }
 }
