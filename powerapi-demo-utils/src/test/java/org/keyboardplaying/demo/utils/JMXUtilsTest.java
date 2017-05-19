@@ -14,23 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.utils;
+package org.keyboardplaying.demo.utils;
+
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 /**
- * Utilities for JMX configuration.
+ * Test class for {@link JMXUtils}
  *
  * @author Cyrille Chopelet
  */
-public final class JMXUtils {
-
-    public static final String JMX_NAME_RUNTIME = "java.lang:type=Runtime";
-
-    private static final String JMX_URL_TEMPLATE = "service:jmx:rmi://%s:%s/jndi/rmi://%s:%s/%s";
-
-    private JMXUtils() {
-    }
-
-    public static String createJMXUrl(String host, int port, String endpoint) {
-        return String.format(JMX_URL_TEMPLATE, host, port, host, port, endpoint);
+public class JMXUtilsTest {
+    @Test
+    public void testCreateJMXUrl() {
+        assertEquals(
+                "service:jmx:rmi://host:42/jndi/rmi://host:42/end",
+                JMXUtils.createJMXUrl("host", 42, "end"));
     }
 }

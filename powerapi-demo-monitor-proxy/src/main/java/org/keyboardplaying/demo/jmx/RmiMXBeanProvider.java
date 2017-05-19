@@ -16,7 +16,7 @@
  */
 package org.keyboardplaying.demo.jmx;
 
-import org.keyboardplaying.utils.JMXUtils;
+import org.keyboardplaying.demo.utils.JMXUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

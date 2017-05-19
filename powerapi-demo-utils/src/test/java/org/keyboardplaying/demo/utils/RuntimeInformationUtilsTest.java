@@ -14,22 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.utils;
+package org.keyboardplaying.demo.utils;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * Test class for {@link JMXUtils}
+ * Test class for {@link RuntimeInformationUtils}.
  *
  * @author Cyrille Chopelet
  */
-public class JMXUtilsTest {
+public class RuntimeInformationUtilsTest {
+
     @Test
-    public void testCreateJMXUrl() {
-        assertEquals(
-                "service:jmx:rmi://host:42/jndi/rmi://host:42/end",
-                JMXUtils.createJMXUrl("host", 42, "end"));
+    public void testGetPidFromJVMName() {
+        assertEquals(1337L, RuntimeInformationUtils.getPidFromJVMName("1337@MY-SUPER-COMPUTER"));
     }
 }

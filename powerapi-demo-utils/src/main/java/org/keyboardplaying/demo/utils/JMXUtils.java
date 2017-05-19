@@ -14,18 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.utils;
+package org.keyboardplaying.demo.utils;
 
 /**
- * Utilities for runtime information.
+ * Utilities for JMX configuration.
  *
  * @author Cyrille Chopelet
  */
-public final class RuntimeInformationUtils {
-    private RuntimeInformationUtils() {
+public final class JMXUtils {
+
+    public static final String JMX_NAME_RUNTIME = "java.lang:type=Runtime";
+
+    private static final String JMX_URL_TEMPLATE = "service:jmx:rmi://%s:%s/jndi/rmi://%s:%s/%s";
+
+    private JMXUtils() {
     }
 
-    public static long getPidFromJVMName(String name) {
-        return Long.valueOf(name.split("@")[0]);
+    public static String createJMXUrl(String host, int port, String endpoint) {
+        return String.format(JMX_URL_TEMPLATE, host, port, host, port, endpoint);
     }
 }

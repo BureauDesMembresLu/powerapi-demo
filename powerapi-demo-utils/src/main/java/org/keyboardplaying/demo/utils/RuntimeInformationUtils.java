@@ -14,21 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.utils;
-
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
+package org.keyboardplaying.demo.utils;
 
 /**
- * Test class for {@link RuntimeInformationUtils}.
+ * Utilities for runtime information.
  *
  * @author Cyrille Chopelet
  */
-public class RuntimeInformationUtilsTest {
+public final class RuntimeInformationUtils {
+    private RuntimeInformationUtils() {
+    }
 
-    @Test
-    public void testGetPidFromJVMName() {
-        assertEquals(1337L, RuntimeInformationUtils.getPidFromJVMName("1337@MY-SUPER-COMPUTER"));
+    public static long getPidFromJVMName(String name) {
+        return Long.valueOf(name.split("@")[0]);
     }
 }

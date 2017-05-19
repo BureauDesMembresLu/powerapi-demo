@@ -1,6 +1,7 @@
 package org.keyboardplaying.demo.injector;
 
 import org.keyboardplaying.demo.people.PeopleRepository;
+import org.keyboardplaying.demo.utils.CommandPrompt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -9,7 +10,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PreDestroy;
-import java.util.Scanner;
 
 /**
  * The command-line interface to control the injector.
@@ -19,7 +19,29 @@ import java.util.Scanner;
 @Component
 public class CommandLineInterface implements ApplicationContextAware, CommandLineRunner {
 
-    private final Scanner scanner = new Scanner();
+    private enum InjectorCommands implements CommandPrompt.Command {
+        CLEAR("Clear database", 'c'), INJECT("inject random people", 'i'), QUIT("exit application", 'x');
+
+        private String text;
+        private char letter;
+
+        InjectorCommands(String text, char letter) {
+            this.text = text;
+            this.letter = letter;
+        }
+
+        @Override
+        public String getText() {
+            return text;
+        }
+
+        @Override
+        public char getCommandLetter() {
+            return letter;
+        }
+    }
+
+    private final CommandPrompt prompt = new CommandPrompt(System.in, System.out, System.err);
 
     private ApplicationContext context;
 
@@ -31,7 +53,7 @@ public class CommandLineInterface implements ApplicationContextAware, CommandLin
 
     @PreDestroy
     public void tearDown() {
-        scanner.close();
+        prompt.close();
     }
 
     @Override
@@ -42,51 +64,44 @@ public class CommandLineInterface implements ApplicationContextAware, CommandLin
     @Override
     public void run(String... args) throws Exception {
         while (true) {
-            System.out.println("What would you like to do: [c]lear database, [i]nject data or e[x]it injector?");
-
-            String command = scanner.next();
-            switch (command.toLowerCase().charAt(0)) {
-                case 'c':
+            InjectorCommands command = prompt.promptChoice("What would you like to do?", InjectorCommands.values());
+            switch (command) {
+                case CLEAR:
+                    prompt.println("Cleaning under progress...");
                     repository.deleteAll();
-                    System.out.println("Repository has been cleaned");
+                    prompt.println("Success! Repository has been cleaned");
                     break;
 
-                case 'i':
+                case INJECT:
                     injectPeople();
                     break;
 
-                case 'x':
+                case QUIT:
                     exitApplication();
-                    break;
+                    return;
 
                 default:
-                    System.out.println(String.format("Command <%s> is invalid", command));
+                    prompt.printErr(String.format("Command <%s> is invalid", command));
             }
         }
     }
 
     private void injectPeople() {
-        System.out.println("How many people would you like to inject into database?");
-        try {
-            int max = scanner.nextInt();
-            for (int i = 0; i < max; ++i) {
-                try {
-                    repository.save(personGenerator.randomPerson());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    System.err.println("Skipping record, going on");
-                }
-                if (i % 1000 == 0) {
-                    System.out.println();
-                } else if (i % 100 == 0) {
-                    System.out.print("|");
-                } else if (i % 10 == 0) {
-                    System.out.print(".");
-                }
+        int max = prompt.promptInt("How many people would you like to inject into database?");
+        for (int i = 0; i < max; ++i) {
+            try {
+                repository.save(personGenerator.randomPerson());
+            } catch (Exception e) {
+                prompt.printErr(e);
+                prompt.printErr("Skipping record, going on");
             }
-        } catch (NumberFormatException e) {
-            System.out.println("Please provide an integer value.");
-            injectPeople();
+            if (i % 1000 == 0) {
+                System.out.println();
+            } else if (i % 100 == 0) {
+                System.out.print("|");
+            } else if (i % 10 == 0) {
+                System.out.print(".");
+            }
         }
     }
 
