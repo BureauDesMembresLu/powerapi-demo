@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.Month;
@@ -37,9 +38,11 @@ public class PersonGenerator {
     private List<String> loadFile(String fileName) throws IOException, URISyntaxException {
         List<String> result = new ArrayList<>();
 
-        Scanner scanner = new Scanner(new File(this.getClass().getResource("/" + fileName).toURI()));
-        while (scanner.hasNext()) {
-            result.add(scanner.next());
+        URI fileUri = this.getClass().getResource("/" + fileName).toURI();
+        try (Scanner scanner = new Scanner(new File(fileUri))) {
+            while (scanner.hasNext()) {
+                result.add(scanner.next());
+            }
         }
 
         return result;

@@ -23,7 +23,7 @@ package org.keyboardplaying.demo.execution.iteration;
  */
 public class IteratorIteratorTest extends IteratorTest<IteratorIterator<String>> {
     @Override
-    protected IteratorIterator makeNewIterator() {
-        return new IteratorIterator();
+    protected IteratorIterator<String> makeNewIterator() {
+        return new IteratorIterator<>();
     }
 }

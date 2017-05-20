@@ -23,7 +23,7 @@ package org.keyboardplaying.demo.execution.iteration;
  */
 public class KeepCountPPIteratorTest extends IteratorTest<KeepCountPPIterator<String>> {
     @Override
-    protected KeepCountPPIterator makeNewIterator() {
-        return new KeepCountPPIterator();
+    protected KeepCountPPIterator<String> makeNewIterator() {
+        return new KeepCountPPIterator<>();
     }
 }

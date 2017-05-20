@@ -23,7 +23,7 @@ package org.keyboardplaying.demo.execution.iteration;
  */
 public class BrutalIteratorTest extends IteratorTest<BrutalIterator<String>> {
     @Override
-    protected BrutalIterator makeNewIterator() {
-        return new BrutalIterator();
+    protected BrutalIterator<String> makeNewIterator() {
+        return new BrutalIterator<>();
     }
 }

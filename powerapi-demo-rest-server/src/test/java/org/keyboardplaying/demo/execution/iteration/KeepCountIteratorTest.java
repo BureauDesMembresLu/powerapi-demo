@@ -23,7 +23,7 @@ package org.keyboardplaying.demo.execution.iteration;
  */
 public class KeepCountIteratorTest extends IteratorTest<KeepCountIterator<String>> {
     @Override
-    protected KeepCountIterator makeNewIterator() {
-        return new KeepCountIterator();
+    protected KeepCountIterator<String> makeNewIterator() {
+        return new KeepCountIterator<>();
     }
 }

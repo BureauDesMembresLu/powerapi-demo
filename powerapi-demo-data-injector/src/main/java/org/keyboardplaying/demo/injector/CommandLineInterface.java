@@ -22,8 +22,8 @@ public class CommandLineInterface implements ApplicationContextAware, CommandLin
     private enum InjectorCommands implements CommandPrompt.Command {
         CLEAR("Clear database", 'c'), INJECT("inject random people", 'i'), QUIT("exit application", 'x');
 
-        private String text;
-        private char letter;
+        private final String text;
+        private final char letter;
 
         InjectorCommands(String text, char letter) {
             this.text = text;
@@ -43,22 +43,25 @@ public class CommandLineInterface implements ApplicationContextAware, CommandLin
 
     private final CommandPrompt prompt = new CommandPrompt(System.in, System.out, System.err);
 
+    private final PeopleRepository repository;
+    private final PersonGenerator personGenerator;
+
     private ApplicationContext context;
 
     @Autowired
-    private PeopleRepository repository;
-
-    @Autowired
-    private PersonGenerator personGenerator;
-
-    @PreDestroy
-    public void tearDown() {
-        prompt.close();
+    public CommandLineInterface(PersonGenerator personGenerator, PeopleRepository repository) {
+        this.personGenerator = personGenerator;
+        this.repository = repository;
     }
 
     @Override
     public void setApplicationContext(ApplicationContext context) {
         this.context = context;
+    }
+
+    @PreDestroy
+    public void tearDown() {
+        prompt.close();
     }
 
     @Override

@@ -50,7 +50,8 @@ public class CommandPrompt implements AutoCloseable {
         this.scanner = new Scanner(in);
     }
 
-    public <T extends Command> T promptChoice(String message, T... commands) {
+    @SafeVarargs
+    public final <T extends Command> T promptChoice(String message, T... commands) {
         final String commandChoice = createCommandChoice(commands);
         while (true) {
             println(message);

@@ -43,8 +43,8 @@ public class CommandPromptTest {
     private enum TestCommands implements CommandPrompt.Command {
         CMD1("Command 1", 'c'), CMD2("Command 2", 'm'), CMD3("Command 3", 'X');
 
-        private String text;
-        private char letter;
+        private final String text;
+        private final char letter;
 
         TestCommands(String text, char letter) {
             this.text = text;
@@ -65,7 +65,7 @@ public class CommandPromptTest {
 
     private static final String PROMPT = "> ";
 
-    private PseudoConsoleInputStream in = new PseudoConsoleInputStream();
+    private final PseudoConsoleInputStream in = new PseudoConsoleInputStream();
     @Mock
     private PrintStream out;
     @Mock

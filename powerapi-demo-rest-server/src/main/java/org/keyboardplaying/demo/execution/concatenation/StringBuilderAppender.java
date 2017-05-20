@@ -22,7 +22,7 @@ package org.keyboardplaying.demo.execution.concatenation;
  * @author Cyrille Chopelet
  */
 public class StringBuilderAppender implements Appender {
-    private StringBuilder state = new StringBuilder();
+    private final StringBuilder state = new StringBuilder();
 
     @Override
     public Appender append(String string) {

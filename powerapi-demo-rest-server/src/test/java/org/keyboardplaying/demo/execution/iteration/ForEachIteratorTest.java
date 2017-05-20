@@ -23,7 +23,7 @@ package org.keyboardplaying.demo.execution.iteration;
  */
 public class ForEachIteratorTest extends IteratorTest<ForEachIterator<String>> {
     @Override
-    protected ForEachIterator makeNewIterator() {
-        return new ForEachIterator();
+    protected ForEachIterator<String> makeNewIterator() {
+        return new ForEachIterator<>();
     }
 }

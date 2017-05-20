@@ -22,7 +22,7 @@ package org.keyboardplaying.demo.execution.concatenation;
  * @author Cyrille Chopelet
  */
 public class StringBufferAppender implements Appender {
-    private StringBuffer state = new StringBuffer();
+    private final StringBuffer state = new StringBuffer();
 
     @Override
     public Appender append(String string) {
