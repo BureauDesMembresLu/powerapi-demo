@@ -14,23 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo;
+package org.keyboardplaying.demo.controller;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
+import java.util.List;
 
-@SpringBootApplication
-public class MonitoringProxy {
+/**
+ * @author Cyrille Chopelet
+ */
+public class MonitoredValue {
 
-    public static void main(String... args) {
-        SpringApplication.run(MonitoringProxy.class, args);
+    private final List<Double> values;
+    private final String unit;
+
+    public MonitoredValue(List<Double> values, String unit) {
+        this.values = values;
+        this.unit = unit;
     }
 
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
+    public List<Double> getValues() {
+        return values;
+    }
+
+    public String getUnit() {
+        return unit;
     }
 }

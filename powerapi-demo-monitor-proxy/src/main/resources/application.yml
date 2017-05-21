@@ -9,3 +9,9 @@ monitored:
       host: localhost
       port: 1099
       endpoint: jmxrmi
+
+# Monitoring configuration
+monitoring:
+  interval:
+    length: 500
+    unit: ms

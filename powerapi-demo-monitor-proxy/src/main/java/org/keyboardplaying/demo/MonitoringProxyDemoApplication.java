@@ -14,33 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo.monitor
+package org.keyboardplaying.demo;
 
-import org.keyboardplaying.demo.OsInformation
-import org.powerapi.module.cpu.simple.{ProcFSCpuSimpleModule, SigarCpuSimpleModule}
-import org.powerapi.{PowerDisplay, PowerMeter, PowerMonitoring}
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
-import scala.concurrent.duration._
+@SpringBootApplication
+public class MonitoringProxyDemoApplication {
 
-/**
-  * @author Cyrille Chopelet
-  */
-class Monitor(pid: Long, os: OsInformation, interval: FiniteDuration) {
+    public static void main(String... args) {
+        SpringApplication.run(MonitoringProxyDemoApplication.class, args);
+    }
 
-  private val module = if (os.isWindows) SigarCpuSimpleModule() else ProcFSCpuSimpleModule()
-  private val cpu = PowerMeter.loadModule(module)
-
-  private var monitoring: PowerMonitoring = _
-
-  def startMonitoring(out: PowerDisplay): Unit = {
-    monitoring = cpu.monitor(pid.toInt).every(interval) to out
-  }
-
-  def stopMonitoring(): Unit = {
-    monitoring.cancel
-  }
-
-  def shutdown: Unit = {
-    cpu.shutdown
-  }
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder.build();
+    }
 }

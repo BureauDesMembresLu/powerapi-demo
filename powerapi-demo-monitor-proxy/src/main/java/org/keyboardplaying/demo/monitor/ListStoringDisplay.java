@@ -14,33 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo.monitor
+package org.keyboardplaying.demo.monitor;
 
-import org.keyboardplaying.demo.OsInformation
-import org.powerapi.module.cpu.simple.{ProcFSCpuSimpleModule, SigarCpuSimpleModule}
-import org.powerapi.{PowerDisplay, PowerMeter, PowerMonitoring}
+import org.powerapi.PowerDisplay;
+import org.powerapi.module.PowerChannel;
 
-import scala.concurrent.duration._
+import java.util.ArrayList;
+import java.util.List;
 
 /**
-  * @author Cyrille Chopelet
-  */
-class Monitor(pid: Long, os: OsInformation, interval: FiniteDuration) {
+ * @author Cyrille Chopelet
+ */
+public class ListStoringDisplay implements PowerDisplay {
+    private final List<Double> powers = new ArrayList<>();
 
-  private val module = if (os.isWindows) SigarCpuSimpleModule() else ProcFSCpuSimpleModule()
-  private val cpu = PowerMeter.loadModule(module)
+    public List<Double> getPowers() {
+        return powers;
+    }
 
-  private var monitoring: PowerMonitoring = _
-
-  def startMonitoring(out: PowerDisplay): Unit = {
-    monitoring = cpu.monitor(pid.toInt).every(interval) to out
-  }
-
-  def stopMonitoring(): Unit = {
-    monitoring.cancel
-  }
-
-  def shutdown: Unit = {
-    cpu.shutdown
-  }
+    @Override
+    public void display(PowerChannel.AggregatePowerReport report) {
+        powers.add(report.power().toWatts());
+    }
 }

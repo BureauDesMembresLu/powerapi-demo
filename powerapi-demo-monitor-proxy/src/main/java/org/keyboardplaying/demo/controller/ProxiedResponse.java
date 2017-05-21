@@ -30,11 +30,31 @@ public class ProxiedResponse {
      */
     private Object proxied;
 
+    private MonitoredValue power;
+
+    private long processingTime;
+
     public Object getProxied() {
         return proxied;
     }
 
     public void setProxied(Object proxied) {
         this.proxied = proxied;
+    }
+
+    public MonitoredValue getPower() {
+        return power;
+    }
+
+    public void setPower(MonitoredValue power) {
+        this.power = power;
+    }
+
+    public long getProcessingTime() {
+        return processingTime;
+    }
+
+    public void setProcessingTime(long processingTime) {
+        this.processingTime = processingTime;
     }
 }
