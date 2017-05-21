@@ -8,7 +8,7 @@ import java.util.List;
  * @param <T> the type of elements in the list being iterated upon
  * @author Cyrille Chopelet
  */
-public class BrutalIterator<T> implements Iterator<T> {
+public class MethodInConditionIterator<T> implements Iterator<T> {
     @Override
     public void iterate(List<T> list, ElementProcessor<T> executor) {
         for (int i = 0; i < list.size(); i++) {

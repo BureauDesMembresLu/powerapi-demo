@@ -17,13 +17,13 @@
 package org.keyboardplaying.demo.execution.iteration;
 
 /**
- * {@link IteratorTest} implementation for {@link BrutalIterator}.
+ * {@link IteratorTest} implementation for {@link MethodInConditionIterator}.
  *
  * @author Cyrille Chopelet
  */
-public class BrutalIteratorTest extends IteratorTest<BrutalIterator<String>> {
+public class MethodInConditionIteratorTest extends IteratorTest<MethodInConditionIterator<String>> {
     @Override
-    protected BrutalIterator<String> makeNewIterator() {
-        return new BrutalIterator<>();
+    protected MethodInConditionIterator<String> makeNewIterator() {
+        return new MethodInConditionIterator<>();
     }
 }
