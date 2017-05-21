@@ -1,0 +1,18 @@
+# The port the service is exposed on
+server.port: 8090
+
+# The RMI expose configuration
+jmx.rmi:
+  host: localhost
+  port: 1099
+  endpoint: jmxrmi
+
+# The MongoDB access configuration
+spring.data.mongodb:
+  database: pcol-mongo-test-db
+  uri: mongodb://localhost:27010
+
+flapdoodle:
+  database: pcol-mongo-test-db
+  host: localhost
+  port: 27010

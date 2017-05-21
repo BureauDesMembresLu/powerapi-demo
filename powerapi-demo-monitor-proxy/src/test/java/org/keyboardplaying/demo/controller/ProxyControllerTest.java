@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Cyrille Chopelet
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes= ProxyControllerTestConfiguration.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(classes = ProxyControllerTestConfiguration.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @AutoConfigureMockMvc
 public class ProxyControllerTest {
 
