@@ -1,7 +1,7 @@
 package org.keyboardplaying.demo.injector;
 
-import org.keyboardplaying.demo.people.PeopleRepository;
-import org.keyboardplaying.demo.utils.CommandPrompt;
+import org.keyboardplaying.demo.people.PersonInjector;
+import org.keyboardplaying.demo.utils.CommandTerminal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -19,7 +19,7 @@ import javax.annotation.PreDestroy;
 @Component
 public class CommandLineInterface implements ApplicationContextAware, CommandLineRunner {
 
-    private enum InjectorCommands implements CommandPrompt.Command {
+    private enum InjectorCommands implements CommandTerminal.Command {
         CLEAR("Clear database", 'c'), INJECT("inject random people", 'i'), QUIT("exit application", 'x');
 
         private final String text;
@@ -41,17 +41,15 @@ public class CommandLineInterface implements ApplicationContextAware, CommandLin
         }
     }
 
-    private final CommandPrompt prompt = new CommandPrompt(System.in, System.out, System.err);
+    private final CommandTerminal term = new CommandTerminal(System.in, System.out, System.err);
 
-    private final PeopleRepository repository;
-    private final PersonGenerator personGenerator;
+    private final PersonInjector injector;
 
     private ApplicationContext context;
 
     @Autowired
-    public CommandLineInterface(PersonGenerator personGenerator, PeopleRepository repository) {
-        this.personGenerator = personGenerator;
-        this.repository = repository;
+    public CommandLineInterface(PersonInjector injector) {
+        this.injector = injector;
     }
 
     @Override
@@ -61,18 +59,16 @@ public class CommandLineInterface implements ApplicationContextAware, CommandLin
 
     @PreDestroy
     public void tearDown() {
-        prompt.close();
+        term.close();
     }
 
     @Override
     public void run(String... args) throws Exception {
         while (true) {
-            InjectorCommands command = prompt.promptChoice("What would you like to do?", InjectorCommands.values());
+            InjectorCommands command = term.promptChoice("What would you like to do?", InjectorCommands.values());
             switch (command) {
                 case CLEAR:
-                    prompt.println("Cleaning under progress...");
-                    repository.deleteAll();
-                    prompt.println("Success! Repository has been cleaned");
+                    injector.wipeRepositoryClean(term);
                     break;
 
                 case INJECT:
@@ -84,28 +80,14 @@ public class CommandLineInterface implements ApplicationContextAware, CommandLin
                     return;
 
                 default:
-                    prompt.printErr(String.format("Command <%s> is invalid", command));
+                    term.printErr(String.format("Command <%s> is invalid", command));
             }
         }
     }
 
     private void injectPeople() {
-        int max = prompt.promptInt("How many people would you like to inject into database?");
-        for (int i = 0; i < max; ++i) {
-            try {
-                repository.save(personGenerator.randomPerson());
-            } catch (Exception e) {
-                prompt.printErr(e);
-                prompt.printErr("Skipping record, going on");
-            }
-            if (i % 1000 == 0) {
-                System.out.println();
-            } else if (i % 100 == 0) {
-                System.out.print("|");
-            } else if (i % 10 == 0) {
-                System.out.print(".");
-            }
-        }
+        int nbToInsert = term.promptInt("How many people would you like to inject into database?");
+        injector.injectRandomPeople(nbToInsert, term);
     }
 
     private void exitApplication() {

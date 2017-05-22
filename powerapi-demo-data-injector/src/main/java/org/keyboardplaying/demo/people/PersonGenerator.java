@@ -1,4 +1,4 @@
-package org.keyboardplaying.demo.injector;
+package org.keyboardplaying.demo.people;
 
 import org.keyboardplaying.demo.people.Person;
 import org.springframework.stereotype.Component;
@@ -14,13 +14,16 @@ import java.time.Year;
 import java.util.*;
 
 /**
+ * This bean loads a list of common first and last names in the United States and generates random persons based on this
+ * data.
+ *
  * @author Cyrille Chopelet
  */
 @Component
 public class PersonGenerator {
 
-    private static final int CURRENT_YEAR = 2017;
-    private static final int MAX_AGE = 100;
+    protected static final int CURRENT_YEAR = LocalDate.now().getYear();
+    protected static final int MAX_AGE = 100;
 
     private final Random random = new Random();
 

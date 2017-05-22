@@ -14,50 +14,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo.demo;
+package org.keyboardplaying.demo.people;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.keyboardplaying.demo.people.PeopleRepository;
+import org.keyboardplaying.demo.utils.CommandTerminal;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 /**
- * Test class for {@link DemoController}.
+ * Test class for {@link PersonGenerator}.
  *
  * @author Cyrille Chopelet
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
-public class DemoControllerTest {
+@SpringBootTest(classes = {PersonInjector.class, PersonGenerator.class})
+public class PersonInjectorTest {
 
     @Autowired
+    private PersonInjector injector;
+
+    @MockBean
     private PeopleRepository repository;
 
-    @Autowired
-    private DemoController controller;
+    @Mock
+    private CommandTerminal term;
 
     @Test
-    public void testFetchCyrilsWithOptimizedCall() {
-        List<String> result = controller.fetchCyrils();
-        assertEquals(1, result.size());
-        assertEquals("Cyril Chopelet", result.get(0));
+    public void testWipeRepositoryClean() {
+        injector.wipeRepositoryClean(term);
+        verify(repository, times(1)).deleteAll();
     }
 
     @Test
-    public void testFetchCyrilsWithoutParameters() {
-        String result = controller.fetchCyrils(null, null);
-        assertEquals("[\"Cyril Chopelet\"]", result);
-    }
-
-    @Test
-    public void testFetchCyrilsWithParameters() {
-        String result = controller.fetchCyrils(AppendingSolution.STRING_BUILDER, IteratingSolution.FOREACH);
-        assertEquals("[\"Cyril Chopelet\"]", result);
+    public void testInjectRandomPeople() {
+        injector.injectRandomPeople(100, term);
+        verify(repository, times(100)).save(any(Person.class));
     }
 }

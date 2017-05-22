@@ -14,50 +14,44 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo.demo;
+package org.keyboardplaying.demo.people;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.keyboardplaying.demo.people.PeopleRepository;
+import org.keyboardplaying.demo.people.Person;
+import org.keyboardplaying.demo.people.PersonGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.List;
+import java.time.LocalDate;
+import java.time.Month;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
- * Test class for {@link DemoController}.
+ * Test class for {@link PersonGenerator}.
  *
  * @author Cyrille Chopelet
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
-public class DemoControllerTest {
+@SpringBootTest(classes = PersonGenerator.class)
+public class PersonGeneratorTest {
 
     @Autowired
-    private PeopleRepository repository;
-
-    @Autowired
-    private DemoController controller;
+    private PersonGenerator generator;
 
     @Test
-    public void testFetchCyrilsWithOptimizedCall() {
-        List<String> result = controller.fetchCyrils();
-        assertEquals(1, result.size());
-        assertEquals("Cyril Chopelet", result.get(0));
-    }
+    public void testRandomPerson() {
+        final int earliestPossibleBirthYear = PersonGenerator.CURRENT_YEAR - PersonGenerator.MAX_AGE;
+        final LocalDate earliestPossibleBirthDate = LocalDate.of(earliestPossibleBirthYear, Month.JANUARY, 1);
 
-    @Test
-    public void testFetchCyrilsWithoutParameters() {
-        String result = controller.fetchCyrils(null, null);
-        assertEquals("[\"Cyril Chopelet\"]", result);
-    }
 
-    @Test
-    public void testFetchCyrilsWithParameters() {
-        String result = controller.fetchCyrils(AppendingSolution.STRING_BUILDER, IteratingSolution.FOREACH);
-        assertEquals("[\"Cyril Chopelet\"]", result);
+        final Person person = generator.randomPerson();
+
+        assertEquals(person.getGender() == Person.Gender.FEMALE ? "Jane" : "John", person.getFirstName());
+        assertEquals("Smith", person.getLastName());
+        assertTrue(earliestPossibleBirthDate.isBefore(person.getBirthDate()));
     }
 }

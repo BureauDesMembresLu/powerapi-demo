@@ -25,8 +25,7 @@
         <!-- Version management - Scala -->
         <scala.version.main>2.12</scala.version.main>
         <scala.version>${scala.version.main}.1</scala.version>
-        <scala.plugin.version>3.2.1</scala.plugin.version>
-        <specs2.version>3.8.9-20170417195349-7b7973e</specs2.version>
+        <scala.plugin.version>3.2.2</scala.plugin.version>
     </properties>
 
     <repositories>
@@ -38,6 +37,12 @@
     </repositories>
 
     <dependencies>
+        <!--<![CDATA[
+              ___          _        _
+             | _ \_ _ ___ (_)___ __| |_
+             |  _/ '_/ _ \| / -_) _|  _|
+             |_| |_| \___// \___\__|\__|
+                        |__/ ]]>-->
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>powerapi-demo-utils</artifactId>
@@ -75,6 +80,16 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jetty</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -86,10 +101,20 @@
     <build>
         <pluginManagement>
             <plugins>
+                <!--<![CDATA[
+                      ___          _
+                     / __| __ __ _| |__ _
+                     \__ \/ _/ _` | / _` |
+                     |___/\__\__,_|_\__,_| ]]>-->
                 <plugin>
                     <groupId>net.alchim31.maven</groupId>
                     <artifactId>scala-maven-plugin</artifactId>
                     <version>${scala.plugin.version}</version>
+                    <configuration>
+                        <recompileMode>incremental</recompileMode>
+                        <verbose>true</verbose>
+                        <scalaVersion>${scala.version}</scalaVersion>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>

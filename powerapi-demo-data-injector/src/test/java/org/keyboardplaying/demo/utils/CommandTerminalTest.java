@@ -33,14 +33,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 /**
- * Test class for {@link CommandPrompt}.
+ * Test class for {@link CommandTerminal}.
  *
  * @author Cyrille Chopelet
  */
 @RunWith(MockitoJUnitRunner.class)
-public class CommandPromptTest {
+public class CommandTerminalTest {
 
-    private enum TestCommands implements CommandPrompt.Command {
+    private enum TestCommands implements CommandTerminal.Command {
         CMD1("Command 1", 'c'), CMD2("Command 2", 'm'), CMD3("Command 3", 'X');
 
         private final String text;
@@ -71,11 +71,11 @@ public class CommandPromptTest {
     @Mock
     private PrintStream err;
 
-    private CommandPrompt prompt;
+    private CommandTerminal prompt;
 
     @Before
     public void setUp() {
-        prompt = new CommandPrompt(in, out, err);
+        prompt = new CommandTerminal(in, out, err);
     }
 
     @After

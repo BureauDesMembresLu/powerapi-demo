@@ -40,7 +40,7 @@ class Monitor(pid: Long, os: OsInformation, interval: FiniteDuration) {
     monitoring.cancel
   }
 
-  def shutdown: Unit = {
+  def shutdown(): Unit = {
     cpu.shutdown
   }
 }

@@ -24,11 +24,11 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * A command prompt utility.
+ * A terminal printing and prompting utility.
  *
  * @author Cyrille Chopelet
  */
-public class CommandPrompt implements AutoCloseable {
+public class CommandTerminal implements AutoCloseable {
 
     public interface Command {
         String getText();
@@ -44,7 +44,7 @@ public class CommandPrompt implements AutoCloseable {
     private final PrintStream err;
     private final Scanner scanner;
 
-    public CommandPrompt(InputStream in, PrintStream out, PrintStream err) {
+    public CommandTerminal(InputStream in, PrintStream out, PrintStream err) {
         this.out = out;
         this.err = err;
         this.scanner = new Scanner(in);
@@ -109,7 +109,7 @@ public class CommandPrompt implements AutoCloseable {
         try {
             return scanner.nextInt();
         } catch (InputMismatchException e) {
-            err.println(INCORRECT_INT);
+            printErr(INCORRECT_INT);
             return promptInt(message);
         }
     }
@@ -123,16 +123,16 @@ public class CommandPrompt implements AutoCloseable {
         out.print(message);
     }
 
+    public void println() {
+        out.println();
+    }
+
     public void println(String message) {
         out.println(message);
     }
 
     public void printErr(String message) {
         err.println(message);
-    }
-
-    public void printErr(Throwable error) {
-        error.printStackTrace(err);
     }
 
     @Override
