@@ -5,6 +5,10 @@
 /pom.xml.*
 /release.properties
 
+## JavaScript ##
+node_modules/
+node/
+
 ## IDE ##
 
 # Cloud9

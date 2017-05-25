@@ -1,0 +1,39 @@
+{
+  "name": "powerapi-demo-monitor-proxy",
+  "version": "0.1.0-SNAPSHOT",
+  "description": "An HTTP proxy that will redirect all calls to another JVM while monitoring it.",
+  "private": true,
+  "cacheDirectories": [
+    "node_modules"
+  ],
+  "dependencies": {
+    "normalize.css": "7.0.0"
+  },
+  "devDependencies": {
+    "babel-core": "6.24.1",
+    "babel-eslint": "7.2.3",
+    "babel-loader": "7.0.0",
+    "babel-preset-es2017": "6.24.1",
+    "del": "2.2.2",
+    "event-stream": "3.3.4",
+    "gulp": "3.9.1",
+    "gulp-autoprefixer": "4.0.0",
+    "gulp-eslint": "3.0.1",
+    "gulp-htmlmin": "3.0.0",
+    "gulp-if": "2.0.2",
+    "gulp-notify": "3.0.0",
+    "gulp-plumber": "1.1.0",
+    "gulp-sass": "3.1.0",
+    "gulp-util": "3.0.8",
+    "run-sequence": "1.2.2",
+    "webpack": "2.6.1",
+    "xml2js": "0.4.17",
+    "yargs": "8.0.1"
+  },
+  "engines": {
+    "node": "6.10"
+  },
+  "scripts": {
+    "test": "gulp test"
+  }
+}

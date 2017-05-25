@@ -28,8 +28,11 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import scala.concurrent.duration.FiniteDuration;
 
 import javax.annotation.PostConstruct;
@@ -79,12 +82,22 @@ public class ProxyController {
         monitor.shutdown();
     }
 
-    @RequestMapping(value = "**", method = {RequestMethod.POST, RequestMethod.PUT})
+    @GetMapping("/")
+    public RedirectView redirectToInterface() {
+        return new RedirectView("/itf/");
+    }
+
+    @GetMapping("/itf")
+    public ModelAndView implyIndexFile(ModelMap model) {
+        return new ModelAndView("forward:/itf/index.html", model);
+    }
+
+    @RequestMapping(value = "*", method = {RequestMethod.POST, RequestMethod.PUT})
     public ProxiedResponse proxifyRequestsWithBody(HttpServletRequest request, @RequestHeader HttpHeaders headers, @RequestBody Object body) throws URISyntaxException {
         return proxifyRequest(request, headers, body);
     }
 
-    @RequestMapping(value = "**")
+    @RequestMapping(value = "*")
     public ProxiedResponse proxifyRequestsWithoutBody(HttpServletRequest request, @RequestHeader HttpHeaders headers) throws URISyntaxException {
         return proxifyRequest(request, headers, null);
     }
