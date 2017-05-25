@@ -43,10 +43,9 @@ import java.lang.management.RuntimeMXBean;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+// FIXME find some way to serve the static content without having to add '/proxy' to the URL
 @RestController
 public class ProxyController {
-
-    private static final String UNIT_WATTS = "W";
 
     private final MXBeanProvider jmxProvider;
     private final OsInformation os;
@@ -82,22 +81,12 @@ public class ProxyController {
         monitor.shutdown();
     }
 
-    @GetMapping("/")
-    public RedirectView redirectToInterface() {
-        return new RedirectView("/itf/");
-    }
-
-    @GetMapping("/itf")
-    public ModelAndView implyIndexFile(ModelMap model) {
-        return new ModelAndView("forward:/itf/index.html", model);
-    }
-
-    @RequestMapping(value = "*", method = {RequestMethod.POST, RequestMethod.PUT})
+    @RequestMapping(value = "proxy/**", method = {RequestMethod.POST, RequestMethod.PUT})
     public ProxiedResponse proxifyRequestsWithBody(HttpServletRequest request, @RequestHeader HttpHeaders headers, @RequestBody Object body) throws URISyntaxException {
         return proxifyRequest(request, headers, body);
     }
 
-    @RequestMapping(value = "*")
+    @RequestMapping(value = "proxy/**")
     public ProxiedResponse proxifyRequestsWithoutBody(HttpServletRequest request, @RequestHeader HttpHeaders headers) throws URISyntaxException {
         return proxifyRequest(request, headers, null);
     }
@@ -120,7 +109,7 @@ public class ProxyController {
         // Return service result + monitoring information
         final ProxiedResponse response = new ProxiedResponse();
         response.setProxied(proxied.getBody());
-        response.setPower(new MonitoredValue(powerDisplay.getPowers(), UNIT_WATTS));
+        response.setPower(powerDisplay.getPowers());
         response.setProcessingTime(stopTime - startTime);
 
         return response;
@@ -129,7 +118,7 @@ public class ProxyController {
     private <T> RequestEntity<T> convertToRequestEntity(HttpServletRequest request, HttpHeaders headers, T body) throws URISyntaxException {
         // Build proxied URL
         final StringBuilder redirectUrl = new StringBuilder(redirectBase)
-                .append(request.getRequestURI());
+                .append(request.getRequestURI().substring(6));
         final String queryString = request.getQueryString();
         if (queryString != null) {
             redirectUrl.append("?").append(queryString);

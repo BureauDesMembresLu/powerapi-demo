@@ -59,9 +59,9 @@ public class DemoController {
         return result;
     }
 
-    @RequestMapping(value = "/fetch-cyrils/{appending}/{iterating}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public String fetchCyrils(@PathVariable("appending") AppendingSolution appendingSolution,
-                              @PathVariable("iterating") IteratingSolution iteratingSolution) {
+    @RequestMapping(value = "/fetch-cyrils/{iterating}/{appending}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public String fetchCyrils(@PathVariable("iterating") IteratingSolution iteratingSolution,
+                              @PathVariable("appending") AppendingSolution appendingSolution) {
         // Prepare tools to build the list
         Appender appender = (
                 appendingSolution == null

@@ -16,10 +16,7 @@
  */
 package org.keyboardplaying.demo.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/proxied")
@@ -41,8 +38,9 @@ public class ProxiedController {
         }
     }
 
-    @RequestMapping(path = "/greeting", method = RequestMethod.GET)
-    public Message greet(@RequestParam(value="name", defaultValue = "World") String name) {
-        return new Message(String.format("Hello, %s!", name));
+    @RequestMapping(path = "/greeting/{helloWorld}", method = RequestMethod.GET)
+    public Message greet(@PathVariable("helloWorld") String helloWorld,
+                         @RequestParam(value="name", defaultValue = "World") String name) {
+        return new Message(String.format("%s, %s!", helloWorld, name));
     }
 }

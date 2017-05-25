@@ -45,8 +45,15 @@ public class ProxyControllerTest {
     private MockMvc mvc;
 
     @Test
+    public void testGetStaticResource() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/index.html").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.TEXT_HTML));
+    }
+
+    @Test
     public void testGetWithoutParameter() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/greeting").accept(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.get("/proxy/greeting/Hello").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.proxied.message", is("Hello, World!")));
@@ -54,7 +61,7 @@ public class ProxyControllerTest {
 
     @Test
     public void testGetWithParameter() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/greeting?name=Test").accept(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.get("/proxy/greeting/Hello?name=Test").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.proxied.message", is("Hello, Test!")));

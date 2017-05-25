@@ -10,4 +10,4 @@ jmx.rmi:
 # The MongoDB access configuration
 spring.data.mongodb:
   database: pcol-mongo-db
-  uri: mongodb://172.18.0.42:27017
+  uri: mongodb://127.0.0.1:27017

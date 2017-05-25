@@ -13,5 +13,5 @@ monitored:
 # Monitoring configuration
 monitoring:
   interval:
-    length: 500
+    length: 100
     unit: ms

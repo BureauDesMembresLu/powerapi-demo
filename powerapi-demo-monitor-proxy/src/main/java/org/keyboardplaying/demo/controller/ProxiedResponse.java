@@ -16,6 +16,8 @@
  */
 package org.keyboardplaying.demo.controller;
 
+import java.util.List;
+
 /**
  * This class wraps the response from a proxied service and adds monitoring information to it.
  *
@@ -30,7 +32,7 @@ public class ProxiedResponse {
      */
     private Object proxied;
 
-    private MonitoredValue power;
+    private List<Double> power;
 
     private long processingTime;
 
@@ -42,11 +44,11 @@ public class ProxiedResponse {
         this.proxied = proxied;
     }
 
-    public MonitoredValue getPower() {
+    public List<Double> getPower() {
         return power;
     }
 
-    public void setPower(MonitoredValue power) {
+    public void setPower(List<Double> power) {
         this.power = power;
     }
 

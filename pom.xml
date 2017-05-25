@@ -132,10 +132,10 @@
         <system>GitHub</system>
         <url>https://github.com/${github.user}/${github.repo}/issues</url>
     </issueManagement>
-    <!--<ciManagement>
+    <ciManagement>
         <system>Travis CI</system>
         <url>https://travis-ci.org/${github.user}/${github.repo}</url>
-    </ciManagement>-->
+    </ciManagement>
     <organization>
         <name>CGI</name>
         <url>https://cgi.com</url>

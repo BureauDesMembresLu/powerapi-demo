@@ -9,6 +9,9 @@
 node_modules/
 node/
 
+## Generic ##
+*.log
+
 ## IDE ##
 
 # Cloud9

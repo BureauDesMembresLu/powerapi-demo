@@ -1,7 +1,16 @@
-'use strict';
+'use strict'
 
 module.exports = {
-    app: 'src/main/webapp/',
-    dist: 'target/classes/public/itf/',
-    test: 'src/test/javascript/'
-};
+  env: {
+    development: '"development"',
+    testing: '"test"',
+    production: '"production"'
+  },
+  app: 'src/main/webapp/',
+  assets: {
+    root: 'target/classes/public/',
+    subDirectory: 'static'
+  },
+  test: 'src/test/javascript/',
+  productionSourceMap: true
+}

@@ -57,7 +57,7 @@ public class DemoControllerTest {
 
     @Test
     public void testFetchCyrilsWithParameters() {
-        String result = controller.fetchCyrils(AppendingSolution.STRING_BUILDER, IteratingSolution.FOREACH);
+        String result = controller.fetchCyrils(IteratingSolution.FOREACH, AppendingSolution.STRING_BUILDER);
         assertEquals("[\"Cyril Chopelet\"]", result);
     }
 }
