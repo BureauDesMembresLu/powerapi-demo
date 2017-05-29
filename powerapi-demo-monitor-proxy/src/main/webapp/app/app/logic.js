@@ -1,3 +1,5 @@
+'use strict'
+
 import axios from 'axios'
 
 import problemPresenter from '../components/problem-presenter.vue'
@@ -12,7 +14,28 @@ export default {
     lineChart,
     timeSummary
   },
+  data() {
+    return {
+      loading: false
+    }
+  },
   store,
+  beforeCreate () {
+    // Manage a loading state
+    axios.interceptors.request.use((config) => {
+      this.loading = true
+      return config
+    }, (error) => {
+      return Promise.reject(error)
+    })
+    axios.interceptors.response.use((response) => {
+      this.loading = false
+      return response
+    }, (error) => {
+      this.loading = false
+      return Promise.reject(error)
+    })
+  },
   methods: {
     makeTheCall () {
       axios

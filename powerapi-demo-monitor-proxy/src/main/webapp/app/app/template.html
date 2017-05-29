@@ -1,7 +1,7 @@
-<div class="app-root flex-container">
+<div class="app-root flex-container" :class="{loading: loading}">
     <div class="col flex">
         <problem-presenter></problem-presenter>
-        <button @click="makeTheCall">Call the service</button>
+        <button @click="makeTheCall" :disabled="loading">Call the service</button>
     </div>
     <div class="col flex">
         <time-summary></time-summary>

@@ -6,4 +6,8 @@
   .col {
     padding: $cols-padding;
   }
+
+  &.loading {
+    opacity: $app-loading-opacity;
+  }
 }
