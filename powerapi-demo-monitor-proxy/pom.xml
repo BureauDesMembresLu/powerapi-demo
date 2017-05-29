@@ -188,7 +188,7 @@
                         </goals>
                         <phase>compile</phase>
                         <configuration>
-                            <arguments>build --no-notification</arguments>
+                            <arguments>build --gulpfile gulp --no-notification</arguments>
                         </configuration>
                     </execution>
                 </executions>

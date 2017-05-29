@@ -60,8 +60,8 @@
     "node": "6.10"
   },
   "scripts": {
-    "dev": "gulp dev --gulpfile tasks",
-    "build": "NODE_ENV=production gulp build --gulpfile tasks"
+    "dev": "gulp dev --gulpfile gulp",
+    "build": "NODE_ENV=production gulp build --gulpfile gulp"
   },
   "browserslist": [
     "> 1%",
