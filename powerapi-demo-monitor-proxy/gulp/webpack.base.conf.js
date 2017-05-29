@@ -8,7 +8,7 @@ const vueLoaderConfig = require('./vue-loader.conf')
 const resolve = (dir) => path.join(__dirname, '..', dir)
 
 module.exports = {
-  entry: {app: resolve(config.app + 'app.js')},
+  entry: {app: resolve(config.app + 'main.js')},
   output: {
     path: resolve(config.assets.root + 'js'),
     filename: '[name].js'

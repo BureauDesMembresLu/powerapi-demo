@@ -1,0 +1,9 @@
+ul.solutions {
+  a {
+    cursor: pointer;
+    &.selected {
+      color: darkcyan;
+      font-weight: bold;
+    }
+  }
+}

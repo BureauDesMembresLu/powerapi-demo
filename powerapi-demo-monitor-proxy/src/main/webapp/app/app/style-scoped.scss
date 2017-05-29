@@ -1,0 +1,9 @@
+@import '../style/variables';
+
+.app-root {
+  padding: $app-padding-vertical $app-padding-horizontal;
+
+  .col {
+    padding: $cols-padding;
+  }
+}

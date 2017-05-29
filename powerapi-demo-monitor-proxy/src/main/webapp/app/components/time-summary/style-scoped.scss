@@ -1,0 +1,16 @@
+@import '../../style/variables';
+
+.time-summary {
+  text-align: center;
+  font-size: smaller;
+
+  .bold {
+    font-weight: bold;
+  }
+
+  @each $type, $color in $colors {
+    .#{$type} {
+      color: $color;
+    }
+  }
+}
