@@ -1,6 +1,6 @@
 const path = require('path')
 
-const config = require('./config')
+const appConfig = require('./config')
 
 const utils = require('./vue-utils')
 const vueLoaderConfig = require('./vue-loader.conf')
@@ -8,16 +8,17 @@ const vueLoaderConfig = require('./vue-loader.conf')
 const resolve = (dir) => path.join(__dirname, '..', dir)
 
 module.exports = {
-  entry: {app: resolve(config.app + 'main.js')},
+  context: resolve(appConfig.app),
+  entry: {app: './main.js'},
   output: {
-    path: resolve(config.assets.root + 'js'),
+    path: resolve(appConfig.assets.root),
     filename: '[name].js'
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve(config.app)
+      '@': resolve(appConfig.app)
     }
   },
   module: {
@@ -26,7 +27,7 @@ module.exports = {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',
         enforce: 'pre',
-        include: [resolve(config.app), resolve(config.test)],
+        include: [resolve(appConfig.app), resolve(appConfig.test)],
         options: {
           formatter: require('eslint-friendly-formatter')
         }
@@ -43,7 +44,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve(config.app), resolve(config.test)]
+        include: [resolve(appConfig.app), resolve(appConfig.test)]
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
