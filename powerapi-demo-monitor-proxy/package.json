@@ -50,6 +50,7 @@
     "sass-loader": "^6.0.5",
     "url-loader": "^0.5.8",
     "vue-loader": "^12.2.0",
+    "vue-template-compiler": "^2.3.3",
     "webpack": "^2.6.1",
     "webpack-dev-middleware": "^1.10.2",
     "webpack-hot-middleware": "^2.18.0",
@@ -60,7 +61,7 @@
     "node": "6.10"
   },
   "scripts": {
-    "dev": "gulp dev --gulpfile gulp",
+    "dev": "gulp serve:dev --gulpfile gulp",
     "build": "NODE_ENV=production gulp build --gulpfile gulp"
   },
   "browserslist": [
