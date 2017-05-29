@@ -40,7 +40,7 @@ public class DemoController {
 
     private static final String SEARCH_FIRST_NAME_CYRIL = "Cyril";
 
-    private PeopleRepository repository;
+    private final PeopleRepository repository;
 
     @Autowired
     public DemoController(PeopleRepository repository) {

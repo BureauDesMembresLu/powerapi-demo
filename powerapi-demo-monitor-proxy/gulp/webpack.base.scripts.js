@@ -1,9 +1,7 @@
 const webpack = require('webpack')
 
 module.exports = (config) => function scripts () {
-
   return new Promise(resolve => webpack(config, (err, stats) => {
-
     if (err) {
       console.log('Webpack', err)
     }

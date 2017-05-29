@@ -19,7 +19,7 @@ exports.server = function () {
         quiet: true
       }),
       webpackHotMiddleware(bundler)
-    ],
+    ]
   }
 
   browser.init(config)

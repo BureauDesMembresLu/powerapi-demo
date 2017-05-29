@@ -13,22 +13,27 @@ let chartCounter = 0
 export default {
   props: {
     chartTitle: {type: String, required: true},
-    yAxis: {type: String, required: true}
+    chartType: {type: String, required: false, default: `line`},
+    xAxis: {type: String, required: false, default: `Time (${config.monitoring.unit})`},
+    yAxis: {type: String, required: true},
+    chartData: {type: String, required: true}
   },
   data () {
-    return {id: `line-chart${++chartCounter}`}
+    return {id: `chart${++chartCounter}`}
   },
   computed: mapState({
-    worst: (state) => state.calls.worst.power,
-    best: (state) => state.calls.best.power,
-    last: (state) => state.calls.last.power
+    worst (state) { return state.calls.worst[this.chartData] },
+    best (state) { return state.calls.best[this.chartData] },
+    last (state) { return state.calls.last[this.chartData] }
   }),
   mounted () {
     // Create the empty chart
     const chart = Highcharts.chart(this.id, {
+      chart: {type: this.chartType},
+
       title: {text: this.chartTitle},
 
-      xAxis: {title: {text: `Time (${config.monitoring.unit})`}},
+      xAxis: {title: {text: this.xAxis}},
       yAxis: {title: {text: this.yAxis}},
       legend: {
         layout: `vertical`,

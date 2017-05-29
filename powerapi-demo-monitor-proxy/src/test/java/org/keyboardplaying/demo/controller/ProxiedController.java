@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProxiedController {
 
     public static class Message {
-        private String message;
+        private final String message;
 
         public Message(String message) {
             this.message = message;
@@ -31,10 +31,6 @@ public class ProxiedController {
 
         public String getMessage() {
             return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
         }
     }
 

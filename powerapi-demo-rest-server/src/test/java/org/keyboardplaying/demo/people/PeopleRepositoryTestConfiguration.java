@@ -16,9 +16,6 @@
  */
 package org.keyboardplaying.demo.people;
 
-import de.flapdoodle.embed.mongo.MongoImportExecutable;
-import de.flapdoodle.embed.mongo.MongoImportProcess;
-import de.flapdoodle.embed.mongo.MongoImportStarter;
 import de.flapdoodle.embed.mongo.config.*;
 import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.runtime.Network;
@@ -28,7 +25,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
@@ -66,32 +62,5 @@ public class PeopleRepositoryTestConfiguration {
         people.add(new Person("JDO", "John", "Doe", Person.Gender.MALE, LocalDate.of(1960, Month.AUGUST, 26)));
         people.add(new Person("SCA", "Samantha", "Carter", Person.Gender.FEMALE, null));
         repository.save(people);
-    }
-
-    // FIXME import mock data here
-    //@Bean(destroyMethod = "stop")
-    public MongoImportProcess mongoImportProcess() throws URISyntaxException, IOException {
-        return startMongoImport(getResourceFileUri("mongo-test-people.json"), "people", true, true, true);
-    }
-
-    private String getResourceFileUri(String fileName) throws URISyntaxException {
-        return this.getClass().getResource("/" + fileName).toString();
-    }
-
-    private MongoImportProcess startMongoImport(String jsonFile, String collection, Boolean jsonArray, Boolean upsert, Boolean drop)
-            throws IOException {
-        IMongoImportConfig mongoImportConfig = new MongoImportConfigBuilder()
-                .version(Version.Main.PRODUCTION)
-                .net(new Net(testDbHost, testDbPort, Network.localhostIsIPv6()))
-                .db(testDbName)
-                .collection(collection)
-                .upsert(upsert)
-                .dropCollection(drop)
-                .jsonArray(jsonArray)
-                .importFile(jsonFile)
-                .build();
-
-        MongoImportExecutable mongoImportExecutable = MongoImportStarter.getDefaultInstance().prepare(mongoImportConfig);
-        return mongoImportExecutable.start();
     }
 }

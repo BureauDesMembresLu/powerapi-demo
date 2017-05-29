@@ -1,19 +1,10 @@
 'use strict'
 
 const notify = require('gulp-notify')
-const gutil = require('gulp-util')
 const argv = require('yargs').argv
 
 // Has ESLint fixed the content of this file?
 let isLintFixed = (file) => file.eslint !== null && file.eslint.fixed
-
-let webpackCallback = (callback) => function (err, stats) {
-  if (err) {
-    throw new gutil.PluginError('webpack', err)
-  }
-  gutil.log('[webpack]', stats.toString({colors: true}))
-  callback()
-}
 
 let handleErrors = function () {
   const args = Array.prototype.slice.call(arguments)
@@ -33,6 +24,5 @@ let handleErrors = function () {
 
 module.exports = {
   isLintFixed,
-  webpackCallback,
   handleErrors
 }

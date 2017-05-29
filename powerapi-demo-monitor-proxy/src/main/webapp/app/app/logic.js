@@ -3,7 +3,7 @@
 import axios from 'axios'
 
 import problemPresenter from '../components/problem-presenter.vue'
-import lineChart from '../components/line-chart.vue'
+import chart from '../components/chart.vue'
 import timeSummary from '../components/time-summary.vue'
 
 import store, { MUT_STORE_CALL } from '../config/store'
@@ -11,10 +11,10 @@ import store, { MUT_STORE_CALL } from '../config/store'
 export default {
   components: {
     problemPresenter,
-    lineChart,
+    chart,
     timeSummary
   },
-  data() {
+  data () {
     return {
       loading: false
     }
