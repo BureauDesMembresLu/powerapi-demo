@@ -19,9 +19,9 @@ export default {
     return {id: `line-chart${++chartCounter}`}
   },
   computed: mapState({
-    worst: (state) => state.calls.power.worst.values,
-    best: (state) => state.calls.power.best.values,
-    last: (state) => state.calls.power.last.values
+    worst: (state) => state.calls.worst.power,
+    best: (state) => state.calls.best.power,
+    last: (state) => state.calls.last.power
   }),
   mounted () {
     // Create the empty chart

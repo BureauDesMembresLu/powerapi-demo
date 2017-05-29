@@ -3,7 +3,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import {assignIn, clone, sum} from 'lodash'
+import { assignIn, clone, sum } from 'lodash'
 
 export const ITERATING_SOLUTIONS = Object.freeze([
   `METHOD_IN_CONDITION`,
@@ -29,10 +29,10 @@ Vue.use(Vuex)
 
 const storeBestWorstAndLast = (collection, toStore) => {
   assignIn(collection.last, toStore)
-  if (!collection.best.value || toStore.value < collection.best.value) {
+  if (!collection.best.totalPower || toStore.totalPower < collection.best.totalPower) {
     assignIn(collection.best, toStore)
   }
-  if (!collection.worst.value || toStore.value > collection.worst.value) {
+  if (!collection.worst.totalPower || toStore.totalPower > collection.worst.totalPower) {
     assignIn(collection.worst, toStore)
   }
 }
@@ -45,16 +45,9 @@ export default new Vuex.Store({
       [KEY_APPENDING_SOLUTION]: APPENDING_SOLUTIONS[0]
     },
     calls: {
-      time: {
-        worst: {solutions: {}, time: null},
-        best: {solutions: {}, time: null},
-        last: {solutions: {}, time: null}
-      },
-      power: {
-        worst: {solutions: {}, values: []},
-        best: {solutions: {}, values: []},
-        last: {solutions: {}, values: []}
-      }
+      worst: {solutions: {}, time: null, power: [], totalPower: undefined},
+      best: {solutions: {}, time: null, power: [], totalPower: undefined},
+      last: {solutions: {}, time: null, power: [], totalPower: undefined}
     }
   },
   mutations: {
@@ -64,22 +57,12 @@ export default new Vuex.Store({
     [MUT_STORE_CALL] (state, call) {
       const solutions = clone(state.solutions)
 
-            // Update last data
-      state.calls.lastData = call.proxied
-
-            // Update time calls
-      const pTime = call.processingTime
-      storeBestWorstAndLast(state.calls.time, {
+      // Update calls
+      storeBestWorstAndLast(state.calls, {
         solutions,
-        time: pTime,
-        value: pTime
-      })
-
-            // Update power consumption
-      storeBestWorstAndLast(state.calls.power, {
-        solutions,
-        values: call.power,
-        value: sum(call.power)
+        time: call.processingTime,
+        power: call.power,
+        totalPower: sum(call.power)
       })
     }
   }
