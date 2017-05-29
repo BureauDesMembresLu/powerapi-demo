@@ -31,6 +31,9 @@
         <frontend.plugin.version>1.4</frontend.plugin.version>
         <node.version>v6.10.3</node.version>
         <yarn.version>v0.24.5</yarn.version>
+
+        <!-- SonarQube - Include web into analysis -->
+        <sonar.sources>${project.build.sourceDirectory},src/main/webapp</sonar.sources>
     </properties>
 
     <repositories>
