@@ -2,6 +2,7 @@
 
 import axios from 'axios'
 
+import bubble from '../components/bubble.vue'
 import problemPresenter from '../components/problem-presenter.vue'
 import chart from '../components/chart.vue'
 import timeSummary from '../components/time-summary.vue'
@@ -10,13 +11,15 @@ import store, { MUT_STORE_CALL } from '../config/store'
 
 export default {
   components: {
+    bubble,
     problemPresenter,
     chart,
     timeSummary
   },
   data () {
     return {
-      loading: false
+      loading: false,
+      error: false
     }
   },
   store,
@@ -46,7 +49,7 @@ export default {
           store.commit(MUT_STORE_CALL, response.data)
         })
         .catch(() => {
-          alert(`An error occurred`)
+          this.error = true;
         })
     }
   }

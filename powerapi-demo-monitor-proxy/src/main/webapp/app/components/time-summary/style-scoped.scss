@@ -8,7 +8,7 @@
     font-weight: bold;
   }
 
-  @each $type, $color in $colors {
+  @each $type, $color in $calls-colors {
     .#{$type} {
       color: $color;
     }

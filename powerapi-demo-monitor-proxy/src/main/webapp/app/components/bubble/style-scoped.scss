@@ -1,0 +1,16 @@
+@import '../../style/variables';
+@import '../../style/functions';
+
+.bubble {
+  text-align: center;
+  margin: $bubble-margin;
+  padding: $bubble-padding;
+  font-size: $bubble-font-size;
+
+  @each $type, $color in $bubble-variants {
+    &.#{$type} {
+      background-color: $color;
+      color: tint($color, 90%);
+    }
+  }
+}

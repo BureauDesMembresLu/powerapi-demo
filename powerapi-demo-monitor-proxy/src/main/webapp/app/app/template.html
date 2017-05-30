@@ -1,10 +1,13 @@
-<div class="app-root flex-container" :class="{loading: loading}">
-    <div class="col flex">
-        <problem-presenter></problem-presenter>
-        <button @click="makeTheCall" :disabled="loading">Call the service</button>
-    </div>
-    <div class="col flex">
-        <time-summary></time-summary>
-        <chart chart-title="Energy consumption" y-axis="Power (W)" chart-data="power"></chart>
+<div class="app-root" :class="{loading: loading}">
+    <bubble class="error slide" :class="{up: !error}">An error occurred</bubble>
+    <div class="flex-container">
+        <div class="col flex">
+            <problem-presenter></problem-presenter>
+            <button @click="makeTheCall" :disabled="loading">Call the service</button>
+        </div>
+        <div class="col flex">
+            <time-summary></time-summary>
+            <chart chart-title="Energy consumption" y-axis="Power (W)" chart-data="power"></chart>
+        </div>
     </div>
 </div>
