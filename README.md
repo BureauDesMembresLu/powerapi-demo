@@ -1,11 +1,12 @@
+
 # PowerAPI demo
 
 [travis-badge]: https://img.shields.io/travis/BureauDesMembresLu/powerapi-demo.svg
 [travis]: https://travis-ci.org/BureauDesMembresLu/powerapi-demo
 [sonarc-badge]: https://img.shields.io/sonar/https/sonarqube.com/org.keyboardplaying:powerapi-demo/coverage.svg
-[sonarc]: https://sonarqube.com/overview/coverage?id=org.keyboardplaying:powerapi-demo
+[sonarc]: https://sonarqube.com/component_measures/domain/Coverage?id=org.keyboardplaying:powerapi-demo
 [sonarq-badge]: https://img.shields.io/sonar/https/sonarqube.com/org.keyboardplaying:powerapi-demo/tech_debt.svg
-[sonarq]: https://sonarqube.com/overview/debt?id=org.keyboardplaying:powerapi-demo
+[sonarq]: https://sonarqube.com/project/issues?id=org.keyboardplaying:powerapi-demo&resolved=false
 [issues-badge]: https://img.shields.io/github/issues-raw/BureauDesMembresLu/powerapi-demo.svg
 [issues]: https://github.com/BureauDesMembresLu/powerapi-demo/issues
 [waffle]: https://waffle.io/BureauDesMembresLu/powerapi-demo
