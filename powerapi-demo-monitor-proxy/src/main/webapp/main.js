@@ -8,7 +8,7 @@ window.onload = function () {
   // eslint-disable-next-line no-new
   new Vue({
     el: '#app',
-    template: '<app/>',
+    template: '<app></app>',
     components: {App}
   })
 }

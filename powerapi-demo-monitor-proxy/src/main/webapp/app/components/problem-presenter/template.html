@@ -4,35 +4,6 @@
     <solution-chooser problem="appending"
                       :solutions="appendingSolutions"></solution-chooser>
 
-    <!--<pre class="java hljs"><code><span class="hljs-comment">/**
- * Fetches all Cyrils in database.
- * <span class="hljs-doctag">@return</span> a JSON representation of a collection of names
- */</span>
-<span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">fetchCyrils</span><span class="hljs-params">()</span> </span>{
-    List&lt;Person&gt; people = repository.findAll();
-    <span class="hljs-keyword">boolean</span> first = <span class="hljs-keyword">true</span>;
-<span>    String result = <span class="hljs-string">"["</span>;
-</span>
-<span>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; people.size(); i++) {
-        Person person = people.get(i);
-</span>
-        <span class="hljs-keyword">if</span> (<span class="hljs-string">"Cyril"</span>.equals(person.getFirstName()) {
-            <span class="hljs-keyword">if</span> (first) {
-                first = <span class="hljs-keyword">false</span>;
-            } <span class="hljs-keyword">else</span> {
-<span>                result += <span class="hljs-string">",]"</span>;
-</span>            }
-<span>            result += <span class="hljs-string">"\""</span>;
-            result += person.getFirstName();
-            result += <span class="hljs-string">" "</span>;
-            result += person.getLastName();
-            result += <span class="hljs-string">"\""</span>;
-</span>        }
-    }
-
-<span>    result += <span class="hljs-string">"]"</span>;
-    <span class="hljs-keyword">return</span> result;
-</span>}</code></pre>-->
     <pre class="java" v-highlightjs><code>/**
  * Fetches all Cyrils in database.
  * @return a JSON representation of a collection of names

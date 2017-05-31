@@ -40,7 +40,7 @@ import java.lang.management.RuntimeMXBean;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-// FIXME find some way to serve the static content without having to add '/proxy' to the URL
+// TODO find some way to serve the static content without having to add '/proxy' to the URL
 @RestController
 public class ProxyController {
 
