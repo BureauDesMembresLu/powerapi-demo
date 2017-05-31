@@ -48,9 +48,6 @@
         <maven.compiler.version>3.6.1</maven.compiler.version>
         <maven.assembly.version>3.0.0</maven.assembly.version>
         <maven.enforcer.version>1.4.1</maven.enforcer.version>
-
-        <!-- Version management - Override Spring's default to fix vulnerability -->
-        <logback.version>1.2.22</logback.version>
     </properties>
 
     <dependencyManagement>

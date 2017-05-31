@@ -1,13 +1,13 @@
 'use strict'
 
 import axios from 'axios'
-
+// Vue components
 import bubble from '../components/bubble.vue'
 import problemPresenter from '../components/problem-presenter.vue'
 import chart from '../components/chart.vue'
 import timeSummary from '../components/time-summary.vue'
 
-import store, { MUT_STORE_CALL } from '../config/store'
+import store, { MUT_STORE_CALL } from '../vue/store'
 
 export default {
   components: {
@@ -49,7 +49,7 @@ export default {
           store.commit(MUT_STORE_CALL, response.data)
         })
         .catch(() => {
-          this.error = true;
+          this.error = true
         })
     }
   }

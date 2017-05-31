@@ -1,4 +1,4 @@
-import { MUT_CHANGE_SOLUTION } from '../../config/store'
+import { MUT_CHANGE_SOLUTION } from '../../vue/store'
 
 export default {
   props: {

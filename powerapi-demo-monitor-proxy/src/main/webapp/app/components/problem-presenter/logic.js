@@ -1,13 +1,32 @@
-import solutionChooser from '../solution-chooser.vue'
+'use strict'
 
-import { APPENDING_SOLUTIONS, ITERATING_SOLUTIONS } from '../../config/store'
+// Vue components
+import solutionChooser from '../solution-chooser.vue'
+// Vue directives
+import highlightjs from '../../vue/highlightjs'
+
+import {
+  APPENDING_SOLUTIONS,
+  ITERATING_SOLUTIONS,
+  KEY_APPENDING_SOLUTION,
+  KEY_ITERATING_SOLUTION
+} from '../../vue/store'
 
 export default {
-  components: {'solution-chooser': solutionChooser},
+  components: {solutionChooser},
+  directives: {highlightjs},
   data () {
     return {
-      appendingSolutions: APPENDING_SOLUTIONS,
-      iteratingSolutions: ITERATING_SOLUTIONS
+      iteratingSolutions: ITERATING_SOLUTIONS,
+      appendingSolutions: APPENDING_SOLUTIONS
+    }
+  },
+  computed: {
+    iteratingSolution () {
+      return this.$store.state.solutions[KEY_ITERATING_SOLUTION]
+    },
+    appendingSolution () {
+      return this.$store.state.solutions[KEY_APPENDING_SOLUTION]
     }
   }
 }
