@@ -5,22 +5,23 @@ import Vuex from 'vuex'
 
 import { assignIn, clone, sum } from 'lodash'
 
-export const ITERATING_SOLUTIONS = Object.freeze([
-  `METHOD_IN_CONDITION`,
-  `METHOD_BEFORE_CONDITION_IPP`,
-  `METHOD_BEFORE_CONDITION_PPI`,
-  `ITERATOR`,
-  `FOREACH`
-])
+export const PB_ITERATING = `iterating`
+export const PB_APPENDING = `appending`
 
-export const APPENDING_SOLUTIONS = Object.freeze([
-  `PLAIN_STRING_APPENDING`,
-  `STRING_BUFFER`,
-  `STRING_BUILDER`
-])
-
-export const KEY_ITERATING_SOLUTION = `iterating`
-export const KEY_APPENDING_SOLUTION = `appending`
+export const SOLUTIONS = Object.freeze({
+  [PB_ITERATING]: [
+    `METHOD_IN_CONDITION`,
+    `METHOD_BEFORE_CONDITION_IPP`,
+    `METHOD_BEFORE_CONDITION_PPI`,
+    `ITERATOR`,
+    `FOREACH`
+  ],
+  [PB_APPENDING]: [
+    `PLAIN_STRING_APPENDING`,
+    `STRING_BUFFER`,
+    `STRING_BUILDER`
+  ]
+})
 
 export const MUT_STORE_CALL = `storeCall`
 export const MUT_CHANGE_SOLUTION = `changeSolution`
@@ -41,8 +42,8 @@ export default new Vuex.Store({
   debug: true,
   state: {
     solutions: {
-      [KEY_ITERATING_SOLUTION]: ITERATING_SOLUTIONS[0],
-      [KEY_APPENDING_SOLUTION]: APPENDING_SOLUTIONS[0]
+      [PB_ITERATING]: SOLUTIONS[PB_ITERATING][0],
+      [PB_APPENDING]: SOLUTIONS[PB_APPENDING][0]
     },
     calls: {
       worst: {solutions: {}, time: null, power: [], totalPower: undefined},

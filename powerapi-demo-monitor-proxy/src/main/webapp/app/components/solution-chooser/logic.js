@@ -1,14 +1,25 @@
-import { MUT_CHANGE_SOLUTION } from '../../vue/store'
+'use strict'
+// Vuex
+import { mapState } from 'vuex'
+
+import { MUT_CHANGE_SOLUTION, SOLUTIONS } from '../../vue/store'
 
 export default {
-  props: {
-    problem: {type: String, required: true},
-    solutions: {type: Array, required: true}
-  },
-  computed: {
-    selected () {
-      return this.$store.state.solutions[this.problem]
+  data() {
+    return {
+      solutions: []
     }
+  },
+  props: {
+    problem: {type: String, required: true}
+  },
+  computed: mapState({
+    selected (state) {
+      return state.solutions[this.problem]
+    }
+  }),
+  beforeMount() {
+    this.solutions = SOLUTIONS[this.problem]
   },
   methods: {
     selectSolution (event) {

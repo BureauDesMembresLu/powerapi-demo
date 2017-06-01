@@ -1,5 +1,7 @@
+'use strict'
+// Vuex
 import { mapState } from 'vuex'
-
+// External libs
 import Highcharts from 'highcharts'
 
 import config from '../../config/config'

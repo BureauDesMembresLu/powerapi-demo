@@ -1,5 +1,7 @@
+'use strict'
+// Vuex
 import { mapState } from 'vuex'
-
+// Vue filters
 import { time } from '../../config/filters'
 
 export default {

@@ -1,32 +1,24 @@
 'use strict'
-
+// Vuex
+import  { mapState } from 'vuex'
 // Vue components
 import solutionChooser from '../solution-chooser.vue'
 // Vue directives
 import highlightjs from '../../vue/highlightjs'
 
-import {
-  APPENDING_SOLUTIONS,
-  ITERATING_SOLUTIONS,
-  KEY_APPENDING_SOLUTION,
-  KEY_ITERATING_SOLUTION
-} from '../../vue/store'
+import { PB_APPENDING, PB_ITERATING, SOLUTIONS } from '../../vue/store'
 
 export default {
   components: {solutionChooser},
   directives: {highlightjs},
   data () {
     return {
-      iteratingSolutions: ITERATING_SOLUTIONS,
-      appendingSolutions: APPENDING_SOLUTIONS
+      iteratingSolutions: SOLUTIONS[PB_ITERATING],
+      appendingSolutions: SOLUTIONS[PB_APPENDING]
     }
   },
-  computed: {
-    iteratingSolution () {
-      return this.$store.state.solutions[KEY_ITERATING_SOLUTION]
-    },
-    appendingSolution () {
-      return this.$store.state.solutions[KEY_APPENDING_SOLUTION]
-    }
-  }
+  computed: mapState({
+    iteratingSolution: (state) => state.solutions[PB_ITERATING],
+    appendingSolution: (state) => state.solutions[PB_APPENDING]
+  })
 }
