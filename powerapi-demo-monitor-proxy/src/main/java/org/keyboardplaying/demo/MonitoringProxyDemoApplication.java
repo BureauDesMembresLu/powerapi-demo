@@ -16,6 +16,9 @@
  */
 package org.keyboardplaying.demo;
 
+import org.keyboardplaying.demo.jmx.MXBeanProvider;
+import org.keyboardplaying.demo.monitor.MonitorFactoryBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -32,5 +35,10 @@ public class MonitoringProxyDemoApplication {
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();
+    }
+
+    @Bean(destroyMethod = "tearDown")
+    public MonitorFactoryBean monitor(OsInformation os, @Value("${monitoring.interval.length}") int intervalLength, @Value("${monitoring.interval.unit}") String intervalUnit) {
+        return new MonitorFactoryBean(os, intervalLength, intervalUnit);
     }
 }

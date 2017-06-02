@@ -25,15 +25,15 @@ import scala.concurrent.duration._
 /**
   * @author Cyrille Chopelet
   */
-class Monitor(pid: Long, os: OsInformation, interval: FiniteDuration) {
+class Monitor(os: OsInformation, interval: FiniteDuration) {
 
   private val module = if (os.isWindows) SigarCpuSimpleModule() else ProcFSCpuSimpleModule()
   private val cpu = PowerMeter.loadModule(module)
 
   private var monitoring: PowerMonitoring = _
 
-  def startMonitoring(out: PowerDisplay): Unit = {
-    monitoring = cpu.monitor(pid.toInt).every(interval) to out
+  def startMonitoring(pid: Int, out: PowerDisplay): Unit = {
+    monitoring = cpu.monitor(pid).every(interval) to out
   }
 
   def stopMonitoring(): Unit = {

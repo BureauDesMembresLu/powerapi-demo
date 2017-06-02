@@ -29,6 +29,6 @@ public class RuntimeInformationUtilsTest {
 
     @Test
     public void testGetPidFromJVMName() {
-        assertEquals(1337L, RuntimeInformationUtils.getPidFromJVMName("1337@MY-SUPER-COMPUTER"));
+        assertEquals(1337, RuntimeInformationUtils.getPidFromJVMName("1337@MY-SUPER-COMPUTER"));
     }
 }

@@ -25,7 +25,7 @@ public final class RuntimeInformationUtils {
     private RuntimeInformationUtils() {
     }
 
-    public static long getPidFromJVMName(String name) {
-        return Long.valueOf(name.split("@")[0]);
+    public static int getPidFromJVMName(String name) {
+        return Integer.valueOf(name.split("@")[0]);
     }
 }

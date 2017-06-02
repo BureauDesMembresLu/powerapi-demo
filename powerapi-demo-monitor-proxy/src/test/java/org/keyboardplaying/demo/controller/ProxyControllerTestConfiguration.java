@@ -19,11 +19,17 @@ package org.keyboardplaying.demo.controller;
 import org.keyboardplaying.demo.OsInformation;
 import org.keyboardplaying.demo.jmx.CurrentVirtualMachineMXBeanProvider;
 import org.keyboardplaying.demo.jmx.MXBeanProvider;
+import org.keyboardplaying.demo.monitor.Monitor;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
+
+import javax.management.MalformedObjectNameException;
+import java.lang.management.ManagementFactory;
+import java.lang.management.RuntimeMXBean;
 
 /**
  * A test configuration to use local MXBeans instead of RMI connection.
@@ -34,15 +40,8 @@ import org.springframework.web.client.RestTemplate;
 @EnableAutoConfiguration
 public class ProxyControllerTestConfiguration {
 
-    @Bean
-    public OsInformation osInformation() {
-        return new OsInformation();
-    }
-
-    @Bean
-    public MXBeanProvider mxBeanProvider() {
-        return new CurrentVirtualMachineMXBeanProvider();
-    }
+    @MockBean
+    public Monitor monitor;
 
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
@@ -55,7 +54,12 @@ public class ProxyControllerTestConfiguration {
     }
 
     @Bean
-    public ProxyController proxy(MXBeanProvider jmxProvider, OsInformation os, RestTemplate restTemplate) {
-        return new ProxyController(jmxProvider, os, restTemplate);
+    public MXBeanProvider runtimeMXBean() {
+        return new CurrentVirtualMachineMXBeanProvider();
+    };
+
+    @Bean
+    public ProxyController proxy(RestTemplate restTemplate, MXBeanProvider mxBeanProvider) throws MalformedObjectNameException {
+        return new ProxyController(restTemplate, monitor, mxBeanProvider);
     }
 }

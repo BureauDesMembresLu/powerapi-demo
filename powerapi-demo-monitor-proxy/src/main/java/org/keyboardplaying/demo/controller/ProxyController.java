@@ -16,7 +16,6 @@
  */
 package org.keyboardplaying.demo.controller;
 
-import org.keyboardplaying.demo.OsInformation;
 import org.keyboardplaying.demo.jmx.MXBeanProvider;
 import org.keyboardplaying.demo.monitor.ListStoringDisplay;
 import org.keyboardplaying.demo.monitor.Monitor;
@@ -30,10 +29,7 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import scala.concurrent.duration.FiniteDuration;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.management.MalformedObjectNameException;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.management.RuntimeMXBean;
@@ -44,38 +40,18 @@ import java.net.URISyntaxException;
 @RestController
 public class ProxyController {
 
-    private final MXBeanProvider jmxProvider;
-    private final OsInformation os;
     private final RestTemplate restTemplate;
+    private final Monitor monitor;
+    private final RuntimeMXBean runtimeMXBean;
 
     @Value("${monitored.url.base}")
     private String redirectBase;
 
-    private FiniteDuration monitoringInterval;
-
-    private Monitor monitor;
-
     @Autowired
-    public ProxyController(MXBeanProvider jmxProvider, OsInformation os, RestTemplate restTemplate) {
-        this.jmxProvider = jmxProvider;
-        this.os = os;
+    public ProxyController(RestTemplate restTemplate, Monitor monitor, MXBeanProvider jmxProvider) throws MalformedObjectNameException {
         this.restTemplate = restTemplate;
-    }
-
-    @Autowired
-    public void setMonitoringInterval(@Value("${monitoring.interval.length}") int length, @Value("${monitoring.interval.unit}") String unit) {
-        this.monitoringInterval = FiniteDuration.apply(length, unit);
-    }
-
-    @PostConstruct
-    protected void setMonitorUp() throws MalformedObjectNameException {
-        RuntimeMXBean runtimeMXBean = jmxProvider.getMXBeanProxy(JMXUtils.JMX_NAME_RUNTIME, RuntimeMXBean.class);
-        monitor = new Monitor(RuntimeInformationUtils.getPidFromJVMName(runtimeMXBean.getName()), os, monitoringInterval);
-    }
-
-    @PreDestroy
-    protected void destroyMonitor() {
-        monitor.shutdown();
+        this.monitor = monitor;
+        this.runtimeMXBean = jmxProvider.getMXBeanProxy(JMXUtils.JMX_NAME_RUNTIME, RuntimeMXBean.class);
     }
 
     @RequestMapping(value = "proxy/**", method = {RequestMethod.POST, RequestMethod.PUT})
@@ -94,7 +70,7 @@ public class ProxyController {
         // Start monitoring
         long startTime = System.currentTimeMillis();
         ListStoringDisplay powerDisplay = new ListStoringDisplay();
-        monitor.startMonitoring(powerDisplay);
+        monitor.startMonitoring(RuntimeInformationUtils.getPidFromJVMName(runtimeMXBean.getName()), powerDisplay);
 
         // call remote service
         final ResponseEntity<Object> proxied = restTemplate.exchange(requestEntity, Object.class);
