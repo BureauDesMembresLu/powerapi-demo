@@ -1,7 +1,1 @@
-<div class="time-summary">
-    <span class="worst">Worst: {{ worst | time }}</span>
-    &mdash;
-    <span class="best">Best: {{ best | time }}</span>
-    &mdash;
-    <span class="last bold">Last: {{ last | time }}</span>
-</div>
+<div class="chart" v-highcharts:bar="chartConfig"></div>

@@ -12,6 +12,12 @@
     opacity: $app-loading-opacity;
   }
 
+  // Charts
+  .chart {
+    height: $chart-height;
+    width: $chart-width;
+  }
+
   // Sliding animation
   .slide {
     transition: $animation-sliding-transition;

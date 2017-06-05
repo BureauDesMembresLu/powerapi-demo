@@ -23,11 +23,7 @@ export default {
 
       xAxis: config.xAxis,
       yAxis: config.yAxis,
-      legend: {
-        layout: `vertical`,
-        align: `right`,
-        verticalAlign: `middle`
-      },
+      legend: false,
 
       plotOptions: config.plotOptions,
 

@@ -3,6 +3,7 @@
 export default Object.freeze({
   monitoring: {
     interval: 0.1,
-    unit: 's'
+    unit: 's',
+    ratio: 1000
   }
 })

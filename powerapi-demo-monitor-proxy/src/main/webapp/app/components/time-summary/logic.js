@@ -1,14 +1,34 @@
 'use strict'
 // Vuex
 import { mapState } from 'vuex'
-// Vue filters
-import { time } from '../../config/filters'
+// Vue directives
+import highcharts from '../../vue/directives/highcharts'
+
+import appConfig from '../../config/config'
 
 export default {
-  filters: {time},
+  directives: {
+    highcharts
+  },
   computed: mapState({
-    worst: (state) => state.calls.worst.time,
-    best: (state) => state.calls.best.time,
-    last: (state) => state.calls.last.time
+    chartConfig (state) {
+      return {
+        title: `Execution time`,
+
+        xAxis: {visible: false},
+        yAxis: {min: 0, title: {text: `Time (${appConfig.monitoring.unit})`}},
+        plotOptions: {
+          bar: {
+            dataLabels: {
+              enabled: true
+            }
+          }
+        },
+
+        worst: [state.calls.worst[`time`] / appConfig.monitoring.ratio],
+        best: [state.calls.best[`time`] / appConfig.monitoring.ratio],
+        last: [state.calls.last[`time`] / appConfig.monitoring.ratio]
+      }
+    }
   })
 }
