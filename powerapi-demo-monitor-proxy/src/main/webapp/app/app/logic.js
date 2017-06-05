@@ -7,7 +7,7 @@ import problemPresenter from '../components/problem-presenter.vue'
 import chart from '../components/chart.vue'
 import timeSummary from '../components/time-summary.vue'
 
-import store, { MUT_STORE_CALL } from '../vue/store'
+import store, { MUT_STORE_CALL } from '../vue/vuex/store'
 
 export default {
   components: {

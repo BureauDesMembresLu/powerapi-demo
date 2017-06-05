@@ -1,3 +1,5 @@
+'use strict'
+
 import hljs from 'highlight.js/lib/highlight'
 import java from 'highlight.js/lib/languages/java'
 
