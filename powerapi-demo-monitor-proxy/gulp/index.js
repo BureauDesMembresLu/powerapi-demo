@@ -4,7 +4,7 @@ const gulp = require('gulp')
 
 const wpDevConfig = require('./webpack.prod.conf')
 const wpPrdConfig = require('./webpack.prod.conf')
-const scripts = require('./webpack.base.scripts')
+const scripts = require('./webpack.scripts')
 
 const clean = require('./clean').clean
 const server = require('./server').server

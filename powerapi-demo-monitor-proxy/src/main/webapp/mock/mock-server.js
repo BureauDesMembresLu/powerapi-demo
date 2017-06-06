@@ -18,6 +18,7 @@ const POWER = Object.freeze({
 
 const randomFloat = (min, max) => Math.random() * (max - min) + min
 const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
+
 const server = sinon.fakeServer.create()
 server.autoRespond = true
 

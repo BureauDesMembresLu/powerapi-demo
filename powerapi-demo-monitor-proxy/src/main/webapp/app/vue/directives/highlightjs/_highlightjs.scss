@@ -1,0 +1,70 @@
+.hljs {
+  &pre {
+    display: block;
+    overflow-x: auto;
+  }
+  &code {
+    display: inline;
+  }
+}
+
+.hljs-comment,
+.hljs-meta {
+  color: map-get($cgi-colors, cloud);
+}
+
+.hljs-string,
+.hljs-number,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-strong,
+.hljs-emphasis,
+.hljs-quote {
+  color: map-get($cgi-colors, cherry);
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-type {
+  color: map-get($cgi-colors, beet);
+  font-weight: bold;
+}
+
+.hljs-literal,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-attribute {
+  color: map-get($cgi-colors, cloud);
+}
+
+.hljs-section,
+.hljs-name {
+  color: map-get($cgi-colors, pumpkin);
+}
+
+.hljs-tag {
+  color: map-get($cgi-colors, ice);
+}
+
+.hljs-title,
+.hljs-attr,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: map-get($cgi-colors, pumpkin);
+}
+
+.hljs-addition {
+  color: #55a532;
+  background-color: #eaffea;
+}
+
+.hljs-deletion {
+  color: #bd2c00;
+  background-color: #ffecec;
+}
+
+.hljs-link {
+  text-decoration: underline;
+}

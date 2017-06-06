@@ -1,4 +1,7 @@
+'use strict'
+// Vue
 import Vue from 'vue'
+// Application
 import App from './app/app.vue'
 
 Vue.config.productionTip = false

@@ -34,6 +34,7 @@
 
         <!-- SonarQube - Include web into analysis -->
         <sonar.sources>${project.build.sourceDirectory},src/main/webapp</sonar.sources>
+        <sonar.exclusions>src/main/webapp/mock</sonar.exclusions>
     </properties>
 
     <repositories>

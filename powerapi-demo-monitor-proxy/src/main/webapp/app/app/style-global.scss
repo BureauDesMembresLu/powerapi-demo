@@ -1,7 +1,19 @@
 @import '../../../../../node_modules/normalize.css/normalize.css';
+// Styles used by directives cannot be scoped. Not ideal but not a problem in our demo
+@import '../style/variables';
+@import '../style/icons';
+@import '../vue/directives/highlightjs/highlightjs';
 
 body {
   font-family: Helvetica, Verdana, sans-serif;
+
+  // CGI Branding
+  background: url('../../assets/img/dna-wide.png') no-repeat left bottom fixed;
+  background-size: 100% auto;
+
+  // Better font rendering
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .flex-container {

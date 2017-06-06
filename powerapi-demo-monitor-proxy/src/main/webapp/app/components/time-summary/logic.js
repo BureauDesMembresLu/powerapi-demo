@@ -1,22 +1,18 @@
 'use strict'
 // Vuex
 import { mapState } from 'vuex'
-// Vue directives
-import highcharts from '../../vue/directives/highcharts'
 
 import appConfig from '../../config/config'
 
 export default {
-  directives: {
-    highcharts
-  },
   computed: mapState({
     chartConfig (state) {
       return {
         title: `Execution time`,
+        icon: `time`,
 
-        xAxis: {visible: false},
-        yAxis: {min: 0, title: {text: `Time (${appConfig.monitoring.unit})`}},
+        xAxis: {title: {text: `Execution`}},
+        yAxis: {title: {text: `Time (${appConfig.monitoring.unit})`}, min: 0, softMax: 10},
         plotOptions: {
           bar: {
             dataLabels: {

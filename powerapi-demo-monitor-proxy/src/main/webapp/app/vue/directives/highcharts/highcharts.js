@@ -19,7 +19,10 @@ export default {
     charts[chartCounter] = Highcharts.chart(el, {
       chart: {type: binding.arg || `line`},
 
-      title: {text: config.title},
+      title: {
+        text: config.icon ? `<i class="pa-${config.icon}"></i> ${config.title}` : config.title,
+        useHTML: Boolean(config.icon)
+      },
 
       xAxis: config.xAxis,
       yAxis: config.yAxis,

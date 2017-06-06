@@ -1,7 +1,6 @@
 'use strict'
 // Vuex
 import { mapState } from 'vuex'
-
 import { MUT_CHANGE_SOLUTION, SOLUTIONS } from '../../vue/vuex/store'
 
 export default {

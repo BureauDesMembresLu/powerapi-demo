@@ -1,16 +1,12 @@
 'use strict'
-// Vuex
-import  { mapState } from 'vuex'
 // Vue components
 import solutionChooser from '../solution-chooser.vue'
-// Vue directives
-import highlightjs from '../../vue/directives/highlightjs'
-
+// Vuex
+import  { mapState } from 'vuex'
 import { PB_APPENDING, PB_ITERATING, SOLUTIONS } from '../../vue/vuex/store'
 
 export default {
   components: {solutionChooser},
-  directives: {highlightjs},
   data () {
     return {
       iteratingSolutions: SOLUTIONS[PB_ITERATING],

@@ -12,32 +12,5 @@
     opacity: $app-loading-opacity;
   }
 
-  // Charts
-  .chart {
-    height: $chart-height;
-    width: $chart-width;
-  }
-
-  // Sliding animation
-  .slide {
-    transition: $animation-sliding-transition;
-
-    &.up {
-      overflow: hidden;
-      max-height: 0;
-      margin: {
-        top: 0;
-        bottom: 0;
-      }
-      padding: {
-        top: 0;
-        bottom: 0;
-      }
-      border: {
-        top-width: 0;
-        bottom-width: 0;
-      }
-    }
-  }
-
+  @import 'style/animations';
 }

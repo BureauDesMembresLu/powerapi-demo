@@ -1,13 +1,22 @@
 'use strict'
-
-import axios from 'axios'
+// Vue
+import Vue from 'vue'
+// Vue directives
+import highlightjs from '../vue/directives/highlightjs/highlightjs'
+import highcharts from '../vue/directives/highcharts/highcharts'
 // Vue components
 import bubble from '../components/bubble.vue'
 import problemPresenter from '../components/problem-presenter.vue'
 import chart from '../components/chart.vue'
 import timeSummary from '../components/time-summary.vue'
-
+// Vuex
 import store, { MUT_STORE_CALL } from '../vue/vuex/store'
+// External libs
+import axios from 'axios'
+
+// Configure Vue
+Vue.directive('highlightjs', highlightjs)
+Vue.directive('highcharts', highcharts)
 
 export default {
   components: {
