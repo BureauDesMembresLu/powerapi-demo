@@ -1,0 +1,19 @@
+// CGI's official branding
+$white: #ffffff;
+
+$cgi-red: #e31937;
+$cgi-colors: (
+        cherry: $cgi-red,
+        beet: #991f3d,
+        pumpkin: #ff6a00,
+        honey: #f2a200,
+        cloud: #a5acb0,
+        ice: #a1c4d0
+);
+
+// Charting colors
+$calls-colors: (
+        worst: map_get($cgi-colors, beet),
+        best: #006600,
+        last: map_get($cgi-colors, pumpkin)
+);

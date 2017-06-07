@@ -1,0 +1,7 @@
+$solution-color-header: map-get($cgi-colors, cloud);
+$solution-color-selected: map-get($cgi-colors, honey);
+$solution-color-normal: transparentize($solution-color-selected, 1 - $block-background-opacity);
+$solution-border-radius: $block-border-radius;
+$solution-block-margin: 5px 10px;
+$solution-margin: 5px;
+$solution-padding: 10px;

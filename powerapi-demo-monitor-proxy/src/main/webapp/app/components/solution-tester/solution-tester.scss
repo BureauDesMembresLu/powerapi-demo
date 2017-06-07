@@ -1,0 +1,15 @@
+@import '../../style/variables';
+
+div {
+  &.solutions, &.toolbar {
+    margin: $block-margin;
+  }
+}
+
+pre {
+  background: $block-background;
+  border: $block-border;
+  border-radius: $block-border-radius;
+  padding: $block-padding;
+  margin: $block-margin;
+}

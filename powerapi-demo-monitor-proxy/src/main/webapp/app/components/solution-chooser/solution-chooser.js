@@ -4,7 +4,7 @@ import { mapState } from 'vuex'
 import { MUT_CHANGE_SOLUTION, SOLUTIONS } from '../../vue/vuex/store'
 
 export default {
-  data() {
+  data () {
     return {
       solutions: []
     }
@@ -17,7 +17,7 @@ export default {
       return state.solutions[this.problem]
     }
   }),
-  beforeMount() {
+  beforeMount () {
     this.solutions = SOLUTIONS[this.problem]
   },
   methods: {

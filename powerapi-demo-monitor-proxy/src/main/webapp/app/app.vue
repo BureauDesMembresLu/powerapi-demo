@@ -1,4 +1,3 @@
-<template src="./app/template.html"></template>
-<script src="./app/logic.js"></script>
-<style src="./app/style-global.scss" lang="scss"></style>
-<style src="./app/style-scoped.scss" lang="scss" scoped></style>
+<template src="./app/app.html"></template>
+<script src="./app/app.js"></script>
+<style src="./app/app.scss" lang="scss"></style>

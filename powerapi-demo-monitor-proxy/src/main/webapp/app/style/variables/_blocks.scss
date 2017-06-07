@@ -1,0 +1,11 @@
+$block-background-color: $white;
+$block-background-opacity: .6;
+$block-background: transparentize($block-background-color, 1 - $block-background-opacity);
+$block-border: solid 1px map-get($cgi-colors, cloud);
+$block-border-radius: 5px;
+$block-margin-v: 5px;
+$block-margin-h: 20px;
+$block-margin: $block-margin-v $block-margin-h;
+$block-padding-v: 10px;
+$block-padding-h: 10px;
+$block-padding: $block-padding-v $block-padding-h;

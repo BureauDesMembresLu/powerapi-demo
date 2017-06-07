@@ -1,6 +1,8 @@
 <div>
-    <solution-chooser problem="iterating"></solution-chooser>
-    <solution-chooser problem="appending"></solution-chooser>
+    <div class="solutions flex-container">
+        <solution-chooser problem="iterating"></solution-chooser>
+        <solution-chooser problem="appending"></solution-chooser>
+    </div>
 
     <pre class="java" v-highlightjs><code>/**
   * Fetches all Cyrils in database.
@@ -50,4 +52,7 @@ public String fetchCyrils() {
 </code><code v-show="appendingSolution !== appendingSolutions[0]">    result.append("]");
     return result.toString();
 </code><code>}</code></pre>
+    <div class="toolbar">
+        <button @click="makeTheCall" :disabled="loading">Call the service</button>
+    </div>
 </div>

@@ -1,10 +1,7 @@
 <div class="app-root" :class="{loading: loading}">
-    <bubble class="error slide" :class="{up: !error}">An error occurred</bubble>
+    <bubble class="error slide" :class="{up: !error}"><i class="pa-error"></i> An error occurred</bubble>
     <div class="flex-container">
-        <div class="col flex">
-            <problem-presenter></problem-presenter>
-            <button @click="makeTheCall" :disabled="loading">Call the service</button>
-        </div>
+        <solution-tester class="col flex"></solution-tester>
         <div class="col flex">
             <time-summary></time-summary>
             <chart title="Energy consumption" icon="power" y-axis="Power (W)" chart-data="power"></chart>

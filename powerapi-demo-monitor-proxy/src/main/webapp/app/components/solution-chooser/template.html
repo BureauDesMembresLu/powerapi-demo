@@ -1,7 +1,0 @@
-<ul class="solutions">
-    <li v-for="(solution, index) in solutions">
-        <a :class="{selected: solution === selected}"
-           :data-solution="solution"
-           @click="selectSolution">Solution {{ index + 1 }}</a>
-    </li>
-</ul>

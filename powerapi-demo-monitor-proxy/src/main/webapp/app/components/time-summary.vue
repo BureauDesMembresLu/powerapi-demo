@@ -1,2 +1,2 @@
-<template src="./time-summary/template.html"></template>
-<script src="./time-summary/logic.js"></script>
+<template src="./time-summary/time-summary.html"></template>
+<script src="./time-summary/time-summary.js"></script>

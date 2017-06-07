@@ -36,19 +36,19 @@ export default {
           data: config.worst,
           className: `worst`,
           color: `#AA0000`,
-          marker: {symbol: `circle`}
+          marker: {symbol: `none`}
         }, {
           name: `Best`,
           data: config.best,
           className: `best`,
           color: `#006600`,
-          marker: {symbol: `circle`}
+          marker: {symbol: `none`}
         }, {
           name: `Last`,
           data: config.last,
           className: `last`,
           color: `#FF6600`,
-          marker: {symbol: `circle`}
+          marker: {symbol: `none`}
         }
       ]
     })

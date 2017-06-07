@@ -23,6 +23,8 @@ export const SOLUTIONS = Object.freeze({
   ]
 })
 
+export const MUT_LOADING_STARTED = `setLoadingStarted`
+export const MUT_LOADING_DONE = `setLoadingDone`
 export const MUT_STORE_CALL = `storeCall`
 export const MUT_CHANGE_SOLUTION = `changeSolution`
 
@@ -41,6 +43,8 @@ const storeBestWorstAndLast = (collection, toStore) => {
 export default new Vuex.Store({
   debug: true,
   state: {
+    loading: false,
+    error: false,
     solutions: {
       [PB_ITERATING]: SOLUTIONS[PB_ITERATING][0],
       [PB_APPENDING]: SOLUTIONS[PB_APPENDING][0]
@@ -65,6 +69,14 @@ export default new Vuex.Store({
         power: call.power,
         totalPower: sum(call.power)
       })
+    },
+    [MUT_LOADING_STARTED] (state) {
+      state.loading = true
+      state.error = false
+    },
+    [MUT_LOADING_DONE] (state, successful) {
+      state.loading = false
+      state.error = !successful
     }
   }
 })

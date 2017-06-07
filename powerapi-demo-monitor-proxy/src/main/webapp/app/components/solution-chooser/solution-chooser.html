@@ -1,0 +1,13 @@
+<ul class="solutions flex flex-container" :class="'flex-grow-' + (solutions.length +1)">
+    <!-- Iconic header -->
+    <!-- FIXME capitalize filter -->
+    <li class="header flex" :title="problem"><i :class="'pa-' + problem"></i></li>
+    <!-- Possible solutions -->
+    <li v-for="(solution, index) in solutions"
+        class="flex" :class="{selected: solution === selected}">
+        <a :data-solution="solution"
+           @click="selectSolution">
+            {{ index + 1 }}
+        </a>
+    </li>
+</ul>

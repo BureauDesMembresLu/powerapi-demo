@@ -1,4 +1,9 @@
 .chart {
   height: $chart-height;
   width: $chart-width;
+  margin: $block-margin-v + $block-padding-v $block-margin-h + $block-padding-h;
+}
+
+rect.highcharts-background {
+  fill: $block-background !important;
 }

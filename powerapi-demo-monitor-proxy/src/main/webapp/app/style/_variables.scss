@@ -1,24 +1,7 @@
-@import './variables/app';
-@import './variables/bubbles';
-@import './variables/charts';
-
-@import './variables/animations';
-
-//
-// CGI's official branding
-//
-$cgi-red: #e31937;
-$cgi-colors: (
-        cherry: $cgi-red,
-        beet: #991f3d,
-        pumpkin: #ff6a00,
-        honey: #f2a200,
-        cloud: #a5acb0,
-        ice: #a1c4d0
-);
-
-$calls-colors: (
-        worst: map_get($cgi-colors, beet),
-        best: #006600,
-        last: map_get($cgi-colors, pumpkin)
-);
+@import 'variables/colors';
+@import 'variables/app';
+@import 'variables/bubbles';
+@import 'variables/blocks';
+@import 'variables/solution-chooser';
+@import 'variables/charts';
+@import 'variables/animations';

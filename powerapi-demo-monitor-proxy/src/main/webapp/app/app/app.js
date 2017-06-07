@@ -6,11 +6,12 @@ import highlightjs from '../vue/directives/highlightjs/highlightjs'
 import highcharts from '../vue/directives/highcharts/highcharts'
 // Vue components
 import bubble from '../components/bubble.vue'
-import problemPresenter from '../components/problem-presenter.vue'
+import solutionTester from '../components/solution-tester.vue'
 import chart from '../components/chart.vue'
 import timeSummary from '../components/time-summary.vue'
 // Vuex
-import store, { MUT_STORE_CALL } from '../vue/vuex/store'
+import {mapState} from 'vuex'
+import store, {MUT_LOADING_STARTED, MUT_LOADING_DONE} from '../vue/vuex/store'
 // External libs
 import axios from 'axios'
 
@@ -21,45 +22,30 @@ Vue.directive('highcharts', highcharts)
 export default {
   components: {
     bubble,
-    problemPresenter,
+    solutionTester,
     chart,
     timeSummary
   },
-  data () {
-    return {
-      loading: false,
-      error: false
-    }
-  },
+  computed: mapState({
+    loading: (state) => state.loading,
+    error: (state) => state.error
+  }),
   store,
   beforeCreate () {
     // Manage a loading state
     axios.interceptors.request.use((config) => {
-      this.loading = true
+      store.commit(MUT_LOADING_STARTED)
       return config
     }, (error) => {
+      store.commit(MUT_LOADING_DONE, false)
       return Promise.reject(error)
     })
     axios.interceptors.response.use((response) => {
-      this.loading = false
+      store.commit(MUT_LOADING_DONE, true)
       return response
     }, (error) => {
-      this.loading = false
+      store.commit(MUT_LOADING_DONE, false)
       return Promise.reject(error)
     })
-  },
-  methods: {
-    makeTheCall () {
-      axios
-        .get(
-          `/proxy/demo/fetch-cyrils/${store.state.solutions.iterating}/${store.state.solutions.appending}`
-        )
-        .then((response) => {
-          store.commit(MUT_STORE_CALL, response.data)
-        })
-        .catch(() => {
-          this.error = true
-        })
-    }
   }
 }

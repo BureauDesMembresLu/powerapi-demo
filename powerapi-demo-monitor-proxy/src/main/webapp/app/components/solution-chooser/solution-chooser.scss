@@ -1,0 +1,48 @@
+@import '../../style/variables';
+
+ul.solutions {
+  margin: $solution-block-margin;
+  &:first-child {
+    margin-left: 0;
+  }
+  &:last-child {
+    margin-right: 0;
+  }
+
+  padding: 0;
+  li {
+    list-style: none;
+
+    display: inline-block;
+    text-align: center;
+    font-weight: bold;
+
+    margin: $solution-margin;
+    padding: $solution-padding;
+
+    border-radius: $block-border-radius;
+
+    background-color: $solution-color-normal;
+
+    // background
+    // border-radius
+
+    &.header {
+      background-color: $solution-color-header;
+      font-weight: normal;
+    }
+    &.selected {
+      background-color: $solution-color-selected;
+    }
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+
+    a {
+      cursor: pointer;
+    }
+  }
+}

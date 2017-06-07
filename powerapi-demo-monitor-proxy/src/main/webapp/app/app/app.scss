@@ -1,0 +1,33 @@
+@import '../../../../../node_modules/normalize.css/normalize.css';
+@import '../style/variables';
+// Iconic font
+@import '../style/icons';
+
+body {
+  font-family: Helvetica, Verdana, sans-serif;
+
+  // CGI Branding
+  background: url('../../assets/img/dna-wide.png') no-repeat left bottom fixed;
+  background-size: 100% auto;
+
+  // Better font rendering
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  .app-root {
+    // Directive-related styles
+    @import '../vue/directives/highlightjs/highlightjs';
+    @import '../vue/directives/highcharts/highcharts';
+    // Other styles
+    @import './style/flexbox';
+
+    padding: $app-padding-vertical $app-padding-horizontal;
+
+    &.loading {
+      transition: opacity $animation-opacity-transition;
+      opacity: $app-loading-opacity;
+    }
+
+    @import 'style/animations';
+  }
+}

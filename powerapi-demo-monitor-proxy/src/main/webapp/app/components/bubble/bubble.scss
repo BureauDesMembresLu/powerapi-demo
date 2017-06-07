@@ -10,7 +10,7 @@
   @each $type, $color in $bubble-variants {
     &.#{$type} {
       background-color: $color;
-      color: tint($color, 90%);
+      color: $white;
     }
   }
 }
