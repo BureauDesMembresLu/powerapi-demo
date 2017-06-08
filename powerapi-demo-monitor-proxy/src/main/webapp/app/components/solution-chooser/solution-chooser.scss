@@ -11,6 +11,8 @@ ul.solutions {
 
   padding: 0;
   li {
+    cursor: pointer;
+
     list-style: none;
 
     display: inline-block;
@@ -24,14 +26,13 @@ ul.solutions {
 
     background-color: $solution-color-normal;
 
-    // background
-    // border-radius
+    &.header, &.header:hover {
+      cursor: auto;
 
-    &.header {
       background-color: $solution-color-header;
       font-weight: normal;
     }
-    &.selected {
+    &.selected, &:hover {
       background-color: $solution-color-selected;
     }
     &:first-child {
@@ -39,10 +40,6 @@ ul.solutions {
     }
     &:last-child {
       margin-right: 0;
-    }
-
-    a {
-      cursor: pointer;
     }
   }
 }

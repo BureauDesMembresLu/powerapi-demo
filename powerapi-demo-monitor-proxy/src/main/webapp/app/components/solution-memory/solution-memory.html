@@ -1,0 +1,9 @@
+<ul class="solutions flex flex-grow-4 flex-container">
+    <!-- Iconic header -->
+    <li class="header flex" title="Previously"><span class="pa-archive"></span></li>
+    <!-- Possible solutions -->
+    <li v-for="(solution, key) in solutions" class="flex" :class="key"
+    :data-solution="key" @click="restoreSolution">
+        {{ key | firstLetter }}
+    </li>
+</ul>

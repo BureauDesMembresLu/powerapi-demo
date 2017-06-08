@@ -1,6 +1,7 @@
 'use strict'
 // Vue components
 import solutionChooser from '../solution-chooser.vue'
+import solutionMemory from '../solution-memory.vue'
 // Vuex
 import { mapState } from 'vuex'
 import { MUT_STORE_CALL, PB_APPENDING, PB_ITERATING, SOLUTIONS } from '../../vue/vuex/store'
@@ -8,7 +9,10 @@ import { MUT_STORE_CALL, PB_APPENDING, PB_ITERATING, SOLUTIONS } from '../../vue
 import axios from 'axios'
 
 export default {
-  components: {solutionChooser},
+  components: {
+    solutionChooser,
+    solutionMemory
+  },
   data () {
     return {
       iteratingSolutions: SOLUTIONS[PB_ITERATING],

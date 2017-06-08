@@ -20,7 +20,7 @@ export default {
       chart: {type: binding.arg || `line`},
 
       title: {
-        text: config.icon ? `<i class="pa-${config.icon}"></i> ${config.title}` : config.title,
+        text: config.icon ? `<span class="pa-${config.icon}"></span> ${config.title}` : config.title,
         useHTML: Boolean(config.icon)
       },
 

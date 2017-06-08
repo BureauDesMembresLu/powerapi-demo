@@ -1,0 +1,17 @@
+@import '../../style/variables';
+
+// we use the same styles than the other solutions, just override the colors
+
+ul.solutions {
+  li {
+    @each $key, $color in $calls-colors {
+      &.#{$key} {
+        color: $white;
+        background-color: transparentize($color, $solution-unselected-transparency);
+        &.selected, &:hover {
+          background-color: $color;
+        }
+      }
+    }
+  }
+}

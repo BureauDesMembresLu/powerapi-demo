@@ -47,7 +47,7 @@ module.exports = {
         include: [resolve(appConfig.app), resolve(appConfig.test)]
       },
       {
-        test: /\/fonts\/.*\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
+        test: /[/\\]fonts[/\\].*\.(woff2?|eot|ttf|otf|svg)(\?.*)?$/,
         loader: 'file-loader',
         options: {
           limit: 10000,
@@ -55,7 +55,7 @@ module.exports = {
         }
       },
       {
-        test: /\/img\/.*\.(jpg|png)(\?.*)?$/,
+        test: /[/\\]img[/\\].*\.(jpg|png)(\?.*)?$/,
         loader: 'file-loader',
         options: {
           limit: 10000,

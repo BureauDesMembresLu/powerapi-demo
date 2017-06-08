@@ -25,8 +25,9 @@ export const SOLUTIONS = Object.freeze({
 
 export const MUT_LOADING_STARTED = `setLoadingStarted`
 export const MUT_LOADING_DONE = `setLoadingDone`
-export const MUT_STORE_CALL = `storeCall`
 export const MUT_CHANGE_SOLUTION = `changeSolution`
+export const MUT_RESTORE_SOLUTION = `restoreSolution`
+export const MUT_STORE_CALL = `storeCall`
 
 Vue.use(Vuex)
 
@@ -58,6 +59,9 @@ export default new Vuex.Store({
   mutations: {
     [MUT_CHANGE_SOLUTION] (state, payload) {
       state.solutions[payload.problem] = payload.solution
+    },
+    [MUT_RESTORE_SOLUTION] (state, call) {
+      assignIn(state.solutions, state.calls[call].solutions)
     },
     [MUT_STORE_CALL] (state, call) {
       const solutions = clone(state.solutions)
