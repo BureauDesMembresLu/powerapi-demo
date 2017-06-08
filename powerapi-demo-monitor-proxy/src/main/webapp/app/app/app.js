@@ -3,7 +3,7 @@
 import Vue from 'vue'
 // Vue directives
 import highlightjs from '../vue/directives/highlightjs/highlightjs'
-import highcharts from '../vue/directives/highcharts/highcharts'
+// import highcharts from '../vue/directives/highcharts/highcharts'
 // Vue components
 import bubble from '../components/bubble.vue'
 import solutionTester from '../components/solution-tester.vue'
@@ -19,7 +19,7 @@ import axios from 'axios'
 
 // Configure Vue
 Vue.directive('highlightjs', highlightjs)
-Vue.directive('highcharts', highcharts)
+// Vue.directive('highcharts', highcharts)
 Vue.filter('firstLetter', firstLetter)
 Vue.filter('capitalize', capitalize)
 

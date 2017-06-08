@@ -30,25 +30,26 @@ export default {
 
       plotOptions: config.plotOptions,
 
+      // FIXME Using hard-coded colors is a problem. Can we make CSS-styling work, please?
       series: [
         {
           name: `Worst`,
           data: config.worst,
           className: `worst`,
-          color: `#AA0000`,
-          marker: {symbol: `none`}
+          color: `#991f3d`,
+          marker: {enabled: false}
         }, {
           name: `Best`,
           data: config.best,
           className: `best`,
           color: `#006600`,
-          marker: {symbol: `none`}
+          marker: {enabled: false}
         }, {
           name: `Last`,
           data: config.last,
           className: `last`,
-          color: `#FF6600`,
-          marker: {symbol: `none`}
+          color: `#f2a200`,
+          marker: {enabled: false}
         }
       ]
     })

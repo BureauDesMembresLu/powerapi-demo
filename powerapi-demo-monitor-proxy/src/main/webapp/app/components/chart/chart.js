@@ -4,6 +4,9 @@ import { mapState } from 'vuex'
 
 import appConfig from '../../config/config'
 
+// Highcharts workaround
+import highcharts from '../../vue/directives/highcharts/highcharts'
+
 export default {
   props: {
     title: {type: String, required: true},
@@ -31,5 +34,11 @@ export default {
         last: state.calls.last[this.chartData]
       }
     }
-  })
+  }),
+  mounted () {
+    highcharts.bind(this.$el, {arg: `line`, value: this.chartConfig})
+    this.$watch(() => this.chartConfig, () => {
+      highcharts.componentUpdated(this.$el, {arg: `line`, value: this.chartConfig})
+    })
+  }
 }

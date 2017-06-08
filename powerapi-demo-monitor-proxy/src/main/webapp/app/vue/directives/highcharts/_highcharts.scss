@@ -1,7 +1,11 @@
 .chart {
+  margin: $block-margin-v + $block-padding-v $block-margin-h + $block-padding-h;
   height: $chart-height;
   width: $chart-width;
-  margin: $block-margin-v + $block-padding-v $block-margin-h + $block-padding-h;
+
+  &.bar {
+    height: $chart-height-bar;
+  }
 }
 
 rect.highcharts-background {
