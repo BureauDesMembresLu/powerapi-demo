@@ -1,4 +1,5 @@
 <div class="app-root" :class="{loading: loading}">
+    <div v-show="loading" class="loading-spinner pa-loading spin"></div>
     <bubble class="error slide" :class="{up: !error}"><span class="pa-error"></span> An error occurred</bubble>
     <div class="flex-container">
         <solution-tester class="col flex"></solution-tester>

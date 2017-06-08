@@ -23,9 +23,27 @@ body {
 
     padding: $app-padding-vertical $app-padding-horizontal;
 
+    .loading-spinner {
+      $spinner-size: 200px;
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      font-size: $spinner-size;
+      margin-top: - $spinner-size / 2;
+      margin-left: - $spinner-size / 2;
+      z-index: 1000;
+    }
+
     &.loading {
-      transition: opacity $animation-opacity-transition;
-      opacity: $app-loading-opacity;
+      > .loading-spinner {
+        display: block;
+      }
+
+      > :not(.loading-spinner) {
+        transition: opacity $animation-opacity-transition;
+        opacity: $app-loading-opacity;
+      }
     }
 
     @import 'style/animations';
