@@ -35,9 +35,12 @@ Every behavior of each project can be tuned in the related `application.yml`.
 ## Running
 
 1. Ensure the database is available (see [Database](#database))
-2. Start `powerapi-demo-rest-server` (either with `mvn spring-boot:run` or `java -jar`)
-3. Start `powerapi-demo-monitor-proxy` (either with `mvn spring-boot:run` or `java -jar`)
+2. Start `powerapi-demo-rest-server` (use `mvn spring-boot:run -f powerapi-demo-rest-server/pom.xml`)
+3. Start `powerapi-demo-monitor-proxy` (use `mvn spring-boot:run -f powerapi-demo-monitoring-proxy/pom.xml`)
 4. Head over [localhost:8080](http://localhost:8080) and start playing
+
+> :warning: Be sure to use `mvn spring-boot:run` to launch the monitoring proxy.
+> The SIGAR library won't be loaded otherwise. 
 
 ## Database
 
