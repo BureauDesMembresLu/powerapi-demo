@@ -42,33 +42,6 @@ Every behavior of each project can be tuned in the related `application.yml`.
 > :warning: Be sure to use `mvn spring-boot:run` to launch the monitoring proxy.
 > The SIGAR library won't be loaded otherwise. 
 
-## Database
-
-The PCPDb relies on a Mongo database. The database must be available. The default configuration tries to reach it at `localhost:27017` 
-
-### Running MongoDB as a Docker container
-
-If you wish to run Mongo as a Docker container, here is how you will need to configure it to play nice with the project.
-If you use a native installation, think of updating the `application.yml` file accordingly.
-
-```bash
-# Create the container to run at localhost
-docker create --name pcpdb-mongo -p 27017:27017 [-v <path to db>:/data/db] mongo
-
-# In Windows, it may be required to add an exception to the firewall
-netsh advfirewall firewall add rule name="Open mongod port 27017" dir=in action=allow protocol=TCP localport=27017
-
-# Start and stop the container
-docker start pcpdb-mongo
-docker stop pcpdb-mongo
-```
-
-### Inject people into the database
-
-The `powerapi-demo-data-injector` creates fake data and inserts it into the database used by the PCPDb.
-
-It runs as a command-line interface. Just run the application and follow the on-screen instructions to wipe or fill the database.
-
 ## Contributing
 
 ### Web interface development

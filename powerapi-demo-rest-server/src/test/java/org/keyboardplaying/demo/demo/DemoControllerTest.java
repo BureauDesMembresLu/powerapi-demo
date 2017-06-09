@@ -16,15 +16,27 @@
  */
 package org.keyboardplaying.demo.demo;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.keyboardplaying.demo.people.MockRepository;
+import org.keyboardplaying.demo.people.Person;
+import org.keyboardplaying.demo.people.PersonGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
 /**
  * Test class for {@link DemoController}.
@@ -35,14 +47,34 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest
 public class DemoControllerTest {
 
+    private final List<Person> people = new ArrayList<>();
+
     @Autowired
     private DemoController controller;
 
-    @Test
-    public void testFetchCyrilsWithOptimizedCall() {
-        List<String> result = controller.fetchCyrils();
-        assertEquals(1, result.size());
-        assertEquals("Cyril Chopelet", result.get(0));
+    @Autowired
+    private MockRepository repository;
+
+    @Value("${sample.size}")
+    private int sampleSize;
+
+    public DemoControllerTest() throws IOException, URISyntaxException {
+        PersonGenerator generator = new PersonGenerator(100);
+        for (int i = 0; i < sampleSize; ++i) {
+            people.add(generator.generateRandomPerson());
+        }
+        people.add(new Person(
+                UUID.randomUUID().toString(),
+                "Cyril",
+                "Chopelet",
+                Person.Gender.MALE,
+                LocalDate.of(1985, Month.OCTOBER, 24)
+        ));
+    }
+
+    @Before
+    public void setUp() {
+        when(repository.findAll()).thenReturn(people);
     }
 
     @Test

@@ -14,49 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo.controller;
+package org.keyboardplaying.demo.demo;
 
-import org.keyboardplaying.demo.jmx.CurrentVirtualMachineMXBeanProvider;
-import org.keyboardplaying.demo.jmx.MXBeanProvider;
-import org.keyboardplaying.demo.monitor.Monitor;
+import org.keyboardplaying.demo.people.MockRepository;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.client.RestTemplate;
-
-import javax.management.MalformedObjectNameException;
 
 /**
- * A test configuration to use local MXBeans instead of RMI connection.
- *
  * @author Cyrille Chopelet
  */
 @Configuration
 @EnableAutoConfiguration
-public class ProxyControllerTestConfiguration {
+public class DemoControllerTestConfiguration {
 
     @MockBean
-    private Monitor monitor;
+    private MockRepository repository;
 
     @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
-    }
-
-    @Bean
-    public ProxiedController proxied() {
-        return new ProxiedController();
-    }
-
-    @Bean
-    public MXBeanProvider runtimeMXBean() {
-        return new CurrentVirtualMachineMXBeanProvider();
-    }
-
-    @Bean
-    public ProxyController proxy(RestTemplate restTemplate, MXBeanProvider mxBeanProvider) throws MalformedObjectNameException {
-        return new ProxyController(restTemplate, monitor, mxBeanProvider);
+    public DemoController demoController() {
+        return new DemoController(repository);
     }
 }

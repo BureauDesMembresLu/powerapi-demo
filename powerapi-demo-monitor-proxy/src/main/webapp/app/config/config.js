@@ -2,8 +2,11 @@
 
 export default Object.freeze({
   monitoring: {
-    interval: 0.2,
-    unit: 's',
-    ratio: 1000
+    interval: 200,
+    unit: 'ms',
+    ratio: 1
+  },
+  chart: {
+    timeSoftMax: 5000
   }
 })

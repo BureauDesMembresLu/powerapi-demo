@@ -1,13 +1,13 @@
 # The port the service is exposed on
 server.port: 8090
 
+# Sample data
+sample:
+  maxAge: 100
+  size: 10000000
+
 # The RMI expose configuration
 jmx.rmi:
   host: localhost
   port: 1099
   endpoint: jmxrmi
-
-# The MongoDB access configuration
-spring.data.mongodb:
-  database: pcol-mongo-db
-  uri: mongodb://127.0.0.1:27017

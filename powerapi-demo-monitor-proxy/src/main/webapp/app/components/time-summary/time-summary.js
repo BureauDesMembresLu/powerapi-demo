@@ -15,7 +15,7 @@ export default {
         icon: `time`,
 
         xAxis: {title: {text: `Execution`}},
-        yAxis: {title: {text: `Time (${appConfig.monitoring.unit})`}, min: 0, softMax: 10},
+        yAxis: {title: {text: `Time (${appConfig.monitoring.unit})`}, min: 0, softMax: appConfig.chart.timeSoftMax},
         plotOptions: {
           bar: {
             dataLabels: {

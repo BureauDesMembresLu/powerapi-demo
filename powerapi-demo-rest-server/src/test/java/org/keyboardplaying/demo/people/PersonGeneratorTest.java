@@ -16,14 +16,11 @@
  */
 package org.keyboardplaying.demo.people;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.keyboardplaying.demo.people.Person;
-import org.keyboardplaying.demo.people.PersonGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.Month;
 
@@ -35,20 +32,24 @@ import static org.junit.Assert.assertTrue;
  *
  * @author Cyrille Chopelet
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = PersonGenerator.class)
 public class PersonGeneratorTest {
 
-    @Autowired
+    private static final int MAX_AGE = 100;
+
     private PersonGenerator generator;
+
+    @Before
+    public void setUp() throws IOException, URISyntaxException {
+        generator = new PersonGenerator(MAX_AGE);
+    }
 
     @Test
     public void testRandomPerson() {
-        final int earliestPossibleBirthYear = PersonGenerator.CURRENT_YEAR - PersonGenerator.MAX_AGE;
+        final int earliestPossibleBirthYear = PersonGenerator.CURRENT_YEAR - MAX_AGE;
         final LocalDate earliestPossibleBirthDate = LocalDate.of(earliestPossibleBirthYear, Month.JANUARY, 1);
 
 
-        final Person person = generator.randomPerson();
+        final Person person = generator.generateRandomPerson();
 
         assertEquals(person.getGender() == Person.Gender.FEMALE ? "Jane" : "John", person.getFirstName());
         assertEquals("Smith", person.getLastName());

@@ -18,9 +18,8 @@ package org.keyboardplaying.demo.demo;
 
 import org.keyboardplaying.demo.execution.concatenation.Appender;
 import org.keyboardplaying.demo.execution.iteration.Iterator;
-import org.keyboardplaying.demo.people.PeopleRepository;
+import org.keyboardplaying.demo.people.MockRepository;
 import org.keyboardplaying.demo.people.Person;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,23 +39,10 @@ public class DemoController {
 
     private static final String SEARCH_FIRST_NAME_CYRIL = "Cyril";
 
-    private final PeopleRepository repository;
+    private MockRepository repository;
 
-    @Autowired
-    public DemoController(PeopleRepository repository) {
+    public DemoController(MockRepository repository) {
         this.repository = repository;
-    }
-
-    @RequestMapping("/fetch-cyrils-as-should-be")
-    public List<String> fetchCyrils() {
-        List<Person> cyrils = repository.findAllByFirstName(SEARCH_FIRST_NAME_CYRIL);
-        List<String> result = new ArrayList<>(cyrils.size());
-
-        for (Person cyril : cyrils) {
-            result.add(cyril.getFirstName() + ' ' + cyril.getLastName());
-        }
-
-        return result;
     }
 
     @RequestMapping(value = "/fetch-cyrils/{iterating}/{appending}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -79,10 +65,10 @@ public class DemoController {
     }
 
     private String findAndBuildArrayString(Appender appender, FirstNameFinderJsonArrayBuilder builder, Iterator<Person> iterator) {
-        List<Person> allPeople = repository.findAll();
+        List<Person> people = repository.findAll();
 
         builder.initialize();
-        iterator.iterate(allPeople, builder);
+        iterator.iterate(people, builder);
         builder.terminate();
 
         return appender.getResult();

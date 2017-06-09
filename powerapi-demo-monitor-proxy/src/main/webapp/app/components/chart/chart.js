@@ -20,7 +20,7 @@ export default {
         title: this.title,
         icon: this.icon,
 
-        xAxis: {title: {text: `Time (${appConfig.monitoring.unit})`}, min: 0, softMax: 10},
+        xAxis: {title: {text: `Time (${appConfig.monitoring.unit})`}, min: 0, softMax: appConfig.chart.timeSoftMax},
         yAxis: {title: {text: this.yAxis}, min: 0},
         plotOptions: {
           series: {
