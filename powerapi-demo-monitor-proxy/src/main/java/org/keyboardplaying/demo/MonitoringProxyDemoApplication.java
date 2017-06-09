@@ -16,7 +16,6 @@
  */
 package org.keyboardplaying.demo;
 
-import org.keyboardplaying.demo.jmx.MXBeanProvider;
 import org.keyboardplaying.demo.monitor.MonitorFactoryBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
