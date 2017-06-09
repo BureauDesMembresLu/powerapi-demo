@@ -5,55 +5,10 @@
         <solution-memory></solution-memory>
     </div>
 
-    <pre class="java" v-highlightjs><code>/**
-  * Fetches all Cyrils in database.
-  * @return a JSON representation of a collection of names
-  */
-public String fetchCyrils() {
-    List&lt;Person&gt; people = repository.findAll();
-    boolean first = true;
-</code><code v-show="appendingSolution === appendingSolutions[0]">    String result = "[";
-</code><code v-show="appendingSolution === appendingSolutions[1]">    StringBuffer result = new StringBuffer().append("[");
-</code><code v-show="appendingSolution === appendingSolutions[2]">    StringBuilder result = new StringBuilder().append("[");
-</code><code v-show="iteratingSolution === iteratingSolutions[0]">    for (int i = 0; i &lt; people.size(); i++) {
-        Person person = people.get(i);
-</code><code v-show="iteratingSolution === iteratingSolutions[1]">    int length = people.size();
-    for (int i = 0; i &lt; length; i++) {
-        Person person = people.get(i);
-</code><code v-show="iteratingSolution === iteratingSolutions[2]">    int length = people.size();
-    for (int i = 0; i &lt; length; ++i) {
-        Person person = people.get(i);
-</code><code v-show="iteratingSolution === iteratingSolutions[3]">    Iterator&lt;Person&gt; iter = people.iterator();
-    while (iter.hasNext()) {
-        Person person = iter.next();
-</code><code v-show="iteratingSolution === iteratingSolutions[4]">    for (Person person : people) {
-</code><code>
-        if ("Cyril".equals(person.getFirstName()) {
-            if (first) {
-                first = false;
-            } else {
-</code><code v-show="appendingSolution === appendingSolutions[0]">                result += ",]";
-</code><code v-show="appendingSolution !== appendingSolutions[0]">                result.append(",");
-</code><code>            }
-</code><code v-show="appendingSolution === appendingSolutions[0]">            result += "\"";
-            result += person.getFirstName();
-            result += " ";
-            result += person.getLastName();
-            result += "\"";
-</code><code v-show="appendingSolution !== appendingSolutions[0]">            result.append("\"")
-                  .append(person.getFirstName())
-                  .append(" ")
-                  .append(person.getLastName())
-                  .append("\"");
-</code><code>        }
-    }
+    <code-presenter></code-presenter>
 
-</code><code v-show="appendingSolution === appendingSolutions[0]">    result += "]";
-    return result;
-</code><code v-show="appendingSolution !== appendingSolutions[0]">    result.append("]");
-    return result.toString();
-</code><code>}</code></pre>
-    <div class="toolbar">
-        <button @click="makeTheCall" :disabled="loading">Call the service</button>
+    <div class="toolbar flex-container">
+        <button class="flex primary" @click="testSolution" :disabled="loading">Call the service</button>
+        <button class="flex" @click="wipeTests">Forget all of it</button>
     </div>
 </div>

@@ -1,15 +1,34 @@
 @import '../../style/variables';
 
 div {
-  &.solutions, &.toolbar {
+  &.solutions {
     margin: $block-margin;
   }
-}
 
-pre {
-  background: $block-background;
-  border: $block-border;
-  border-radius: $block-border-radius;
-  padding: $block-padding;
-  margin: $block-margin;
+  &.toolbar {
+    margin: $block-margin;
+
+    button {
+      margin: $button-margin;
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+
+      padding: $button-padding;
+
+      border: none;
+      border-radius: $button-border-radius;
+      background-color: $button-color;
+
+      &.primary {
+        background-color: $button-color-primary;
+      }
+
+      text-align: center;
+      font-weight: bold;
+    }
+  }
 }

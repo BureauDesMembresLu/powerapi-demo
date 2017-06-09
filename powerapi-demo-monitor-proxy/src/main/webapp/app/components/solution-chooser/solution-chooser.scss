@@ -1,7 +1,7 @@
 @import '../../style/variables';
 
 ul.solutions {
-  margin: $solution-block-margin;
+  margin: $toolbar-block-margin;
   &:first-child {
     margin-left: 0;
   }
@@ -15,16 +15,15 @@ ul.solutions {
 
     list-style: none;
 
+    margin: $button-margin;
+    padding: $button-padding;
+
+    border-radius: $block-border-radius;
+    background-color: $solution-color-normal;
+
     display: inline-block;
     text-align: center;
     font-weight: bold;
-
-    margin: $solution-margin;
-    padding: $solution-padding;
-
-    border-radius: $block-border-radius;
-
-    background-color: $solution-color-normal;
 
     &.header, &.header:hover {
       cursor: auto;

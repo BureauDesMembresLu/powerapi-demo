@@ -1,0 +1,9 @@
+@import '../../style/variables';
+
+pre {
+  background: $block-background;
+  border: $block-border;
+  border-radius: $block-border-radius;
+  padding: $block-padding;
+  margin: $block-margin;
+}

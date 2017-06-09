@@ -28,6 +28,7 @@ export const MUT_LOADING_DONE = `setLoadingDone`
 export const MUT_CHANGE_SOLUTION = `changeSolution`
 export const MUT_RESTORE_SOLUTION = `restoreSolution`
 export const MUT_STORE_CALL = `storeCall`
+export const MUT_WIPE_CALLS = `wipeCall`
 
 Vue.use(Vuex)
 
@@ -41,6 +42,17 @@ const storeBestWorstAndLast = (collection, toStore) => {
   }
 }
 
+const getDefaultCall = () => {
+  return {solutions: {}, time: null, power: [], totalPower: undefined}
+}
+const getDefaultCalls = () => {
+  return {
+    worst: getDefaultCall(),
+    best: getDefaultCall(),
+    last: getDefaultCall()
+  }
+}
+
 export default new Vuex.Store({
   debug: true,
   state: {
@@ -50,13 +62,17 @@ export default new Vuex.Store({
       [PB_ITERATING]: SOLUTIONS[PB_ITERATING][0],
       [PB_APPENDING]: SOLUTIONS[PB_APPENDING][0]
     },
-    calls: {
-      worst: {solutions: {}, time: null, power: [], totalPower: undefined},
-      best: {solutions: {}, time: null, power: [], totalPower: undefined},
-      last: {solutions: {}, time: null, power: [], totalPower: undefined}
-    }
+    calls: getDefaultCalls()
   },
   mutations: {
+    [MUT_LOADING_STARTED] (state) {
+      state.loading = true
+      state.error = false
+    },
+    [MUT_LOADING_DONE] (state, successful) {
+      state.loading = false
+      state.error = !successful
+    },
     [MUT_CHANGE_SOLUTION] (state, payload) {
       state.solutions[payload.problem] = payload.solution
     },
@@ -74,13 +90,8 @@ export default new Vuex.Store({
         totalPower: sum(call.power)
       })
     },
-    [MUT_LOADING_STARTED] (state) {
-      state.loading = true
-      state.error = false
-    },
-    [MUT_LOADING_DONE] (state, successful) {
-      state.loading = false
-      state.error = !successful
+    [MUT_WIPE_CALLS] (state) {
+      state.calls = getDefaultCalls()
     }
   }
 })

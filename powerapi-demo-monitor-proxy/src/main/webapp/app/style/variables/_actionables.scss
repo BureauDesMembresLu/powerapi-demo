@@ -1,0 +1,12 @@
+$toolbar-block-margin: 5px 10px;
+
+$solution-color-header: map-get($cgi-colors, cloud);
+$solution-color-selected: map-get($cgi-colors, honey);
+$solution-unselected-transparency: .5;
+$solution-color-normal: transparentize($solution-color-selected, $solution-unselected-transparency);
+
+$button-color: map-get($cgi-colors, cloud);
+$button-color-primary: map-get($cgi-colors, honey);
+$button-border-radius: $block-border-radius;
+$button-margin: 5px;
+$button-padding: 10px;
