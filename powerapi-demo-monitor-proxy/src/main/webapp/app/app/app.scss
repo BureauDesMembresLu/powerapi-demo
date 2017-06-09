@@ -46,6 +46,11 @@ body {
       }
     }
 
+    .col {
+      display: inline-block;
+      width: 50%;
+    }
+
     @import 'style/animations';
   }
 }

@@ -1,9 +1,16 @@
 <div class="app-root" :class="{loading: loading}">
+    <!-- Loading spinner -->
     <div v-show="loading" class="loading-spinner pa-loading spin"></div>
+
+    <!-- Information messages -->
     <bubble class="error slide" :class="{up: !error}"><span class="pa-error"></span> An error occurred</bubble>
+
     <div class="flex-container">
-        <solution-tester class="col flex"></solution-tester>
-        <div class="col flex">
+        <!-- First column: choose and execute solution -->
+        <solution-tester class="flex"></solution-tester>
+
+        <!-- Second column: show results as charts -->
+        <div class="flex">
             <time-summary></time-summary>
             <chart title="Energy consumption" icon="power" y-axis="Power (W)" chart-data="power"></chart>
         </div>
