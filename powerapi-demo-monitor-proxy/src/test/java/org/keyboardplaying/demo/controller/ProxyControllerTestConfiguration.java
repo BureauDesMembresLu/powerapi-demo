@@ -21,6 +21,7 @@ import org.keyboardplaying.demo.jmx.MXBeanProvider;
 import org.keyboardplaying.demo.monitor.Monitor;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -36,7 +36,14 @@ import java.lang.management.RuntimeMXBean;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-// TODO find some way to serve the static content without having to add '/proxy' to the URL
+/**
+ * This proxy transmits the request to the monitored server and executes it with the possibility of repeating the call
+ * in order to have a better view of how much power this particular call consumes.
+ * <p/>
+ * This is a demonstration proxy, not production ready.
+ *
+ * @author Cyrille Chopelet
+ */
 @RestController
 public class ProxyController {
 
@@ -47,9 +54,6 @@ public class ProxyController {
     @Value("${monitored.url.base}")
     private String redirectBase;
 
-    @Value("${monitored.demo.repetitions}")
-    private int repetitions;
-
     @Autowired
     public ProxyController(RestTemplate restTemplate, Monitor monitor, MXBeanProvider jmxProvider) throws MalformedObjectNameException {
         this.restTemplate = restTemplate;
@@ -57,17 +61,17 @@ public class ProxyController {
         this.runtimeMXBean = jmxProvider.getMXBeanProxy(JMXUtils.JMX_NAME_RUNTIME, RuntimeMXBean.class);
     }
 
-    @RequestMapping(value = "proxy/**", method = {RequestMethod.POST, RequestMethod.PUT})
-    public ProxiedResponse proxifyRequestsWithBody(HttpServletRequest request, @RequestHeader HttpHeaders headers, @RequestBody Object body) throws URISyntaxException {
-        return proxifyRequest(request, headers, body);
+    @RequestMapping(value = "proxy/{nbIterations}/**", method = {RequestMethod.POST, RequestMethod.PUT})
+    public ProxiedResponse proxifyRequestsWithBody(HttpServletRequest request, @PathVariable("nbIterations") int nbIterations, @RequestHeader HttpHeaders headers, @RequestBody Object body) throws URISyntaxException {
+        return proxifyRequest(request, nbIterations, headers, body);
     }
 
-    @RequestMapping(value = "proxy/**")
-    public ProxiedResponse proxifyRequestsWithoutBody(HttpServletRequest request, @RequestHeader HttpHeaders headers) throws URISyntaxException {
-        return proxifyRequest(request, headers, null);
+    @RequestMapping(value = "proxy/{nbIterations}/**")
+    public ProxiedResponse proxifyRequestsWithoutBody(HttpServletRequest request, @PathVariable("nbIterations") int nbIterations, @RequestHeader HttpHeaders headers) throws URISyntaxException {
+        return proxifyRequest(request, nbIterations, headers, null);
     }
 
-    private ProxiedResponse proxifyRequest(HttpServletRequest request, @RequestHeader HttpHeaders headers, @RequestBody Object body) throws URISyntaxException {
+    private ProxiedResponse proxifyRequest(HttpServletRequest request, int nbIterations, @RequestHeader HttpHeaders headers, @RequestBody Object body) throws URISyntaxException {
         final RequestEntity<Object> requestEntity = convertToRequestEntity(request, headers, body);
 
         // Start monitoring
@@ -76,10 +80,11 @@ public class ProxyController {
         monitor.startMonitoring(RuntimeInformationUtils.getPidFromJVMName(runtimeMXBean.getName()), powerDisplay);
 
         // call remote service
-        ResponseEntity<Object> proxied = null;
-        for (int i = 0; i < repetitions; ++i) {
-            proxied = restTemplate.exchange(requestEntity, Object.class);
+        final int loopIterations = nbIterations - 1;
+        for (int i = 0; i < loopIterations; ++i) {
+            restTemplate.exchange(requestEntity, Object.class);
         }
+        ResponseEntity<Object> proxied = restTemplate.exchange(requestEntity, Object.class);
 
         // Stop monitoring
         long stopTime = System.currentTimeMillis();
@@ -97,7 +102,7 @@ public class ProxyController {
     private <T> RequestEntity<T> convertToRequestEntity(HttpServletRequest request, HttpHeaders headers, T body) throws URISyntaxException {
         // Build proxied URL
         final StringBuilder redirectUrl = new StringBuilder(redirectBase)
-                .append(request.getRequestURI().substring(6));
+                .append(request.getRequestURI().replaceFirst("^/proxy/\\d+/", "/"));
         final String queryString = request.getQueryString();
         if (queryString != null) {
             redirectUrl.append("?").append(queryString);

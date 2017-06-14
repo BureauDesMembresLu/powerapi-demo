@@ -21,6 +21,8 @@ import org.springframework.beans.factory.config.AbstractFactoryBean;
 import scala.concurrent.duration.FiniteDuration;
 
 /**
+ * A factory for building the {@link Monitor}.
+ *
  * @author Cyrille Chopelet
  */
 public class MonitorFactoryBean extends AbstractFactoryBean<Monitor> {
@@ -32,7 +34,7 @@ public class MonitorFactoryBean extends AbstractFactoryBean<Monitor> {
 
     public MonitorFactoryBean(OsInformation os, int intervalLength, String intervalUnit) {
         super();
-        this.setSingleton(false);
+        this.setSingleton(true);
 
         this.os = os;
         this.monitoringInterval = FiniteDuration.apply(intervalLength, intervalUnit);

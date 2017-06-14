@@ -14,35 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo.demo;
+package org.keyboardplaying.demo.monitor;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.keyboardplaying.demo.hanoi.IterativeHanoiSolver;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import static org.junit.Assert.assertEquals;
+import org.keyboardplaying.demo.OsInformation;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
- * Test class for {@link DemoController}.
+ * Test configuration for {@link MonitorFactoryBean}.
  *
  * @author Cyrille Chopelet
  */
+@Configuration
+public class MonitorFactoryBeanTestConfiguration {
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class DemoControllerTest {
+    @Bean
+    public OsInformation os() {
+        return new OsInformation();
+    }
 
-    private static final int SOLUTION_DEPTH = 4;
-
-    @Autowired
-    private DemoController controller;
-
-    @Test
-    public void testHanoiSolving() {
-        final int nbMoves = controller.hanoi(SOLUTION_DEPTH, HanoiSolution.ITERATIVE);
-        assertEquals(new IterativeHanoiSolver().solveTowerOfHanoi(SOLUTION_DEPTH).size(), nbMoves);
+    @Bean(destroyMethod = "tearDown")
+    public MonitorFactoryBean monitor(OsInformation os, @Value("${monitoring.interval.length}") int intervalLength, @Value("${monitoring.interval.unit}") String intervalUnit) {
+        return new MonitorFactoryBean(os, intervalLength, intervalUnit);
     }
 }

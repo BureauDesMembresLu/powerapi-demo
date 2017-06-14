@@ -22,12 +22,16 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.hamcrest.Matchers.is;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
@@ -44,6 +48,9 @@ public class ProxyControllerTest {
     @Autowired
     private MockMvc mvc;
 
+    @SpyBean
+    private ProxiedController spyController;
+
     @Test
     public void testGetStaticResource() throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/index.html").accept(MediaType.APPLICATION_JSON))
@@ -53,7 +60,7 @@ public class ProxyControllerTest {
 
     @Test
     public void testGetWithoutParameter() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/proxy/greeting/Hello").accept(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.get("/proxy/1/greeting/Hello").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.proxied.message", is("Hello, World!")));
@@ -61,17 +68,35 @@ public class ProxyControllerTest {
 
     @Test
     public void testGetWithParameter() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/proxy/greeting/Hello?name=Test").accept(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.get("/proxy/1/greeting/Hello?name=Test").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.proxied.message", is("Hello, Test!")));
+    }
+
+    @Test
+    public void testSingleIteration() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/proxy/1/greeting/Hello").accept(MediaType.APPLICATION_JSON));
+        verify(spyController, times(1)).greet(any(String.class), any(String.class));
+    }
+
+    @Test
+    public void testMultipleIterations() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/proxy/3/greeting/Hello").accept(MediaType.APPLICATION_JSON));
+        verify(spyController, times(3)).greet(any(String.class), any(String.class));
+    }
+
+    @Test
+    public void testAtLeastOneIteration() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/proxy/0/greeting/Hello").accept(MediaType.APPLICATION_JSON));
+        verify(spyController, times(1)).greet(any(String.class), any(String.class));
     }
 
     // FIXME enhance proxy to correctly transmit the http status
     @Test
     @Ignore
     public void testProxifyingNotExistingUrl() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/im-not-there").accept(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.get("/proxy/1/im-not-there").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }
 }

@@ -14,35 +14,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo.demo;
+package org.keyboardplaying.demo.monitor;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.keyboardplaying.demo.hanoi.IterativeHanoiSolver;
+import org.keyboardplaying.demo.OsInformation;
+import org.keyboardplaying.demo.controller.ProxyControllerTestConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
- * Test class for {@link DemoController}.
+ * Test class for {@link MonitorFactoryBean}.
  *
  * @author Cyrille Chopelet
  */
-
 @RunWith(SpringRunner.class)
-@SpringBootTest
-public class DemoControllerTest {
-
-    private static final int SOLUTION_DEPTH = 4;
+@SpringBootTest(classes = MonitorFactoryBeanTestConfiguration.class)
+public class MonitorFactoryBeanTest {
 
     @Autowired
-    private DemoController controller;
+    private MonitorFactoryBean factory;
+
+//    @Before
+//    public void setUp() {
+//        final OsInformation os = new OsInformation();
+//        os.init();
+//        this.factory = new MonitorFactoryBean(os, 500, "ms");
+//    }
+//
+//    @After public void tearDown() {
+//        this.factory.tearDown();
+//    }
 
     @Test
-    public void testHanoiSolving() {
-        final int nbMoves = controller.hanoi(SOLUTION_DEPTH, HanoiSolution.ITERATIVE);
-        assertEquals(new IterativeHanoiSolver().solveTowerOfHanoi(SOLUTION_DEPTH).size(), nbMoves);
+    public void testInstanceIsSingleton() throws Exception {
+        Monitor instance1 = this.factory.getObject();
+        Monitor instance2 = this.factory.getObject();
+        assertTrue("Factory is not creating a singleton", instance1 == instance2);
     }
 }
