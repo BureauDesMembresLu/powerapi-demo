@@ -1,7 +1,7 @@
 <ul class="solutions flex flex-container" :class="'flex-grow-' + (solutions.length +1)">
     <!-- Iconic header -->
     <!-- FIXME capitalize filter -->
-    <li class="header flex" :title="problem | capitalize"><span :class="'pa-' + problem"></span></li>
+    <li class="header flex" :title="problem | capitalize"><span :class="'pa-' + icon"></span></li>
     <!-- Possible solutions -->
     <li v-for="(solution, index) in solutions"
         class="flex" :class="{selected: solution === selected}"

@@ -14,16 +14,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo.execution.iteration;
+package org.keyboardplaying.demo.hanoi;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
- * {@link IteratorTest} implementation for {@link MethodInConditionIterator}.
+ * A recursive Hanoi solver found in many forms on the Internet.
  *
  * @author Cyrille Chopelet
  */
-public class MethodInConditionIteratorTest extends IteratorTest<MethodInConditionIterator<String>> {
+public class RecursiveHanoiSolver implements HanoiSolver {
+
     @Override
-    protected MethodInConditionIterator<String> makeNewIterator() {
-        return new MethodInConditionIterator<>();
+    public List<Move> solveTowerOfHanoi(int nbDiscs) {
+        return solveTowersOfHanoi(nbDiscs, 1, 2, 3);
+    }
+
+    private List<Move> solveTowersOfHanoi(int n, int start, int temp, int end) {
+        List<Move> moves;
+
+        if (n == 1) {
+            moves = Collections.singletonList(new Move(start, end));
+        } else {
+            moves = new ArrayList<>();
+            moves.addAll(solveTowersOfHanoi(n - 1, start, end, temp));
+            moves.add(new Move(start, end));
+            moves.addAll(solveTowersOfHanoi(n - 1, temp, start, end));
+        }
+
+        return moves;
     }
 }

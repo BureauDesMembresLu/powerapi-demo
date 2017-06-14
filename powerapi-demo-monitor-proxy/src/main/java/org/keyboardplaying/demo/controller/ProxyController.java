@@ -47,6 +47,9 @@ public class ProxyController {
     @Value("${monitored.url.base}")
     private String redirectBase;
 
+    @Value("${monitored.demo.repetitions}")
+    private int repetitions;
+
     @Autowired
     public ProxyController(RestTemplate restTemplate, Monitor monitor, MXBeanProvider jmxProvider) throws MalformedObjectNameException {
         this.restTemplate = restTemplate;
@@ -73,7 +76,10 @@ public class ProxyController {
         monitor.startMonitoring(RuntimeInformationUtils.getPidFromJVMName(runtimeMXBean.getName()), powerDisplay);
 
         // call remote service
-        final ResponseEntity<Object> proxied = restTemplate.exchange(requestEntity, Object.class);
+        ResponseEntity<Object> proxied = null;
+        for (int i = 0; i < repetitions; ++i) {
+            proxied = restTemplate.exchange(requestEntity, Object.class);
+        }
 
         // Stop monitoring
         long stopTime = System.currentTimeMillis();

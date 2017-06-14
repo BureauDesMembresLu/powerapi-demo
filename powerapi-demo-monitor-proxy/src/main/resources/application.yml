@@ -3,6 +3,9 @@ monitored:
   # The URL base to the monitored server
   url.base: http://localhost:8090
 
+  # The number of time the execution is repeated
+  demo.repetitions: 100
+
   # The configuration to load the exposed JMX Mbeans of the monitored application
   jmx:
     rmi:

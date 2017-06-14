@@ -16,9 +16,7 @@
  */
 package org.keyboardplaying.demo.demo;
 
-import org.keyboardplaying.demo.people.MockRepository;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -29,11 +27,8 @@ import org.springframework.context.annotation.Configuration;
 @EnableAutoConfiguration
 public class DemoControllerTestConfiguration {
 
-    @MockBean
-    private MockRepository repository;
-
     @Bean
     public DemoController demoController() {
-        return new DemoController(repository);
+        return new DemoController();
     }
 }

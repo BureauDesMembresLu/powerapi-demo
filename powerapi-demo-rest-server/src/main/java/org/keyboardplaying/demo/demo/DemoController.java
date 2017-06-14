@@ -16,16 +16,11 @@
  */
 package org.keyboardplaying.demo.demo;
 
-import org.keyboardplaying.demo.execution.concatenation.Appender;
-import org.keyboardplaying.demo.execution.iteration.Iterator;
-import org.keyboardplaying.demo.people.MockRepository;
-import org.keyboardplaying.demo.people.Person;
+import org.keyboardplaying.demo.hanoi.HanoiSolver;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * A controller to demonstrate the difference of performance and efficience of several approaches over the same task.
@@ -36,40 +31,9 @@ import java.util.List;
 @RequestMapping("/demo")
 public class DemoController {
 
-    private static final String SEARCH_FIRST_NAME_CYRIL = "Cyril";
-
-    private MockRepository repository;
-
-    public DemoController(MockRepository repository) {
-        this.repository = repository;
-    }
-
-    @RequestMapping(value = "/fetch-cyrils/{iterating}/{appending}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public String fetchCyrils(@PathVariable("iterating") IteratingSolution iteratingSolution,
-                              @PathVariable("appending") AppendingSolution appendingSolution) {
-        // Prepare tools to build the list
-        Appender appender = (
-                appendingSolution == null
-                        ? AppendingSolution.PLAIN_STRING_APPENDING
-                        : appendingSolution
-        ).getAppender();
-        FirstNameFinderJsonArrayBuilder builder = new FirstNameFinderJsonArrayBuilder(SEARCH_FIRST_NAME_CYRIL, appender);
-        Iterator<Person> iterator = (
-                iteratingSolution == null
-                        ? IteratingSolution.METHOD_IN_CONDITION
-                        : iteratingSolution
-        ).getIterator();
-
-        return findAndBuildArrayString(appender, builder, iterator);
-    }
-
-    private String findAndBuildArrayString(Appender appender, FirstNameFinderJsonArrayBuilder builder, Iterator<Person> iterator) {
-        List<Person> people = repository.findAll();
-
-        builder.initialize();
-        iterator.iterate(people, builder);
-        builder.terminate();
-
-        return appender.getResult();
+    @RequestMapping(value = "/hanoi/{nbDiscs}/{solution}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public int hanoi(@PathVariable("nbDiscs") int nbDiscs, @PathVariable("solution") HanoiSolution solution) {
+        HanoiSolver solver = solution.getSolver();
+        return solver.solveTowerOfHanoi(nbDiscs).size();
     }
 }

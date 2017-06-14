@@ -11,8 +11,11 @@
 
         <!-- Second column: show results as charts -->
         <div class="flex">
-            <time-summary></time-summary>
-            <chart title="Energy consumption" icon="power" y-axis="Power (W)" chart-data="power"></chart>
+            <h3><span class="pa-power"></span> Energy consumption</h3>
+            <bar-chart y-axis="Power (Ws)" chart-data="totalPower"></bar-chart>
+            <chart y-axis="Power (W)" chart-data="power"></chart>
+            <h3><span class="pa-time"></span> Processing time</h3>
+            <bar-chart y-axis="Time (s)" chart-data="time"></bar-chart>
         </div>
     </div>
 </div>

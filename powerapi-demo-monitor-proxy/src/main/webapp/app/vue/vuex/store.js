@@ -21,21 +21,12 @@ import Vuex from 'vuex'
 
 import { assignIn, clone, sum } from 'lodash'
 
-export const PB_ITERATING = `iterating`
-export const PB_APPENDING = `appending`
+export const SOLUTION_IMPL = `implementation`
 
 export const SOLUTIONS = Object.freeze({
-  [PB_ITERATING]: [
-    `METHOD_IN_CONDITION`,
-    `METHOD_BEFORE_CONDITION_IPP`,
-    `METHOD_BEFORE_CONDITION_PPI`,
-    `ITERATOR`,
-    `FOREACH`
-  ],
-  [PB_APPENDING]: [
-    `PLAIN_STRING_APPENDING`,
-    `STRING_BUFFER`,
-    `STRING_BUILDER`
+  [SOLUTION_IMPL]: [
+    `RECURSIVE`,
+    `ITERATIVE`
   ]
 })
 
@@ -75,8 +66,7 @@ export default new Vuex.Store({
     loading: false,
     error: false,
     solutions: {
-      [PB_ITERATING]: SOLUTIONS[PB_ITERATING][0],
-      [PB_APPENDING]: SOLUTIONS[PB_APPENDING][0]
+      [SOLUTION_IMPL]: SOLUTIONS[SOLUTION_IMPL][0]
     },
     calls: getDefaultCalls()
   },

@@ -21,7 +21,7 @@ import solutionMemory from '../solution-memory.vue'
 import codePresenter from '../code-presenter.vue'
 // Vuex
 import { mapState } from 'vuex'
-import { MUT_STORE_CALL, MUT_WIPE_CALLS } from '../../vue/vuex/store'
+import { MUT_STORE_CALL, MUT_WIPE_CALLS, SOLUTION_IMPL } from '../../vue/vuex/store'
 // External libs
 import axios from 'axios'
 
@@ -31,6 +31,11 @@ export default {
     solutionMemory,
     codePresenter
   },
+  data () {
+    return {
+      hanoiSize: 20
+    }
+  },
   computed: mapState({
     loading: (state) => state.loading
   }),
@@ -38,7 +43,7 @@ export default {
     testSolution () {
       axios
         .get(
-          `/proxy/demo/fetch-cyrils/${this.$store.state.solutions.iterating}/${this.$store.state.solutions.appending}`
+          `/proxy/demo/hanoi/${this.hanoiSize}/${this.$store.state.solutions[SOLUTION_IMPL]}`
         )
         .then((response) => {
           this.$store.commit(MUT_STORE_CALL, response.data)

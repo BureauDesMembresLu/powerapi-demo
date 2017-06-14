@@ -14,26 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo.execution.iteration;
-
-import java.util.List;
+package org.keyboardplaying.demo.hanoi;
 
 /**
- * This interface describes possible implementations for iterating over a {@link List}.
- * <p/>
- * An {@link ElementProcessor} should be passed in order to keep the iteration and the processing of each element
- * separate.
- *
- * @param <T> the type of elements in the list being iterated upon
  * @author Cyrille Chopelet
  */
-public interface Iterator<T> {
+public class Disc implements Comparable<Disc> {
+    private final int size;
 
-    /**
-     * Iterates over a {@link List} and executes the {@link ElementProcessor} for each element.
-     *
-     * @param list the list being iterated over
-     * @param executor the executor to be run for each element
-     */
-    void iterate(List<T> list, ElementProcessor<T> executor);
+    public Disc(int size) {
+        this.size = size;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    @Override
+    public int compareTo(Disc o) {
+        return this.size - o.size;
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(size);
+    }
 }

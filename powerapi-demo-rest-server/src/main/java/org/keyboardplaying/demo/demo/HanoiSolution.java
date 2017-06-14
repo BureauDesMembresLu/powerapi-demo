@@ -14,24 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo.execution.concatenation;
+package org.keyboardplaying.demo.demo;
 
-/**
- * A {@link Appender} using (synchronized) {@link StringBuffer}.
- *
- * @author Cyrille Chopelet
- */
-public class StringBufferAppender implements Appender {
-    private final StringBuffer state = new StringBuffer();
+import org.keyboardplaying.demo.hanoi.HanoiSolver;
+import org.keyboardplaying.demo.hanoi.IterativeHanoiSolver;
+import org.keyboardplaying.demo.hanoi.RecursiveHanoiSolver;
 
-    @Override
-    public Appender append(String string) {
-        this.state.append(string);
-        return this;
-    }
+public enum HanoiSolution {
+    ITERATIVE {
+        @Override
+        public HanoiSolver getSolver() {
+            return new IterativeHanoiSolver();
+        }
+    },
+    RECURSIVE {
+        @Override
+        public HanoiSolver getSolver() {
+            return new RecursiveHanoiSolver();
+        }
+    };
 
-    @Override
-    public String getResult() {
-        return this.state.toString();
-    }
+    public abstract HanoiSolver getSolver();
 }

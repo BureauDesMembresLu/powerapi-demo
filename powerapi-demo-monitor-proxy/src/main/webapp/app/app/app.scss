@@ -19,36 +19,20 @@ body {
     @import '../vue/directives/highlightjs/highlightjs';
     @import '../vue/directives/highcharts/highcharts';
     // Other styles
-    @import './style/flexbox';
+    @import 'style/flexbox';
 
     padding: $app-padding-vertical $app-padding-horizontal;
 
-    .loading-spinner {
-      $spinner-size: 200px;
-      display: block;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      font-size: $spinner-size;
-      margin-top: - $spinner-size / 2;
-      margin-left: - $spinner-size / 2;
-      z-index: 1000;
-    }
-
-    &.loading {
-      > .loading-spinner {
-        display: block;
-      }
-
-      > :not(.loading-spinner) {
-        transition: opacity $animation-opacity-transition;
-        opacity: $app-loading-opacity;
-      }
-    }
+    @import 'style/spinner';
 
     .col {
       display: inline-block;
       width: 50%;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      text-align: center;
+      color: map-get($cgi-colors, beet);
     }
 
     @import 'style/animations';

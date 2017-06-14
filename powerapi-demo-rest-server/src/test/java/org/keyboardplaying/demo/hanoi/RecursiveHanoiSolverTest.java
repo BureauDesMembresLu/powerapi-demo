@@ -14,17 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo.execution.concatenation;
+package org.keyboardplaying.demo.hanoi;
 
 /**
- * Test class for {@link StringBuilderAppender}.
- *
  * @author Cyrille Chopelet
  */
-public class StringBuilderAppenderTest extends ConcatenatorTest<StringBuilderAppender> {
-
+public class RecursiveHanoiSolverTest extends HanoiSolverTest {
     @Override
-    protected StringBuilderAppender makeNewConcatenator() {
-        return new StringBuilderAppender();
+    protected HanoiSolver getSolver() {
+        return new RecursiveHanoiSolver();
     }
 }

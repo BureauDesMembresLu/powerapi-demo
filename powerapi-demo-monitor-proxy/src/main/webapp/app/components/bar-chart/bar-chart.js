@@ -24,6 +24,10 @@ import appConfig from '../../config/config'
 import highcharts from '../../vue/directives/highcharts/highcharts'
 
 export default {
+  props: {
+    yAxis: {type: String, required: true},
+    chartData: {type: String, required: true}
+  },
   computed: mapState({
     chartConfig (state) {
       return {
@@ -31,7 +35,7 @@ export default {
         icon: `time`,
 
         xAxis: {title: {text: `Execution`}},
-        yAxis: {title: {text: `Time (${appConfig.monitoring.unit})`}, min: 0, softMax: appConfig.chart.timeSoftMax},
+        yAxis: {title: {text: this.yAxis}, min: 0, softMax: appConfig.chart.softMax},
         plotOptions: {
           bar: {
             dataLabels: {
@@ -40,9 +44,9 @@ export default {
           }
         },
 
-        worst: [state.calls.worst[`time`] / appConfig.monitoring.ratio],
-        best: [state.calls.best[`time`] / appConfig.monitoring.ratio],
-        last: [state.calls.last[`time`] / appConfig.monitoring.ratio]
+        worst: [state.calls.worst[this.chartData]],
+        best: [state.calls.best[this.chartData]],
+        last: [state.calls.last[this.chartData]]
       }
     }
   }),

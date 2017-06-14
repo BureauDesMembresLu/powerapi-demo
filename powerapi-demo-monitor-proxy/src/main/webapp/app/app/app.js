@@ -8,7 +8,7 @@ import highlightjs from '../vue/directives/highlightjs/highlightjs'
 import bubble from '../components/bubble.vue'
 import solutionTester from '../components/solution-tester.vue'
 import chart from '../components/chart.vue'
-import timeSummary from '../components/time-summary.vue'
+import barChart from '../components/bar-chart.vue'
 // Vue filters
 import { firstLetter, capitalize } from '../vue/filters'
 // Vuex
@@ -28,7 +28,7 @@ export default {
     bubble,
     solutionTester,
     chart,
-    timeSummary
+    barChart
   },
   computed: mapState({
     loading: (state) => state.loading,

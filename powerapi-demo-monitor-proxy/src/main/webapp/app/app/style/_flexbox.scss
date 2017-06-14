@@ -8,9 +8,7 @@
   .flex {
     flex: 1 0 0;
 
-    // @for $i from 2 through 5 {
-    // Don't create useless rules. We only have use for certain values.
-    @each $i in 6, 4 {
+    @for $i from 2 through 6 {
       .flex-grow-#{$i} {
         flex-grow: #{$i};
       }

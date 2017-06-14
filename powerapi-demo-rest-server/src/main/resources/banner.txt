@@ -1,7 +1,7 @@
- ${AnsiColor.RED} ____   ____ ${AnsiColor.BLUE}____ ${AnsiColor.BLACK} ____  _${AnsiColor.DEFAULT}
- ${AnsiColor.RED}|  _ \ / ___|${AnsiColor.BLUE}  _ \${AnsiColor.BLACK}|  _ \| |__${AnsiColor.DEFAULT}
- ${AnsiColor.RED}| |_) | |   ${AnsiColor.BLUE}| |_) |${AnsiColor.BLACK} | | | '_ \${AnsiColor.DEFAULT}
- ${AnsiColor.RED}|  __/| |___${AnsiColor.BLUE}|  __/${AnsiColor.BLACK}| |_| | |_) |${AnsiColor.DEFAULT}
- ${AnsiColor.RED}|_|    \____|${AnsiColor.BLUE}_|   ${AnsiColor.BLACK}|____/|_.__/${AnsiColor.DEFAULT}
-= ${AnsiColor.RED}Poorly-Coded ${AnsiColor.BLUE}People ${AnsiColor.BLACK}Database${AnsiColor.DEFAULT} =
+        ${AnsiColor.BRIGHT_BLACK}__                 __                 __
+      ${AnsiColor.BLUE}_${AnsiColor.BRIGHT_BLACK}|${AnsiColor.BLUE}__${AnsiColor.BRIGHT_BLACK}|${AnsiColor.BLUE}_              ${AnsiColor.BRIGHT_BLACK}|  |               |  |
+    ${AnsiColor.RED}_${AnsiColor.BLUE}|${AnsiColor.RED}______${AnsiColor.BLUE}|${AnsiColor.RED}_            ${AnsiColor.BRIGHT_BLACK}|  |               |  |
+  ${AnsiColor.BRIGHT_YELLOW}_${AnsiColor.RED}|${AnsiColor.BRIGHT_YELLOW}__________${AnsiColor.RED}|${AnsiColor.BRIGHT_YELLOW}_          ${AnsiColor.BRIGHT_BLACK}|  |               |  |
+${AnsiColor.BRIGHT_BLACK}_${AnsiColor.BRIGHT_YELLOW}|______________|${AnsiColor.BRIGHT_BLACK}_________|  |_______________|  |____${AnsiColor.DEFAULT}
+= ${AnsiColor.RED}Hanoi solver demo${AnsiColor.DEFAULT} =
 :: Running Spring Boot ${spring-boot.version} ::${AnsiStyle.NORMAL}

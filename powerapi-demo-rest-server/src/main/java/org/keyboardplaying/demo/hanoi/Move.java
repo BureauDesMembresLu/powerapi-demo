@@ -14,17 +14,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo.execution.concatenation;
+package org.keyboardplaying.demo.hanoi;
 
 /**
- * Test class for {@link PlainStringAppender}.
- *
  * @author Cyrille Chopelet
  */
-public class PlainStringAppenderTest extends ConcatenatorTest<PlainStringAppender> {
+public class Move {
+    private final int from;
+    private final int to;
+
+    public Move(int from, int to, boolean zeroBased) {
+        if (zeroBased) {
+            this.from = from + 1;
+            this.to = to + 1;
+        } else {
+            this.from = from;
+            this.to = to;
+        }
+    }
+
+    public Move(int from, int to) {
+        this(from, to, false);
+    }
+
+    public int getFrom() {
+        return from;
+    }
+
+    public int getTo() {
+        return to;
+    }
 
     @Override
-    protected PlainStringAppender makeNewConcatenator() {
-        return new PlainStringAppender();
+    public String toString() {
+        return "Move disc from " + from + " to " + to;
     }
 }

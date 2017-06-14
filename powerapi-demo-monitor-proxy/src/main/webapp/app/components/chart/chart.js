@@ -9,8 +9,6 @@ import highcharts from '../../vue/directives/highcharts/highcharts'
 
 export default {
   props: {
-    title: {type: String, required: true},
-    icon: {type: String, required: false},
     yAxis: {type: String, required: true},
     chartData: {type: String, required: true}
   },
@@ -20,7 +18,7 @@ export default {
         title: this.title,
         icon: this.icon,
 
-        xAxis: {title: {text: `Time (${appConfig.monitoring.unit})`}, min: 0, softMax: appConfig.chart.timeSoftMax},
+        xAxis: {title: {text: `Time (${appConfig.monitoring.unit})`}, min: 0, softMax: appConfig.chart.softMax},
         yAxis: {title: {text: this.yAxis}, min: 0},
         plotOptions: {
           series: {

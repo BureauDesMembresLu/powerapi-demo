@@ -14,16 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo.execution.iteration;
+package org.keyboardplaying.demo.hanoi;
+
+import java.util.List;
 
 /**
- * {@link IteratorTest} implementation for {@link KeepCountPPIterator}.
+ * Interface for implementations capable of solving the Tower of Hanoi problem.
  *
  * @author Cyrille Chopelet
  */
-public class KeepCountPPIteratorTest extends IteratorTest<KeepCountPPIterator<String>> {
-    @Override
-    protected KeepCountPPIterator<String> makeNewIterator() {
-        return new KeepCountPPIterator<>();
-    }
+public interface HanoiSolver {
+    /**
+     * Computes the moves to perform to solve a Tower of Hanoi problem.
+     *
+     * @param nbDiscs the number of discs in the problem
+     * @return the list of moves to solve the problem
+     */
+    List<Move> solveTowerOfHanoi(int nbDiscs);
 }

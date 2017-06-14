@@ -18,12 +18,14 @@
 
 import sinon from 'sinon'
 
+import appConfig from '../app/config/config'
+
 const HTTP_STATUS_OK = 200
 const MEDIA_TYPE_JSON = {'Content-Type': 'application/json'}
 
 const PROCESSING_TIME = Object.freeze({
-  min: 10000,
-  max: 11500
+  min: 4000,
+  max: 6500
 })
 
 const POWER = Object.freeze({
@@ -38,9 +40,9 @@ const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + mi
 const server = sinon.fakeServer.create()
 server.autoRespond = true
 
-server.respondWith('GET', /fetch-cyrils.*/, (xhr) => {
+server.respondWith('GET', /hanoi\/\d+\/[A-Z0-9_]+/, (xhr) => {
   const procTime = randomInt(PROCESSING_TIME.min, PROCESSING_TIME.max)
-  const measureNb = procTime / 100
+  const measureNb = procTime / appConfig.monitoring.interval
   const power = []
 
   let last = randomFloat(POWER.min, POWER.max)

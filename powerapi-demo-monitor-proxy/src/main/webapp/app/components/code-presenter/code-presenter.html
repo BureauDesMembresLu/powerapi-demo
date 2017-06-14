@@ -1,50 +1,34 @@
 <pre class="java" v-highlightjs><code>/**
-  * Fetches all Cyrils in database.
-  * @return a JSON representation of a collection of names
-  */
-public String fetchCyrils() {
-    List&lt;Person&gt; people = repository.findAll();
-    boolean first = true;
+ * Computes the moves to perform to solve a Tower of Hanoi problem.
+ * @param nbDiscs the number of discs in the problem
+ * @return the list of moves to solve the problem
+ */
+public List&lt;Move&gt; solveTowerOfHanoi(int nbDisks) {
+</code><code v-show="solution === solutions[0]">    return solveTowersOfHanoi(nbDiscs, 1, 2, 3);
+}
 
-</code><code v-show="appendingSolution === appendingSolutions[0]">    String result = "[";
-</code><code v-show="appendingSolution === appendingSolutions[1]">    StringBuffer result = new StringBuffer().append("[");
-</code><code v-show="appendingSolution === appendingSolutions[2]">    StringBuilder result = new StringBuilder().append("[");
-</code><code>
-</code><code v-show="iteratingSolution === iteratingSolutions[0]">    for (int i = 0; i &lt; people.size(); i++) {
-        Person person = people.get(i);
-</code><code v-show="iteratingSolution === iteratingSolutions[1]">    int length = people.size();
-    for (int i = 0; i &lt; length; i++) {
-        Person person = people.get(i);
-</code><code v-show="iteratingSolution === iteratingSolutions[2]">    int length = people.size();
-    for (int i = 0; i &lt; length; ++i) {
-        Person person = people.get(i);
-</code><code v-show="iteratingSolution === iteratingSolutions[3]">    Iterator&lt;Person&gt; iter = people.iterator();
-    while (iter.hasNext()) {
-        Person person = iter.next();
-</code><code v-show="iteratingSolution === iteratingSolutions[4]">    for (Person person : people) {
-</code><code>
-        if ("Cyril".equals(person.getFirstName()) {
-            if (first) {
-                first = false;
-            } else {
-</code><code v-show="appendingSolution === appendingSolutions[0]">                result += ",]";
-</code><code v-show="appendingSolution !== appendingSolutions[0]">                result.append(",");
-</code><code>            }
-</code><code v-show="appendingSolution === appendingSolutions[0]">            result += "\"";
-            result += person.getFirstName();
-            result += " ";
-            result += person.getLastName();
-            result += "\"";
-</code><code v-show="appendingSolution !== appendingSolutions[0]">            result.append("\"")
-                  .append(person.getFirstName())
-                  .append(" ")
-                  .append(person.getLastName())
-                  .append("\"");
-</code><code>        }
+private List&lt;Move&gt; solveTowersOfHanoi(int n, int start, int temp, int end) {
+    List&lt;Move&gt; moves;
+
+    if (n == 1) {
+        moves = Collections.singletonList(new Move(start, end));
+    } else {
+        moves = new ArrayList<>();
+        moves.addAll(solveTowersOfHanoi(n - 1, start, end, temp));
+        moves.add(new Move(start, end));
+        moves.addAll(solveTowersOfHanoi(n - 1, temp, start, end));
     }
 
-</code><code v-show="appendingSolution === appendingSolutions[0]">    result += "]";
-    return result;
-</code><code v-show="appendingSolution !== appendingSolutions[0]">    result.append("]");
-    return result.toString();
+    return moves;
+</code><code v-show="solution === solutions[1]">    int limit = (int) Math.pow(2, nbDiscs) - 1; // NUMBER OF ITERATIONS = 2^n - 1
+    List&lt;Move&gt; moves = new ArrayList<>(limit);
+
+    for (int i = 0; i < limit; ++i) {
+        int disc = disc(i); // DISK TO BE MOVED
+        int from = (movements(i, disc) * direction(disc, nbDiscs)) % 3;
+        int to = (from + direction(disc, nbDiscs)) % 3;
+        moves.add(new Move(from, to, true));
+    }
+
+    return moves;
 </code><code>}</code></pre>

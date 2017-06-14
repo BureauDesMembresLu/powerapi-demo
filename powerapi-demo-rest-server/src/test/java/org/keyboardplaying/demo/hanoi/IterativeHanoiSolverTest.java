@@ -14,30 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo.execution.concatenation;
+package org.keyboardplaying.demo.hanoi;
 
 /**
- * This interface describes possible implementations for constructing a {@link String} by concatenation over many
- * iterations.
- * <p/>
- * Implementations should hold the current state of the value and append any {@link String} passed to it.
- *
  * @author Cyrille Chopelet
  */
-public interface Appender {
-
-    /**
-     * Appends a {@link String} to the current held value.
-     *
-     * @param string the string to append
-     * @return the current instance to allow for chained calling
-     */
-    Appender append(String string);
-
-    /**
-     * Returns the result of all concatenations.
-     *
-     * @return the current held value
-     */
-    String getResult();
+public class IterativeHanoiSolverTest extends HanoiSolverTest {
+    @Override
+    protected HanoiSolver getSolver() {
+        return new IterativeHanoiSolver();
+    }
 }

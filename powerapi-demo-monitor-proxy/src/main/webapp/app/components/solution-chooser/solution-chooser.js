@@ -26,7 +26,8 @@ export default {
     }
   },
   props: {
-    problem: {type: String, required: true}
+    problem: {type: String, required: true},
+    icon: {type: String, required: true}
   },
   computed: mapState({
     selected (state) {
