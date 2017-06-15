@@ -24,17 +24,14 @@ import { mapState } from 'vuex'
 import { MUT_STORE_CALL, MUT_WIPE_CALLS, SOLUTION_IMPL } from '../../vue/vuex/store'
 // External libs
 import axios from 'axios'
+// App
+import appConfig from '../../config/config'
 
 export default {
   components: {
     solutionChooser,
     solutionMemory,
     codePresenter
-  },
-  data () {
-    return {
-      hanoiSize: 20
-    }
   },
   computed: mapState({
     loading: (state) => state.loading
@@ -43,7 +40,7 @@ export default {
     testSolution () {
       axios
         .get(
-          `/proxy/demo/hanoi/${this.hanoiSize}/${this.$store.state.solutions[SOLUTION_IMPL]}`
+          `/proxy/${appConfig.demo.iterations}/demo/hanoi/${appConfig.demo.hanoiSize}/${this.$store.state.solutions[SOLUTION_IMPL]}`
         )
         .then((response) => {
           this.$store.commit(MUT_STORE_CALL, response.data)

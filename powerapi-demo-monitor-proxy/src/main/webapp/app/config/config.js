@@ -23,5 +23,9 @@ export default Object.freeze({
   },
   chart: {
     softMax: 100
+  },
+  demo: {
+    hanoiSize: 20,
+    iterations: 40
   }
 })
