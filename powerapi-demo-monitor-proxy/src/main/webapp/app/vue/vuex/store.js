@@ -26,7 +26,8 @@ export const SOLUTION_IMPL = `implementation`
 export const SOLUTIONS = Object.freeze({
   [SOLUTION_IMPL]: [
     `RECURSIVE`,
-    `ITERATIVE`
+    `ITERATIVE`,
+    `DEMO`
   ]
 })
 

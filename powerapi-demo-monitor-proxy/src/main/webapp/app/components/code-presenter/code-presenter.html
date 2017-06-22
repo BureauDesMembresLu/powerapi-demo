@@ -7,28 +7,37 @@ public List&lt;Move&gt; solveTowerOfHanoi(int nbDisks) {
 </code><code v-show="solution === solutions[0]">    return solveTowersOfHanoi(nbDiscs, 1, 2, 3);
 }
 
-private List&lt;Move&gt; solveTowersOfHanoi(int n, int start, int temp, int end) {
+private List&lt;Move&gt; solveTowersOfHanoi(int n, int start, int tmp, int end) {
     List&lt;Move&gt; moves;
 
     if (n == 1) {
         moves = Collections.singletonList(new Move(start, end));
     } else {
         moves = new ArrayList<>();
-        moves.addAll(solveTowersOfHanoi(n - 1, start, end, temp));
+        moves.addAll(solveTowersOfHanoi(n - 1, start, end, tmp));
         moves.add(new Move(start, end));
-        moves.addAll(solveTowersOfHanoi(n - 1, temp, start, end));
+        moves.addAll(solveTowersOfHanoi(n - 1, tmp, start, end));
     }
 
     return moves;
-</code><code v-show="solution === solutions[1]">    int limit = (int) Math.pow(2, nbDiscs) - 1; // NUMBER OF ITERATIONS = 2^n - 1
+</code><code v-show="solution === solutions[1]">    int limit = (int) Math.pow(2, nbDiscs) - 1;
     List&lt;Move&gt; moves = new ArrayList<>(limit);
 
     for (int i = 0; i < limit; ++i) {
-        int disc = disc(i); // DISK TO BE MOVED
+        // disc to be moved
+        int disc = disc(i);
+        // starting position
         int from = (movements(i, disc) * direction(disc, nbDiscs)) % 3;
+        // destination
         int to = (from + direction(disc, nbDiscs)) % 3;
+        // Go!
         moves.add(new Move(from, to, true));
     }
+
+    return moves;
+</code><code v-show="solution === solutions[2]">    List&lt;Move&gt; moves = new ArrayList<>(limit);
+
+    // Your turn, prove you're better
 
     return moves;
 </code><code>}</code></pre>

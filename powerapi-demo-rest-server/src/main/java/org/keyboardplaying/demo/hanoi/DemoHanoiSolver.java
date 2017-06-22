@@ -14,32 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo.demo;
+package org.keyboardplaying.demo.hanoi;
 
-import org.keyboardplaying.demo.hanoi.DemoHanoiSolver;
-import org.keyboardplaying.demo.hanoi.HanoiSolver;
-import org.keyboardplaying.demo.hanoi.IterativeHanoiSolver;
-import org.keyboardplaying.demo.hanoi.RecursiveHanoiSolver;
+import java.util.ArrayList;
+import java.util.List;
 
-public enum HanoiSolution {
-    ITERATIVE {
-        @Override
-        public HanoiSolver getSolver() {
-            return new IterativeHanoiSolver();
-        }
-    },
-    RECURSIVE {
-        @Override
-        public HanoiSolver getSolver() {
-            return new RecursiveHanoiSolver();
-        }
-    },
-    DEMO {
-        @Override
-        public HanoiSolver getSolver() {
-            return new DemoHanoiSolver();
-        }
-    };
+/**
+ * An optimized iterative implementation of the Tower of Hanoi solver, using iteration and without using any stack.
+ * <p>
+ * This code was adapted from Shantaku Khan's (http://0code.blogspot.com/).
+ *
+ * @author Cyrille Chopelet
+ */
+public class DemoHanoiSolver implements HanoiSolver {
 
-    public abstract HanoiSolver getSolver();
+    private HanoiSolver defaultImplementation = new IterativeHanoiSolver();
+
+    @Override
+    public List<Move> solveTowerOfHanoi(int nbDiscs) {
+        return defaultImplementation.solveTowerOfHanoi(nbDiscs);
+    }
 }

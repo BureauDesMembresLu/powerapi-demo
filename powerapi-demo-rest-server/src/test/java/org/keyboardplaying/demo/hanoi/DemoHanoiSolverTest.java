@@ -14,32 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.keyboardplaying.demo.demo;
+package org.keyboardplaying.demo.hanoi;
 
-import org.keyboardplaying.demo.hanoi.DemoHanoiSolver;
-import org.keyboardplaying.demo.hanoi.HanoiSolver;
-import org.keyboardplaying.demo.hanoi.IterativeHanoiSolver;
-import org.keyboardplaying.demo.hanoi.RecursiveHanoiSolver;
-
-public enum HanoiSolution {
-    ITERATIVE {
-        @Override
-        public HanoiSolver getSolver() {
-            return new IterativeHanoiSolver();
-        }
-    },
-    RECURSIVE {
-        @Override
-        public HanoiSolver getSolver() {
-            return new RecursiveHanoiSolver();
-        }
-    },
-    DEMO {
-        @Override
-        public HanoiSolver getSolver() {
-            return new DemoHanoiSolver();
-        }
-    };
-
-    public abstract HanoiSolver getSolver();
+/**
+ * @author Cyrille Chopelet
+ */
+public class DemoHanoiSolverTest extends HanoiSolverTest {
+    @Override
+    protected HanoiSolver getSolver() {
+        return new DemoHanoiSolver();
+    }
 }
