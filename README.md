@@ -1,4 +1,3 @@
-
 # PowerAPI demo
 
 [travis-badge]: https://img.shields.io/travis/BureauDesMembresLu/powerapi-demo.svg
@@ -27,7 +26,7 @@ This project is not related to PowerAPI but only makes use of the tool.
 
 The project is divided into two main modules:
 
-- `powerapi-demo-rest-server`, the PCPDb (Poorly-Coded People Database), is a simple REST server that uses various non-optimized implementations to return the same results.
+- `powerapi-demo-rest-server` is a simple REST server that uses various non-optimized implementations to return the same results.
 - `powerapi-demo-monitor-proxy` runs as a local server that proxifies calls to the monitored server and adds the monitoring information to the result from the original call. It comes with a web interface to show the code's performance.
 
 Every behavior of each project can be tuned in the related `application.yml`.
@@ -36,7 +35,7 @@ Every behavior of each project can be tuned in the related `application.yml`.
 
 1. Ensure the database is available (see [Database](#database))
 2. Start `powerapi-demo-rest-server` (use `mvn spring-boot:run -f powerapi-demo-rest-server/pom.xml`)
-3. Start `powerapi-demo-monitor-proxy` (use `mvn spring-boot:run -f powerapi-demo-monitoring-proxy/pom.xml`)
+3. Start `powerapi-demo-monitor-proxy` (use `mvn spring-boot:run -f powerapi-demo-monitor-proxy/pom.xml`)
 4. Head over [localhost:8080](http://localhost:8080) and start playing
 
 > :warning: Be sure to use `mvn spring-boot:run` to launch the monitoring proxy.
