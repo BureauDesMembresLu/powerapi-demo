@@ -8,7 +8,7 @@ module.exports = merge(devConfig, {
       'webpack/hot/dev-server',
       'webpack-hot-middleware/client'
     ],
-    mock: './mock/mock-server.js'
+    mock: './mock/server.js'
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin()

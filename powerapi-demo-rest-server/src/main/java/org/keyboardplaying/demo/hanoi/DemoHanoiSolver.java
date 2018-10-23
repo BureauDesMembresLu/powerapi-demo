@@ -16,7 +16,6 @@
  */
 package org.keyboardplaying.demo.hanoi;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
